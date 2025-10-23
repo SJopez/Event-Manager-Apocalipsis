@@ -1,12 +1,11 @@
 {
-    "id": 8,
-    "nombre": "Galletas en forma de hueso",
-    "descripcion": "Estas galletas son las favoritas de Rocky; l\u00e1nzaselas encima de los caminantes y deja que haga el trabajo.",
+    "id": 5,
+    "nombre": "Osvaldo el mulato",
+    "descripcion": "Este emigrante era un antiguo carnicero en su tierra natal, Cuba. Dicen que es capaz de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
     "tipo": [
-        "Defensa",
-        "Refugio"
+        "Defensa"
     ],
     "complementario": [
-        "Rocky"
+        "Machetes oxidados"
     ]
 }
