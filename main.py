@@ -134,7 +134,7 @@ class Resource(FloatLayout):
                 self.my_color = [0.1, 0.1, 0.1, 1]
                 self.selected = 0
                 self.quit_resource()
-                
+
 """
 componente donde van los recursos
 """
