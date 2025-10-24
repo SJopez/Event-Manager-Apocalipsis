@@ -10,6 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.uix.widget import Canvas
 from kivy.uix.stacklayout import StackLayout
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.properties import BooleanProperty
@@ -54,6 +55,52 @@ class Resource(FloatLayout):
         self.add_widget(self.icon)
         self.selected = 0
         self.id = item
+        Window.bind(mouse_pos=self.on_move)
+    
+    hovered = 0
+
+    def on_move(self, win, pos):
+        menu = Utils.appList().menu
+        resource = Utils.get_one(self.id)
+        info = menu.rInfo
+
+        if self.collide_point(pos[0], pos[1]):
+            info.img_source = f"assets/{self.id}.png"
+            info.name = resource["nombre"]
+            info.description = resource["descripcion"]
+            info.complementary = resource["complementario"][0]
+
+            infotype = ""
+                
+            for i in range(len(resource["tipo"])):
+                infotype += resource["tipo"][i]
+
+                if i < len(resource["tipo"]) - 1:
+                    infotype += ", "
+
+            info.type = infotype
+            
+            comp = ""
+
+            for i in range(len(resource["complementario"])):
+                comp += resource["complementario"][i]
+
+                if i < len(resource["complementario"]) - 1:
+                    comp += ", "
+
+            info.complementary = comp
+
+            self.hovered = True
+            self.opacity = 0.8
+            Window.set_system_cursor('hand')  
+            info.opacity = 1
+        else:
+            if self.hovered:
+                self.hovered = False
+                self.opacity = 1
+                Window.set_system_cursor('arrow')
+
+                info.opacity = 0
 
     my_color = ListProperty([0.1, 0.1, 0.1, 1])
     """
@@ -79,61 +126,14 @@ class Resource(FloatLayout):
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
-            menu = Utils.appList().menu
-            resource = Utils.get_one(self.id)
-            """
-            condicional para comprobar si el evento esta seleccionado o no
-                esta seleccionado:
-                    -lo deselecciona cambiando el color del borde y si es el unico evento seleccionado cambia la transparencia(opacity) del menu de evento a 0 (lo hace invisible)
-                    -comprueba si el evento que se esta mostrando en el menu de eventos es el mismo que el evento que deseleccione para cambiar la visibilidad de este o no
-                si no esta seleccionado:
-                    -lo selecciona cambiando el color del borde 
-                    -comprueba si el menu de eventos donde debe ir la informacion del evento seleccionado esta activo(es decir si es el primer evento seleccionado)
-            """
             if not self.selected:
                 self.my_color = [0, 0.8, 0.6, 0.8]
                 self.selected = 1
-                """
-                condicional para comprobar si el menu de eventos no esta activo:
-                    -actualiza la informacion con la del evento pulsado 
-                    -cambia la transparencia(opacity) a 1 (lo muestra)
-                """
-                if not EventMenu.active:
-                    info = menu.rInfo
-                    info.img_source = f"assets/{self.id}.png"
-                    info.name = resource["nombre"]
-                    info.description = resource["descripcion"]
-                    info.complementary = resource["complementario"][0]
-
-                    infotype = ""
-                   
-                    for i in range(len(resource["tipo"])):
-                        infotype += resource["tipo"][i]
-
-                        if i < len(resource["tipo"]) - 1:
-                            infotype += ", "
-
-                    info.type = infotype
-                    
-                    comp = ""
-
-                    for i in range(len(resource["complementario"])):
-                        comp += resource["complementario"][i]
-
-                        if i < len(resource["complementario"]) - 1:
-                            comp += ", "
-
-                    info.complementary = comp
-
-                    info.opacity = 1
-                    self.add_resource()              
+                self.add_resource()              
             else:
                 self.my_color = [0.1, 0.1, 0.1, 1]
                 self.selected = 0
                 self.quit_resource()
-                
-                if menu.rInfo.name == resource["nombre"]:
-                    menu.rInfo.opacity = 0
                 
 """
 componente donde van los recursos
@@ -169,6 +169,7 @@ class ResourcesLayout(BoxLayout):
         super().__init__()
         self.add_widget(ResourceList(), index=0)
         self.add_widget(Label(), index=0)
+        self.add_widget(ButtonAdvance())
         
 """
 contenedor del jugador con su inventario
@@ -182,8 +183,9 @@ class ConfigEvent(BoxLayout):
         self.orientation = "horizontal"
         self.add_widget(PlayerLayout())
         self.add_widget(ResourcesLayout())
+        
 """
-componente que muestra la informacion del evento seleccionado, se situa en la esquina superior izquierda
+componente contenedor de todo el panel de recursos
 """
 class EventMenu(FloatLayout):
     def __init__(self):
@@ -193,7 +195,30 @@ class EventMenu(FloatLayout):
         self.add_widget(ConfigEvent())
         self.rInfo = ResourceInfoLayout()
         self.add_widget(self.rInfo)
+        
     active = 0
+
+
+class ButtonAdvance(ButtonBehavior, Image):
+    def __init__(self):
+        super().__init__()
+        Window.bind(mouse_pos=self.on_move)
+    
+    hovered = 0
+
+    def on_move(self, win, pos):
+        if self.collide_point(pos[0], pos[1]):
+            if not self.hovered:
+                self.hovered = True
+                Window.set_system_cursor('hand')
+        else:
+            if self.hovered:
+                self.hovered = False
+                Window.set_system_cursor('arrow')
+
+    def on_press(self):
+        pass
+
 """
 cuerpo de la aplicacion
 """

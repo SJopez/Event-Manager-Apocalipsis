@@ -194,5 +194,15 @@
             size_hint: None, None
             size: self.texture_size
     
-
+<ButtonAdvance>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    size_hint: None, None
+    width: 200
+    source: "assets/ButtonResource.png"
+    pos_hint: {'center_x': .5, 'y': 1}
     

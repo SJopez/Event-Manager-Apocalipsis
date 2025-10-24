@@ -1,1 +1,48 @@
-[]
+[
+    {
+        "id": 9,
+        "nombre": "Tefi, la mec\u00e1nica",
+        "descripcion": "El primer juguete que Tefi tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleci\u00f3 en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al virus.",
+        "tipo": [
+            "Refugio"
+        ],
+        "complementario": [
+            "Llave inglesa de pap\u00e1"
+        ]
+    },
+    {
+        "id": 14,
+        "nombre": "Placa reforzante",
+        "descripcion": "Como su nombre indica, esta placa fabricada con fibra de carbono puede reforzar cualquier tipo de estructura del refugio con tan solo un par de martillazos; se instala con el KSR.",
+        "tipo": [
+            "Refugio"
+        ],
+        "complementario": [
+            "Kit de Seguridad de Refugio (KSR)"
+        ]
+    },
+    {
+        "id": 19,
+        "nombre": "TIBUR\u00d3N",
+        "descripcion": "Esta moto perteneci\u00f3 al abuelo en sus a\u00f1os de juventud cuando formaba parte de una banda de motoristas exploradores; est\u00e1 equipada con una escopeta cartucho adaptada.",
+        "tipo": [
+            "Supervivencia",
+            "Defensa"
+        ],
+        "complementario": [
+            "Gal\u00f3n de gasolina",
+            "Escopeta recortada adaptada"
+        ]
+    },
+    {
+        "id": 13,
+        "nombre": "Kit de Seguridad de Refugio (KSR)",
+        "descripcion": "Este kit creado por el abuelo es lo mejor para realizar reparaciones en las \u00e1reas m\u00e1s sensibles del refugio; despu\u00e9s de la \u00faltima oleada fue perfeccionado y actualizado.",
+        "tipo": [
+            "Refugio"
+        ],
+        "complementario": [
+            "Placa reforzante"
+        ]
+    }
+]
