@@ -20,6 +20,7 @@ from configuracion import MainConfig
 import json
 from kivy.lang import Builder
 from kivy.clock import Clock
+from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP
 
 """
 imagen del jugador
@@ -162,7 +163,7 @@ class ResourceInfoLayout(StackLayout):
     
     screen = BooleanProperty(False)
     
-    img_source = StringProperty("assets/")
+    img_source = StringProperty("assets/1.png")
     name = StringProperty("")
     type = StringProperty("")
     description = StringProperty("")
@@ -184,10 +185,6 @@ contenedor del jugador con su inventario
 class ConfigEvent(BoxLayout):
     def __init__(self):
         super().__init__()
-        self.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
-        self.size_hint = (None, None)
-        self.size = (700, 500)
-        self.orientation = "horizontal"
         self.add_widget(PlayerLayout())
         self.add_widget(ResourcesLayout())
         
@@ -222,6 +219,7 @@ class ButtonAdvance(ButtonBehavior, Image):
 
     def on_press(self):
         screenParent = Utils.appList().screenParent
+        Utils.appList().mycon.layo.rlist.update()
         screenParent.current = "config"
 
 class ScreenChild(Screen):
@@ -234,7 +232,7 @@ class ScreenParent(ScreenManager):
     def __init__(self):
         super().__init__()
         self.add_widget(ScreenChild("main", Utils.appList().menu))
-        self.add_widget(ScreenChild("config", MainConfig()))
+        self.add_widget(ScreenChild("config", Utils.appList().mycon))
         self.current = "main"
         self.transition = SlideTransition(duration=0.5, direction="left")
 
@@ -244,6 +242,7 @@ cuerpo de la aplicacion
 class Main(App):
     def build(self):        
         self.menu = ResourceMenu()
+        self.mycon = MainConfig()
         self.screenParent = ScreenParent()
         return self.screenParent
 
@@ -255,5 +254,6 @@ Window.bind(on_request_close=cleanJSON)
 
 
 
-
+Builder.load_file("configuracion.kv")
+Builder.load_file("confi_info_class.kv")
 Main().run()

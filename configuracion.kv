@@ -1,0 +1,49 @@
+<ConfiEvent@BoxLayout>:
+    canvas.after:
+        Color:
+            rgba: 0.05, 0.05, 0.1, 1
+        Line:
+            rectangle: (self.x, self.y, self.width, self.height)
+            width: 4    
+        Line:
+            rectangle: (self.x + 500, self.y, 0, self.height)
+            width: 4
+    
+    size_hint: (None, None)
+    size: (850, 500)
+    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+    orientation: "horizontal"
+
+<EventHandler>:
+    size_hint: None, None
+    size: (500, 500)
+
+    canvas.before:
+        Color:
+            rgba: 0.1, 0.1, 0.15, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Label: 
+        index: 0
+        text: 'Configura tu aventura!'
+        font_size: 36
+        color: 1, 1, 1, 0.8
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        size_hint: None, None
+        width: self.parent.width
+        height: self.texture_size[1]
+        pos_hint: {'center_x': 0.5, 'center_y': 0}
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, 1   
+            Rectangle:
+                pos: root.x, self.y - 4
+                size: root.width, 4
+            Color:
+                rgba: 0.05, 0.05, 0.1, 1
+            Rectangle:
+                pos: root.x, self.y
+                size: root.width, self.height
+ 
+    

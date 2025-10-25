@@ -14,8 +14,33 @@ from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
 import json
+from confi_info_class import ResourcesLayoutP, ResourceInfoLayoutP
+from kivy.lang import Builder
+
+class EventHandler(StackLayout):
+    def __init__(self):
+        super().__init__()
+        
+class Backpack(StackLayout):
+    def __init__(self):
+        super().__init__()
+
+
+class ConfiEvent(BoxLayout):
+    def __init__(self):
+        super().__init__()
+        self.add_widget(EventHandler())
+        self.layo = ResourcesLayoutP()
+        self.add_widget(self.layo)
 
 class MainConfig(FloatLayout):
     def __init__(self):
         super().__init__()
-        
+        self.img = Image(source="assets/background_config.png")
+        self.add_widget(self.img)
+        self.cefi = ConfiEvent()
+        self.add_widget(self.cefi)
+        self.reso = ResourceInfoLayoutP()
+        self.layo = self.cefi.layo
+        self.add_widget(self.reso)
+
