@@ -58,6 +58,9 @@ class ResourceP(FloatLayout):
     hovered = 0
 
     def on_move(self, win, pos):
+        if not Utils.appList().mycon.active:
+            return
+            
         resource = Utils.get_one(self.id)
         info = Utils.appList().mycon.reso
 
@@ -91,7 +94,6 @@ class ResourceP(FloatLayout):
 
             if not self.selected:
                 self.opacity = 0.8
-
             Window.set_system_cursor('hand')  
             info.opacity = 1
         else:
@@ -104,30 +106,77 @@ class ResourceP(FloatLayout):
 
     my_color = ListProperty([0.1, 0.1, 0.1, 1])
     
+    def add_resource(self):
+        recurso = Utils.get_one(self.id)
+        with open("recursos_seleccionados_event.json", "r") as data:
+            data = json.load(data)
+            data.append(recurso)
+
+        with open("recursos_seleccionados_event.json", "w") as file:
+            json.dump(data, file, indent=4)
+            
+    def quit_resource(self):
+        recurso = Utils.get_one(self.id)
+        with open("recursos_seleccionados_event.json", "r") as data:
+            data = json.load(data)
+            data.remove(recurso)
+            
+        with open("recursos_seleccionados_event.json", "w") as file:
+            json.dump(data, file, indent=4)
+
     def on_touch_down(self, touch):
+        if not Utils.appList().mycon.active:
+            return
         if self.collide_point(*touch.pos):
             if not self.selected:
                 self.my_color = [0, 0.8, 0.6, 0.8]
                 self.selected = 1
-                self.opacity = 1            
+                self.opacity = 1
+                self.quit_resource()              
             else:
                 self.my_color = [0.1, 0.1, 0.1, 1]
                 self.selected = 0
                 self.opacity = 0.8
+                self.add_resource()
+
 
 class ResourceListP(StackLayout):
     def __init__(self):
         super().__init__()
         self.orientation = 'lr-tb'
         
-    def update(self):
+    def update(self, src):
         for i in list(self.children):
             self.remove_widget(i)
         
-        with open("recursos_seleccionados.json", "r") as file:
+        with open(src, "r") as file:
             file = json.load(file)
             for i in file:
                 self.add_widget(ResourceP(i["id"]))
+
+class Delete(ButtonBehavior, Image):
+    def __init__(self):
+        super().__init__()
+        Window.bind(mouse_pos=self.on_hoover_delete)
+    
+    hoovered = False
+
+    def on_press(self):
+        Utils.appList().mycon.layo.rlist.update("recursos_seleccionados_event.json") 
+
+    def on_hoover_delete(self, win, pos):
+        if not Utils.appList().mycon.active:
+            return
+        
+        if self.collide_point(*pos) and not self.hoovered:
+            self.hoovered = True
+            self.opacity = 0.9
+            Window.set_system_cursor('hand')
+        elif not self.collide_point(*pos) and self.hoovered:
+            self.hoovered = False
+            self.opacity = 1
+            Window.set_system_cursor('arrow')
+
 
 class ResourcesLayoutP(BoxLayout):
     def __init__(self):
@@ -135,3 +184,4 @@ class ResourcesLayoutP(BoxLayout):
         self.rlist = ResourceListP()
         self.add_widget(self.rlist, index=0)
         self.add_widget(Label(), index=0)
+        self.add_widget(Delete())

@@ -119,7 +119,12 @@
             source: root.img
             size_hint: None, None
             size: (200, 200)
-           
+            canvas.after:
+                Color:
+                    rgba: 0.9, 0.9, 1, 0.7
+                Line:
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 5)
+                    width: 1.6
             
         StackLayout:
             size_hint: None, None
@@ -153,6 +158,19 @@
             Label:
                 text: root.danger
                 color: root.danger_color
+                font_size: 20
+                size_hint: None, None
+                size: self.texture_size
+                font_name: "fonts/symbola/Symbola.ttf"
+            Label: 
+                markup: True
+                text: "[b]Ubicacion:[/b]"
+                font_size: 22
+                size_hint: None, None
+                size: self.texture_size
+                padding: 0, 20, 0, 0
+            Label:
+                text: root.place
                 font_size: 20
                 size_hint: None, None
                 size: self.texture_size

@@ -225,8 +225,15 @@ class ButtonAdvance(ButtonBehavior, Image):
                 Window.set_system_cursor('arrow')
 
     def on_press(self):
+        data = []
+        with open("recursos_seleccionados.json", "r") as data:
+            data = json.load(data)
+        
+        with open("recursos_seleccionados_event.json", "w") as file:
+            json.dump(data, file, indent=4)
+            
         screenParent = Utils.appList().screenParent
-        Utils.appList().mycon.layo.rlist.update()
+        Utils.appList().mycon.layo.rlist.update("recursos_seleccionados.json")
         Utils.appList().mycon.active = True
         Window.set_system_cursor('arrow')
         screenParent.current = "config"
@@ -258,6 +265,8 @@ class Main(App):
 
 def cleanJSON(*args):
     with open("recursos_seleccionados.json", "w") as file:
+        json.dump([], file, indent=4)
+    with open("recursos_seleccionados_event.json", "w") as file:
         json.dump([], file, indent=4)
 
 Window.bind(on_request_close=cleanJSON)    

@@ -104,6 +104,7 @@ class EventInfo(BoxLayout):
     type = StringProperty("")
     danger = StringProperty("")
     danger_color = ListProperty([0, 0, 0, 0])
+    place = StringProperty("")
     dg_colors = {
         1: [0.18,0.80,0.44,1], 
         2: [0.60,0.88,0.60,1],  
@@ -133,7 +134,7 @@ class EventInfo(BoxLayout):
         dg = e["peligro"]
         self.danger = "-" + self.danger_words[dg] + "-"
         self.danger_color = self.dg_colors[dg]
-        
+        self.place = "• " + e["ubicacion"]
 
 
 class EventHandler(BoxLayout):
@@ -183,9 +184,11 @@ class backbuttton(ButtonBehavior, Image):
             return
         if self.collide_point(*pos) and not self.hoovered:
             self.hoovered = True
+            self.opacity = 0.9
             Window.set_system_cursor('hand')
         if not self.collide_point(*pos) and self.hoovered:
             self.hoovered = False
+            self.opacity = 1
             Window.set_system_cursor('arrow')
     
 
