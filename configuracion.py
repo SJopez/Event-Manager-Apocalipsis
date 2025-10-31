@@ -14,9 +14,11 @@ from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
 import json
-from confi_info_class import ResourcesLayoutP, ResourceInfoLayoutP, Utils
+from confi_info_class import ResourcesLayoutP, ResourceInfoLayoutP, ResourceP
 from kivy.lang import Builder
 from kivy.uix.dropdown import DropDown
+from utilities import *
+from kivy.uix.scrollview import ScrollView
 
 class Manage:
     def get_all():
@@ -26,15 +28,15 @@ class Manage:
     def get_one(id):
          with open("eventos.json") as file:
             return json.load(file)[id]
+   
     def get_active():
-        return Utils.appList().mycon.active
+        return appList().mycon.active
 
 class Event(FloatLayout):
     def __init__(self, index, selector):
         super().__init__()
         self.index = index
         self.selector = selector
-    
 
     title = StringProperty("")
 
@@ -64,23 +66,12 @@ class Selector(DropDown):
 class SelectorCaller(FloatLayout):
     def __init__(self):
         super().__init__()
-        Window.bind(mouse_pos=self.on_selector_hoover)
+        setup_hover(self, 1)
 
     def set_bind(self):
         self.selector.bind(on_dismiss=self.change_icon)
 
-    hoovered = False
-
-    def on_selector_hoover(self, win, pos):
-        if not Manage.get_active():
-            return
-        if self.collide_point(*pos) and not self.hoovered:
-            self.hoovered = True
-            Window.set_system_cursor('hand')
-        if not self.collide_point(*pos) and self.hoovered:
-            self.hoovered = False
-            Window.set_system_cursor('arrow')
-        
+    hovered = False
     name = StringProperty(Manage.get_one(0)["titulo"])
     selector = None
     icon = StringProperty("assets/minus.png")
@@ -93,13 +84,20 @@ class SelectorCaller(FloatLayout):
             self.selector.open(self)
             self.icon = "assets/plus.png"
 
+class NeedResources(StackLayout):
+    def __init__(self):
+        super().__init__()
+        self.padding = (30, 0, 30, 0)
+        
+
 class EventInfo(BoxLayout):
     def __init__(self):
         super().__init__()
-        self.add_widget(Label(), index=0)
+        self.need = NeedResources()
+        self.add_widget(self.need, index=0)
         self.current = 0
 
-    description = StringProperty("")
+    description = StringProperty((""))
     img = StringProperty("")
     type = StringProperty("")
     danger = StringProperty("")
@@ -121,6 +119,19 @@ class EventInfo(BoxLayout):
     }
     def update(self, i):
         e = Manage.get_one(i)
+
+        for x in list(self.need.children):
+            self.need.remove_widget(x)
+
+        for x in e["necesita"]:
+            resource = ResourceP(x)
+            resource.on_hover = setup_hover(resource, 1, 1)
+            resource.my_color = [0.5, 0.5, 0.5, 1]
+            resource.icon.size = (50, 50)
+            resource.on_move = None
+            resource.on_touch_down = lambda x: None
+            self.need.add_widget(resource)
+
         self.description = e["descripcion"]
         self.img = f"assets/event_images/{i + 1}.png"
         self.type = ""
@@ -136,17 +147,23 @@ class EventInfo(BoxLayout):
         self.danger_color = self.dg_colors[dg]
         self.place = "• " + e["ubicacion"]
 
-
-class EventHandler(BoxLayout):
+class ScrollEventInfo(ScrollView):
     def __init__(self):
         super().__init__()
         self.evinfo = EventInfo()
-        self.evinfo.update(0)
+        self.add_widget(self.evinfo)
+        
+       
+class EventHandler(BoxLayout):
+    def __init__(self):
+        super().__init__()
+        self.scevinfo = ScrollEventInfo()
+        self.scevinfo.evinfo.update(0)
         self.selcal = SelectorCaller()
-        self.selcal.selector = Selector(self.selcal, self.evinfo)
+        self.selcal.selector = Selector(self.selcal, self.scevinfo.evinfo)
         self.selcal.set_bind()
         self.add_widget(self.selcal, index=0)
-        self.add_widget(self.evinfo, index=0)
+        self.add_widget(self.scevinfo, index=0)
        
         
 class Backpack(StackLayout):
@@ -168,30 +185,16 @@ class backbuttton(ButtonBehavior, Image):
         self.size_hint = (None, None)
         self.size = (100, 100)
         self.pos_hint = {'x': 0.05, 'top': 1}
-        Window.bind(mouse_pos=self.on_backbutton_hoover)
+        setup_hover(self, 1)
     
-    hoovered = False
+    hovered = False
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
-            screenParent = Utils.appList().screenParent
-            Utils.appList().mycon.active = False
+            CurrentScreen.screen = 0
+            screenParent = appList().screenParent
             screenParent.current = "main"
             screenParent.transition = SlideTransition(duration=0.5, direction="left")
-    
-    def on_backbutton_hoover(self, win, pos):
-        if not Manage.get_active():
-            return
-        if self.collide_point(*pos) and not self.hoovered:
-            self.hoovered = True
-            self.opacity = 0.9
-            Window.set_system_cursor('hand')
-        if not self.collide_point(*pos) and self.hoovered:
-            self.hoovered = False
-            self.opacity = 1
-            Window.set_system_cursor('arrow')
-    
-
 
 class MainConfig(FloatLayout):
     def __init__(self):
@@ -205,5 +208,4 @@ class MainConfig(FloatLayout):
         self.layo = self.cefi.layo
         self.add_widget(self.reso)
     
-    active = False
    

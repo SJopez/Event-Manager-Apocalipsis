@@ -19,6 +19,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
 import json
 from kivy.lang import Builder
 from kivy.clock import Clock
+from utilities import *
 
 class ResourceInfoLayoutP(StackLayout):
     def __init__(self):
@@ -32,17 +33,6 @@ class ResourceInfoLayoutP(StackLayout):
     description = StringProperty("")
     complementary = StringProperty("")
 
-class Utils():
-    def get_all():
-        with open("recursos.json") as file:
-            return json.load(file)
-    def get_one(id):
-         with open("recursos.json") as file:
-            return json.load(file)[id - 1]
-    def appList():
-        return App.get_running_app()
-    rList = []
-
 class ResourceP(FloatLayout):
     def __init__(self, item):
         super().__init__()
@@ -54,22 +44,22 @@ class ResourceP(FloatLayout):
         self.selected = 0
         self.id = item
         Window.bind(mouse_pos=self.on_move)
+        self.on_hover = setup_hover(self, 1, 0.8)
     
-    hovered = 0
+    hovered = False
 
-    def on_move(self, win, pos):
-        if not Utils.appList().mycon.active:
+    def on_move(self, win, pos):  
+        if CurrentScreen.screen != 1:
             return
-            
-        resource = Utils.get_one(self.id)
-        info = Utils.appList().mycon.reso
+        
+        resource = get_one(self.id)
+        info = appList().mycon.reso
 
         if self.collide_point(*pos):
             info.img_source = f"assets/{self.id}.png"
             info.name = resource["nombre"]
             info.description = resource["descripcion"]
             info.complementary = resource["complementario"][0]
-
             infotype = ""
                 
             for i in range(len(resource["tipo"])):
@@ -88,26 +78,16 @@ class ResourceP(FloatLayout):
                 if i < len(resource["complementario"]) - 1:
                     comp += ", "
 
-            info.complementary = comp
-
-            self.hovered = True
-
-            if not self.selected:
-                self.opacity = 0.8
-            Window.set_system_cursor('hand')  
+            info.complementary = comp  
             info.opacity = 1
         else:
             if self.hovered:
-                self.hovered = False
-                self.opacity = 1
-                Window.set_system_cursor('arrow')
-
                 info.opacity = 0
 
     my_color = ListProperty([0.1, 0.1, 0.1, 1])
     
     def add_resource(self):
-        recurso = Utils.get_one(self.id)
+        recurso = get_one(self.id)
         with open("recursos_seleccionados_event.json", "r") as data:
             data = json.load(data)
             data.append(recurso)
@@ -116,7 +96,7 @@ class ResourceP(FloatLayout):
             json.dump(data, file, indent=4)
             
     def quit_resource(self):
-        recurso = Utils.get_one(self.id)
+        recurso = get_one(self.id)
         with open("recursos_seleccionados_event.json", "r") as data:
             data = json.load(data)
             data.remove(recurso)
@@ -125,8 +105,9 @@ class ResourceP(FloatLayout):
             json.dump(data, file, indent=4)
 
     def on_touch_down(self, touch):
-        if not Utils.appList().mycon.active:
+        if CurrentScreen.screen != 1:
             return
+        
         if self.collide_point(*touch.pos):
             if not self.selected:
                 self.my_color = [0, 0.8, 0.6, 0.8]
@@ -148,6 +129,8 @@ class ResourceListP(StackLayout):
     def update(self, src):
         for i in list(self.children):
             self.remove_widget(i)
+            Window.unbind(mouse_pos=i.on_hover)
+            Window.unbind(mouse_pos=i.on_move)
         
         with open(src, "r") as file:
             file = json.load(file)
@@ -157,27 +140,13 @@ class ResourceListP(StackLayout):
 class Delete(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
-        Window.bind(mouse_pos=self.on_hoover_delete)
-    
-    hoovered = False
+        setup_hover(self, 1)
+        
+    hovered = False
 
     def on_press(self):
-        Utils.appList().mycon.layo.rlist.update("recursos_seleccionados_event.json") 
-
-    def on_hoover_delete(self, win, pos):
-        if not Utils.appList().mycon.active:
-            return
+        appList().mycon.layo.rlist.update("recursos_seleccionados_event.json") 
         
-        if self.collide_point(*pos) and not self.hoovered:
-            self.hoovered = True
-            self.opacity = 0.9
-            Window.set_system_cursor('hand')
-        elif not self.collide_point(*pos) and self.hoovered:
-            self.hoovered = False
-            self.opacity = 1
-            Window.set_system_cursor('arrow')
-
-
 class ResourcesLayoutP(BoxLayout):
     def __init__(self):
         super().__init__()

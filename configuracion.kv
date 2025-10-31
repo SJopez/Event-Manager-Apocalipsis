@@ -48,8 +48,6 @@
                 pos: root.x, self.y
                 size: root.width, self.height
         
- 
-
 <SelectorCaller>:
     size_hint: None, None
     size: (450, 30)
@@ -106,10 +104,15 @@
         size_hint: None, None
         pos_hint: {'x': 0.02, 'center_y': .5}
         
-
+<ScrollEventInfo>
+    bar_width: 16
+    bar_color: 0.8, 0.8, 0.9, 0.7
+    
 <EventInfo>
     orientation: 'vertical'
     spacing: 8
+    size_hint_y: None
+    height: 500
     StackLayout:
         size_hint: None, None
         size: (self.parent.width, 200)
@@ -130,13 +133,6 @@
             size_hint: None, None
             size: (240, 200)
             orientation: "tb-lr"
-            canvas.before:
-                Color:
-                    rgba: 1, 1, 1, 0
-                RoundedRectangle:
-                    pos: self.pos
-                    size: self.size
-                    radius: [12]
             Label: 
                 markup: True
                 text: "[b]Tipo de aventura:[/b]"
@@ -175,6 +171,7 @@
                 size_hint: None, None
                 size: self.texture_size
                 font_name: "fonts/symbola/Symbola.ttf"
+                text_size: 250, None
     Label:
         markup: True
         text: "[b] Descripcion: [/b]"
@@ -192,7 +189,7 @@
         halign: "left"
         markup: 0
         font_size: 18
-        
+    
         canvas.before:
             Color:
                 rgba: 0.15, 0.15, 0.2, 0.5
@@ -207,5 +204,14 @@
             Line:
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                 width: 1    
-
+    Label:
+        markup: True
+        text: "[b] Recursos necesarios: [/b]"
+        font_size: 24
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+        index: 0
     
+
+

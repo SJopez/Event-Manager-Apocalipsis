@@ -1,2 +1,5 @@
--cambiar imagenes de los eventos
--arreglar el hoover
+#info de estefania
+#comentar debidamente los ultimos archivos
+#crear clases con herencia para evitar codigo innecesario
+#quitar codigo de los kv creando clases definidas
+#poner en utilities una herramienta para trabajar con json

@@ -20,7 +20,8 @@ from configuracion import MainConfig
 import json
 from kivy.lang import Builder
 from kivy.clock import Clock
-from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP
+from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP, ResourceP
+from utilities import *
 
 """
 imagen del jugador
@@ -28,22 +29,13 @@ imagen del jugador
 class PlayerLayout(BoxLayout):
     def __init__(self):
         super().__init__()
+
 """
 clase de herramientas para usos variados:
 get_all: retorna todos los recursos
 get_one: retorna el recurso asignado a un id
 appList: retorna la lista de componentes existentes en la App
 """
-class Utils():
-    def get_all():
-        with open("recursos.json") as file:
-            return json.load(file)
-    def get_one(id):
-         with open("recursos.json") as file:
-            return json.load(file)[id - 1]
-    def appList():
-        return App.get_running_app()
-    rList = []
 """
 clase asignado a cada recurso especifico
 contiene una foto con la imagen del recurso
@@ -59,15 +51,18 @@ class Resource(FloatLayout):
         self.selected = 0
         self.id = item
         Window.bind(mouse_pos=self.on_move)
+        setup_hover(self, 0, 0.8)
     
-    hovered = 0
+    hovered = False
 
     def on_move(self, win, pos):
-        menu = Utils.appList().menu
-        resource = Utils.get_one(self.id)
-        info = menu.rInfo
+        if CurrentScreen.screen != 0:
+            return
+            
+        resource = get_one(self.id)
+        info = appList().menu.rInfo
 
-        if self.collide_point(pos[0], pos[1]):
+        if self.collide_point(*pos):
             info.img_source = f"assets/{self.id}.png"
             info.name = resource["nombre"]
             info.description = resource["descripcion"]
@@ -84,29 +79,17 @@ class Resource(FloatLayout):
             info.type = infotype
             
             comp = ""
-
+            
             for i in range(len(resource["complementario"])):
                 comp += resource["complementario"][i]
 
                 if i < len(resource["complementario"]) - 1:
                     comp += ", "
 
-            info.complementary = comp
-
-            self.hovered = True
-
-            if not self.selected:
-                self.opacity = 0.8
-            if not Utils.appList().mycon.active:
-                Window.set_system_cursor('hand')  
+            info.complementary = comp  
             info.opacity = 1
         else:
             if self.hovered:
-                self.hovered = False
-                self.opacity = 1
-                if not Utils.appList().mycon.active:
-                    Window.set_system_cursor('arrow')
-
                 info.opacity = 0
 
     my_color = ListProperty([0.1, 0.1, 0.1, 1])
@@ -114,7 +97,8 @@ class Resource(FloatLayout):
     funcion para la seleccion del evento 
     """
     def add_resource(self):
-        recurso = Utils.get_one(self.id)
+        recurso = get_one(self.id)
+      
         with open("recursos_seleccionados.json", "r") as data:
             data = json.load(data)
             data.append(recurso)
@@ -123,7 +107,8 @@ class Resource(FloatLayout):
             json.dump(data, file, indent=4)
 
     def quit_resource(self):
-        recurso = Utils.get_one(self.id)
+        recurso = get_one(self.id)
+        
         with open("recursos_seleccionados.json", "r") as data:
             data = json.load(data)
             data.remove(recurso)
@@ -132,8 +117,9 @@ class Resource(FloatLayout):
             json.dump(data, file, indent=4)
 
     def on_touch_down(self, touch):
-        if Utils.appList().mycon.active:
+        if CurrentScreen.screen != 0:
             return
+        
         if self.collide_point(*touch.pos):
             if not self.selected:
                 self.my_color = [0, 0.8, 0.6, 0.8]
@@ -155,7 +141,7 @@ class ResourceList(StackLayout):
         self.orientation = 'lr-tb'
         for i in range(1, 25):
             self.add_widget(Resource(i))
-    selected = []
+
 
 """
 componente con la informacion que debe ir dentro del menu de eventos
@@ -206,35 +192,22 @@ class ResourceMenu(FloatLayout):
 class ButtonAdvance(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
-        Window.bind(mouse_pos=self.on_move)
-    
-    hovered = 0
+        setup_hover(self, 0)
 
-    def on_move(self, win, pos):
-        if Utils.appList().mycon.active:
-            return
-        if self.collide_point(*pos):
-            if not self.hovered:
-                self.hovered = True
-                self.opacity = 0.9
-                Window.set_system_cursor('hand')
-        else:
-            if self.hovered:
-                self.hovered = False
-                self.opacity = 1
-                Window.set_system_cursor('arrow')
+    hovered = False
 
     def on_press(self):
         data = []
+        CurrentScreen.screen = 1
+
         with open("recursos_seleccionados.json", "r") as data:
             data = json.load(data)
         
         with open("recursos_seleccionados_event.json", "w") as file:
             json.dump(data, file, indent=4)
-            
-        screenParent = Utils.appList().screenParent
-        Utils.appList().mycon.layo.rlist.update("recursos_seleccionados.json")
-        Utils.appList().mycon.active = True
+        
+        screenParent = appList().screenParent
+        appList().mycon.layo.rlist.update("recursos_seleccionados.json")
         Window.set_system_cursor('arrow')
         screenParent.current = "config"
         screenParent.transition = SlideTransition(duration=0.5, direction="right")
@@ -249,8 +222,8 @@ class ScreenChild(Screen):
 class ScreenParent(ScreenManager):
     def __init__(self):
         super().__init__()
-        self.add_widget(ScreenChild("main", Utils.appList().menu))
-        self.add_widget(ScreenChild("config", Utils.appList().mycon))
+        self.add_widget(ScreenChild("main", appList().menu))
+        self.add_widget(ScreenChild("config", appList().mycon))
         self.transition = SlideTransition(duration=0.5, direction="left")
 
 """
@@ -258,8 +231,8 @@ cuerpo de la aplicacion
 """
 class Main(App):
     def build(self):        
-        self.menu = ResourceMenu()
         self.mycon = MainConfig()
+        self.menu = ResourceMenu()
         self.screenParent = ScreenParent()
         return self.screenParent
 
@@ -270,9 +243,6 @@ def cleanJSON(*args):
         json.dump([], file, indent=4)
 
 Window.bind(on_request_close=cleanJSON)    
-
-
-
 Builder.load_file("configuracion.kv")
 Builder.load_file("confi_info_class.kv")
 Main().run()
