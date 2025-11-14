@@ -118,25 +118,32 @@ class DateEndButton(Button):
 
 Factory.register('DateEndButton', DateEndButton)
 
-class DateIni(Label):
+class Date(Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = "None"
         
 
-Factory.register('DateIni', DateIni)
+Factory.register('Date', Date)
 
-class DateEnd(Label):
+class TimeInput(TextInput):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.text = "None"
+        self.background_color = (1, 1, 1, 0.9)
+    
+    def keyboard_on_textinput(self, window, text):
+        if len(self.text) < 2:
+            self.text += text
 
-Factory.register('DateEnd', DateEnd)
+        if len(self.text) == 2:
+            minu = self.parent.parent.timeIni[1] if self.name == "ini" else self.parent.parent.timeEnd[1]
+            self.focus = False
+            minu.focus = True
+            
 
-class DateIni(Label):
-    def __init__(self):
-        super().__init__()
-        self.text = "None"
+    
+
+Factory.register('Time', TimeInput)
 
 def getSize(widget, target):
     ans = 0
@@ -147,11 +154,49 @@ def getSize(widget, target):
     
     return ans
 
+class AddNeedButton(Button):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos):
+            e = Manage.get_one(self.parent.current)
+            setEvent(e)
+            
+            for x in e["necesita"]:
+                recurso = get_one(x)
+        
+                with open("recursos_seleccionados_event.json", "r") as data:
+                    data = json.load(data)
+
+                ignore = False
+
+                for i in data:
+                    if i["id"] == recurso["id"]:
+                        ignore = True             
+
+                if ignore:
+                    continue
+
+                with open("recursos_seleccionados_event.json", "w") as file:
+                    data.append(recurso)
+                    json.dump(data, file, indent=4)
+            
+            join_child(appList().mycon, "ResourceListP")
+            finded.ans.update("recursos_seleccionados_event.json")
+        
+                
+    hovered = False
+
+Factory.register('AddNeedButton', AddNeedButton)        
+
 class EventInfo(BoxLayout):
     def __init__(self):
         super().__init__()
         self.orientation = "vertical"
         self.need = self.ids.need
+        self.timeIni = (self.ids.hourIni, self.ids.minuIni)
+        self.timeEnd = (self.ids.hourEnd, self.ids.minuEnd)
         self.dateIni = self.ids.dateini
         self.dateEnd = self.ids.datend
         self.current = 0
@@ -161,7 +206,8 @@ class EventInfo(BoxLayout):
     danger = StringProperty("")
     danger_color = ListProperty([0, 0, 0, 0])
     place = StringProperty("")
-   
+
+
     dg_colors = {
         1: [0.18,0.80,0.44,1], 
         2: [0.60,0.88,0.60,1],  
@@ -179,6 +225,7 @@ class EventInfo(BoxLayout):
     def update(self, i):
         e = Manage.get_one(i)
         setEvent(e)
+        self.current = i
 
         for x in list(self.need.children):
             self.need.remove_widget(x)
@@ -191,8 +238,8 @@ class EventInfo(BoxLayout):
             resource.on_move = None
             resource.on_touch_down = lambda x: None
             self.need.add_widget(resource)
-        
-        self.need.height = ((len(e["necesita"]) // 6) + 1) * 65
+
+        self.need.height = ((len(e["necesita"]) // 6) + (1 and (len(e["necesita"]) % 6 != 0))) * 65
         self.ids.description.text = e["descripcion"]
         self.img = f"assets/event_images/{i + 1}.png"
         self.type = ""
@@ -209,7 +256,7 @@ class EventInfo(BoxLayout):
         self.danger = "-" + self.danger_words[dg] + "-"
         self.danger_color = self.dg_colors[dg]
         self.place = "• " + e["ubicacion"]
-        self.height = 350 + self.need.height + HeightDescription[e["id"]] + 75
+        self.height = 500 + self.need.height + HeightDescription[e["id"]] + 75
 
     def updateIni(self, value):
         self.dateIni.text = value

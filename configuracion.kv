@@ -218,16 +218,25 @@
         index: 0
         size_hint: None, None
         width: root.width
+    AddNeedButton:
+        index: 0
+        size_hint: None, None
+        size: (90, 30)
+        markup: True
+        text: "[b] Seleccionar [/b]"
+        padding: 10
+        pos_hint:{'x': 0.05, 'y':0}
+        
     Label:
         index: 0
         markup: True
-        text: "[b] Tiempo de aventura: [/b]"
+        text: "[b] Fecha de la aventura: [/b]"
         font_size: 24
         size_hint: None, None
         size: self.texture_size 
         pos_hint:{'x': 0.05, 'y':0}
     BoxLayout:
-        pos_hint: {'x': 0.05, 'y': 0}
+        pos_hint: {'x': 0.06, 'y': 0}
         size_hint: None, None
         height: 30
         DateIniButton:
@@ -251,7 +260,7 @@
         pos_hint: {'x': 0.05, 'y': 0}
         size_hint: None, None
         height: 30
-        DateIni:
+        Date:
             id: dateini
             font_size: 20
             text: "No seleccionado!"
@@ -263,13 +272,79 @@
             size_hint: None, None
             pos_hint: {'center_x': .5, "center_y": .5}
             width: 40
-        DateEnd:
+        Date:
             id: datend
             font_size: 20
             text: "No seleccionado!"
             size_hint: None, None
             size: self.texture_size
             padding: 4
+    Label:
+        index: 0
+        markup: True
+        text: "[b] Horario de inicio - fin: [/b]"
+        font_size: 24
+        size_hint: None, None
+        size: self.texture_size 
+        pos_hint:{'x': 0.05, 'y':0}
+    BoxLayout:
+        pos_hint: {'x': 0.06, 'y': 0}
+        size_hint: None, None
+        height: 30
+        Time:
+            id: hourIni
+            name: "ini"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+        Label:
+            text: ":"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 20
+        Time:
+            id: minuIni
+            name: "ini"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+        Label:
+            text: "-"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 40
+        Time:
+            id: hourEnd
+            name: "end"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+        Label:
+            text: ":"
+            size_hint: None, None
+            pos_hint: {'center_x': .5, "center_y": .5}
+            width: 20
+        Time:
+            id: minuEnd
+            name: "end"
+            size_hint: None, None    
+            size: (30, 30)
+            max_text_length: 20
+            multiline: False
+    Label:
+        index: 0
+        markup: True
+        text: "[b]Nota:[/b] Los horarios se interpretan en el formato de de 24 horas!"
+        font_size: 16
+        size_hint: None, None
+        size: self.texture_size
+        color: 1, 1, 1, 0.8
+        padding: 0, 10, 0, 0 
+        pos_hint: {'x': .06, "y": 0}
+
     Label:
         size_hint: None, None
         height: 10
