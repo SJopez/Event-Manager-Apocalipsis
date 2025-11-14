@@ -24,6 +24,8 @@ from calendar_widget import TotalCalendar, getCalendar
 from kivy.factory import Factory
 from kivy.uix.button import Button
 from event_manager import *
+from error import *
+from kivy.animation import Animation
 
 class Manage:
     def get_all():
@@ -134,11 +136,11 @@ class TimeInput(TextInput):
     def keyboard_on_textinput(self, window, text):
         if len(self.text) < 2:
             self.text += text
-
-        if len(self.text) == 2:
+        elif len(self.text) == 2:
             minu = self.parent.parent.timeIni[1] if self.name == "ini" else self.parent.parent.timeEnd[1]
             self.focus = False
             minu.focus = True
+
             
 
     
@@ -329,9 +331,38 @@ class AdventureButton(ButtonBehavior, Image):
             eventInfo = finded.ans
             dateIni = eventInfo.dateIni.text
             dateEnd = eventInfo.dateEnd.text
-            createEvent(dateIni, dateEnd)
-
+            timeIni = (eventInfo.timeIni[0].text, eventInfo.timeIni[1].text)
+            timeEnd = (eventInfo.timeEnd[0].text, eventInfo.timeEnd[1].text)
             
+            valid = validDate(dateIni, dateEnd, timeIni, timeEnd)
+            if valid > 0:
+                mainConfig = appList().mycon
+                if mainConfig.children[0].__class__.__name__ == "Error":
+                    deleteChild(mainConfig, mainConfig.children[0])
+                
+                suggestion = "por favor verifique que los valores seleccionados sean correctos!" if valid == 1 else "su evento debe tener una duracion de al menos 1 minuto!"
+
+                error = Error(
+                    "No es posible crear la aventura!",
+                    "La fecha introducida no corresponde a un intervalo de tiempo valido, " + suggestion
+                )
+                error.opacity = 1
+                error.pos = (WindowWidth - 400, WindowHeight - 200)
+                mainConfig.add_widget(error)
+                DisolveAnimation(mainConfig, error, 4, 0, 2)
+           
+
+def DisolveAnimation(parent, widget, duration, opacity, delay):
+    animaDelay = Animation(duration=delay)
+    anima = Animation(opacity=opacity, duration=duration)
+    sequence = animaDelay + anima
+    sequence.on_complete = lambda widget: deleteChild(parent, widget)
+    sequence.start(widget)
+
+    
+
+
+
 class MainConfig(FloatLayout):
     def __init__(self):
         super().__init__()
@@ -346,5 +377,5 @@ class MainConfig(FloatLayout):
         self.add_widget(self.reso)
         self.adventureButton = AdventureButton()
         self.add_widget(self.adventureButton)
-        
+ 
        

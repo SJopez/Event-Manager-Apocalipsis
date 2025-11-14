@@ -1,5 +1,1 @@
-#info de estefania
-#comentar debidamente los ultimos archivos
-#crear clases con herencia para evitar codigo innecesario
-#quitar codigo de los kv creando clases definidas
-#poner en utilities una herramienta para trabajar con json
+#error de EventInfo con el currentMonth del calendario(puede ser que el acceso al finded se este haciendo despues de que acabe la busqueda)
