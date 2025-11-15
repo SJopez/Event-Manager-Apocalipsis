@@ -359,7 +359,7 @@ class AdventureButton(ButtonBehavior, Image):
                 mainConfig.add_widget(error)
                 DisolveAnimation(mainConfig, error, 4, 0, 2)
             else:
-                mergeInformation(validDate, resourceValid)
+                print(mergeInformation(validDate, resourceValid))
 
 def DisolveAnimation(parent, widget, duration, opacity, delay):
     animaDelay = Animation(duration=delay)
