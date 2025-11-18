@@ -1,1 +1,64 @@
-[]
+[
+    {
+        "id": 1,
+        "nombre": "Escopeta de caza",
+        "descripcion": "Escopeta de caza calibre .50; ten cuidado donde apuntas al apretar el gatillo o podr\u00edas acabar decorando el techo del refugio.",
+        "tipo": [
+            "Defensa"
+        ],
+        "complementario": [
+            "Balas de escopeta"
+        ],
+        "excluyente": [
+            "Baby Shark"
+        ],
+        "cantidad": 4
+    },
+    {
+        "id": 2,
+        "nombre": "Balas de escopeta",
+        "descripcion": "Balas de escopeta; puede que los magos las detengan con la boca, pero los infectados no son magos.",
+        "tipo": [
+            "Defensa"
+        ],
+        "complementario": [
+            "Escopeta de caza"
+        ],
+        "excluyente": [
+            "Balas del Baby Shark"
+        ],
+        "cantidad": 12
+    },
+    {
+        "id": 7,
+        "nombre": "Husky del refugio",
+        "descripcion": "Estos cachorros de husky siberiano fueron los \u00fanicos supervivientes, junto al abuelo Polkish, del ataque que sufri\u00f3 el actual refugio antes de nuestra llegada; les gustan mucho las galletas.",
+        "tipo": [
+            "Defensa",
+            "Refugio"
+        ],
+        "complementario": [
+            "Galletas en forma de hueso"
+        ],
+        "excluyente": [
+            "Emigrante cubano"
+        ],
+        "cantidad": 7
+    },
+    {
+        "id": 8,
+        "nombre": "Galletas en forma de hueso",
+        "descripcion": "Estas galletas son las favoritas de los husky; l\u00e1nzaselas encima de los caminantes y deja que hagan el trabajo.",
+        "tipo": [
+            "Defensa",
+            "Refugio"
+        ],
+        "complementario": [
+            "Husky del refugio"
+        ],
+        "excluyente": [
+            "Machetes oxidados"
+        ],
+        "cantidad": 14
+    }
+]

@@ -126,7 +126,7 @@ class Resource(FloatLayout):
         
         if self.collide_point(*touch.pos):
             if not self.selected:
-                self.my_color = [0, 0.8, 0.6, 0.8]
+                self.my_color = [0.5, 0.5, 0.8, 1]
                 self.selected = 1
                 self.opacity = 1
                 self.add_resource()              

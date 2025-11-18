@@ -343,8 +343,8 @@ class Backbutton(ButtonBehavior, Image):
         super().__init__()
         self.source = "assets/backbutton.png"
         self.size_hint = (None, None)
-        self.size = (100, 100)
-        self.pos_hint = {'x': 0.05, 'top': 1}
+        self.size = (70, 70)
+        self.pos_hint = {'x': 0.06, 'top': 0.98}
         setup_hover(self, 1)
     
     hovered = False

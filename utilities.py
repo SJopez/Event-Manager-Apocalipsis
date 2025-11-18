@@ -7,8 +7,8 @@ Places = []
 HeightDescription = [0, 108, 130, 108, 86, 130, 108, 108, 86, 86, 130, 108, 130, 108, 130, 108]
 WindowWidth, WindowHeight = 1280, 768
 
-toDelete = []
-
+class Utils:
+    isSelected = False
 
 class Disable:
     value = False

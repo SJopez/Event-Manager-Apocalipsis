@@ -58,6 +58,15 @@ class CuantitySelector(TextInput):
             if len(self.text) < 2:
                 self.text += text
 
+class DeleteIcon(Image):
+    def __init__(self, parent):
+        super().__init__()
+        self.size_hint = (None, None)
+        self.size = (60, 60)
+        self.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
+        self.source = "assets/deleteIcon.png"
+        self.pos = parent.pos
+
 class ResourceP(FloatLayout):
     def __init__(self, item, cuantiable, hoverable=True):
         super().__init__()
@@ -71,6 +80,9 @@ class ResourceP(FloatLayout):
         self.cuantity = CuantitySelector()
         self.cuantity.text = "01"
         self.add_widget(self.cuantity)
+        self.delete = DeleteIcon(self)
+        self.delete.opacity = 0
+        self.add_widget(self.delete)
         Window.bind(mouse_pos=self.on_move)
         
         if hoverable:
@@ -122,7 +134,6 @@ class ResourceP(FloatLayout):
             if not calendar.collide_point(*pos) or calendar.width != 360:
                 info.opacity = 1
                 
-                
         else:
             if self.hovered:
                 info.opacity = 0
@@ -137,31 +148,46 @@ class ResourceP(FloatLayout):
 
 
     my_color = ListProperty([0.1, 0.1, 0.1, 1])
-    
-    def add_resource(self):
-        recurso = get_one(self.id)
+
+    def quit_resource(self, id):
+        recurso = get_one(id)
+
         with open("recursos_seleccionados_event.json", "r") as data:
             data = json.load(data)
-            data.append(recurso)
-
+            data.remove(recurso)
+            
         with open("recursos_seleccionados_event.json", "w") as file:
             json.dump(data, file, indent=4)
-            
+
+        appList().mycon.layo.rlist.update("recursos_seleccionados_event.json") 
+    
     def on_touch_down(self, touch):
         if CurrentScreen.screen != 1 or Disable.value:
             return
     
         if self.collide_point(*touch.pos):
             if not self.selected:
-                self.my_color = [0, 0.8, 0.6, 0.8]
-                self.selected = 1
+                childSelected = Utils.isSelected
+                
+                if childSelected != False:
+                    childSelected.my_color = [0.1, 0.1, 0.1, 1]
+                    childSelected.selected = 0
+                    childSelected.opacity = 1
+                    childSelected.icon.opacity = 1
+                    childSelected.delete.opacity = 0
+                
                 self.opacity = 1
-                toDelete.append(self.id)         
+                self.my_color = [0.5, 0.5, 0.8, 1]
+                self.selected = 1
+                self.icon.opacity = 0.5
+                self.delete.opacity = 1
+                Utils.isSelected = self            
             else:
-                self.my_color = [0.1, 0.1, 0.1, 1]
-                self.selected = 0
-                self.opacity = 0.8
-                toDelete.remove(self.id)
+                self.quit_resource(Utils.isSelected.id)        
+                main = appList().mycon
+                info = main.reso
+                info.opacity = 0
+
 
 
 class ResourceListP(StackLayout):
@@ -180,35 +206,9 @@ class ResourceListP(StackLayout):
             for i in file:
                 self.add_widget(ResourceP(i["id"], True))
 
-class Delete(ButtonBehavior, Image):
-    def __init__(self):
-        super().__init__()
-        setup_hover(self, 1)
-        
-    hovered = False
-
-    def quit_resource(self, id):
-        recurso = get_one(id)
-        with open("recursos_seleccionados_event.json", "r") as data:
-            data = json.load(data)
-            data.remove(recurso)
-            
-
-        with open("recursos_seleccionados_event.json", "w") as file:
-            json.dump(data, file, indent=4)
-
-    def on_press(self):
-        for resource in toDelete:
-            self.quit_resource(resource)
-
-        toDelete.clear()
-        
-        appList().mycon.layo.rlist.update("recursos_seleccionados_event.json") 
-        
 class ResourcesLayoutP(BoxLayout):
     def __init__(self):
         super().__init__()
         self.rlist = ResourceListP()
         self.add_widget(self.rlist, index=0)
         self.add_widget(Label(), index=0)
-        self.add_widget(Delete())
