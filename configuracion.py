@@ -26,6 +26,7 @@ from kivy.uix.button import Button
 from event_manager import *
 from error import *
 from kivy.animation import Animation
+from utilities import *
 
 class Manage:
     def get_all():
@@ -48,7 +49,7 @@ class Event(FloatLayout):
     title = StringProperty("")
 
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
+        if self.collide_point(*touch.pos) and not Disable.value:
             self.selector.select(self.title)
             self.selector.caller.icon = "assets/minus.png"
             self.selector.evinfo.update(self.index)
@@ -60,20 +61,58 @@ class Selector(DropDown):
         self.bind(on_select=self.selection)
         self.caller = caller
         self.evinfo = evinfo
-
+        
         for i in range(15):
             e = Event(i, self)
             e.title = Manage.get_one(i)["titulo"]
             self.add_widget(e)
     
     def selection(self, option, value):
-        setattr(self.caller, 'name', value)
-                
+        setattr(self.caller, 'name', value)                
+
+def showAnimation(parent, y_val):
+    anima1 = Animation(x=0, y=y_val, duration=0.4, t='out_quad')
+    anima1.start(parent)
+
+class FloatContainer(FloatLayout):
+    def __init__(self, child):
+        super().__init__()
+        self.add_widget(Show())
+        self.add_widget(child)
+        self.status = False
+        
+     
 
 class SelectorCaller(FloatLayout):
     def __init__(self):
         super().__init__()
         setup_hover(self, 1)
+        Window.bind(mouse_pos=lambda win, pos: self.close(pos))
+
+    def close(self, pos):
+        if Disable.value:
+            return
+
+        x1, x2 = self.x, self.x + 450
+
+        if pos[0] < x1 or pos[0] > x2:
+            self.selector.dismiss()
+
+        if pos[1] > 570 or pos[1] < 130:
+            self.selector.dismiss()
+    
+        command = appList().mycon.command
+        c1 = command.children[0]
+        c2 = command.children[1]
+
+        if c1.collide_point(*pos) or c2.collide_point(*pos):
+            if not command.status:
+                showAnimation(command, 100)
+                command.status = True
+        elif command.status:
+            showAnimation(command, 0)
+            command.status = False
+
 
     def set_bind(self):
         self.selector.bind(on_dismiss=self.change_icon)
@@ -87,7 +126,7 @@ class SelectorCaller(FloatLayout):
         self.icon = "assets/minus.png"
 
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
+        if self.collide_point(*touch.pos) and not Disable.value:
             self.selector.open(self)
             self.icon = "assets/plus.png"
 
@@ -103,7 +142,7 @@ class DateIniButton(Button):
         super().__init__(**kwargs)
 
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar"):
+        if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar") and not Disable.value:
             appList().mycon.add_widget(TotalCalendar(0))
             
       
@@ -114,7 +153,7 @@ class DateEndButton(Button):
         super().__init__(**kwargs)
         
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar"):
+        if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar") and not Disable.value:
             appList().mycon.add_widget(TotalCalendar(1))
             
 
@@ -132,7 +171,7 @@ class TimeInput(TextInput):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.background_color = (1, 1, 1, 0.9)
-    
+
     def keyboard_on_textinput(self, window, text):
         try:
             a = int(text)
@@ -145,9 +184,7 @@ class TimeInput(TextInput):
                 minu = self.parent.parent.timeIni[1] if self.name == "ini" else self.parent.parent.timeEnd[1]
                 self.focus = False
                 minu.focus = True
-            
-
-
+        
 Factory.register('Time', TimeInput)
 
 def getSize(widget, target):
@@ -164,7 +201,7 @@ class AddNeedButton(Button):
         super().__init__(**kwargs)
 
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
+        if self.collide_point(*touch.pos) and not Disable.value:
             e = Manage.get_one(self.parent.current)
             setEvent(e)
             
@@ -275,7 +312,6 @@ class ScrollEventInfo(ScrollView):
         super().__init__()
         self.evinfo = EventInfo()
         self.add_widget(self.evinfo)
-        
        
 class EventHandler(BoxLayout):
     def __init__(self):
@@ -314,11 +350,35 @@ class Backbutton(ButtonBehavior, Image):
     hovered = False
 
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
+        if self.collide_point(*touch.pos) and not Disable.value:
             CurrentScreen.screen = 0
             screenParent = appList().screenParent
             screenParent.current = "main"
             screenParent.transition = SlideTransition(duration=0.5, direction="left")
+
+class Show(ButtonBehavior, Image):
+    def __init__(self):
+        super().__init__()
+        setup_hover(self, 1, 1)
+        self.source = "assets/plus.png"
+    
+    hovered = False
+
+class CommandAdventure(BoxLayout):
+    def __init__(self):
+        super().__init__()
+        self.status = False
+        self.add_widget(ListAdventures())
+        self.add_widget(AdventureButton())
+ 
+
+class ListAdventures(ButtonBehavior, Image):
+    def __init__(self):
+        super().__init__()
+        self.source = "assets/listAdventure.png"
+        setup_hover(self, 1)
+
+    hovered = False
 
 class AdventureButton(ButtonBehavior, Image):
     def __init__(self):
@@ -329,7 +389,7 @@ class AdventureButton(ButtonBehavior, Image):
     hovered = False
 
     def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
+        if self.collide_point(*touch.pos) and not Disable.value:
             join_child(appList().mycon, "EventInfo")
             eventInfo = finded.ans
     
@@ -348,29 +408,90 @@ class AdventureButton(ButtonBehavior, Image):
                 else:
                     body = "Hay conflictos con los recursos, " + resourceValid
 
-                mainConfig = appList().mycon
+                pos = (WindowWidth - 400, WindowHeight - 200)
+                showMessage(Error, "Error", title, body, pos)
 
-                if mainConfig.children[0].__class__.__name__ == "Error":
-                    deleteChild(mainConfig, mainConfig.children[0])
-
-                error = Error(title, body)
-                error.opacity = 1
-                error.pos = (WindowWidth - 400, WindowHeight - 200)
-                mainConfig.add_widget(error)
-                DisolveAnimation(mainConfig, error, 4, 0, 2)
             else:
-                print(mergeInformation(validDate, resourceValid))
+                event = mergeInformation(dateValid, resourceValid)
+                response = createEvent(event)
 
-def DisolveAnimation(parent, widget, duration, opacity, delay):
+                if response[0]:
+                    title = "Aventura creada exitosamente!"
+                    body = " " + event["titulo"]
+                    pos = (WindowWidth - 400, 0)
+                    showMessage(Message, "Message", title, body, pos)
+                else:
+                    title = "Su aventura no puede ser creada en la fecha especificada!"
+                    body = "La cantidad de uno o varios de los recursos seleccionados excede lo disponible en el inventario. Desea buscar un intervalo de tiempo valido para su aventura?"
+                    pos = (WindowWidth - 420, WindowHeight - 250)
+                    main = appList().mycon
+                    
+                    Disable.value = True
+                    Window.set_system_cursor('arrow')
+                    for child in main.children:
+                        child.opacity -= 0.6
+                    join_child(main, "ScrollEventInfo")
+                    finded.ans.do_scroll = False
+
+                    main.hole = JoinHole(title, body)
+                    main.add_widget(main.hole)
+
+def manageAdventure(response):
+    main = appList().mycon
+
+    if response:
+        event = readJson("current_event.json")
+        title = "Aventura creada exitosamente!"
+        body = " " + event["titulo"]
+        pos = (WindowWidth - 400, 0)
+        showMessage(Message, "Message", title, body, pos)
+    else: 
+        pass    
+
+    main.remove_widget(main.hole)
+    Disable.value = False
+    for child in main.children:
+        child.opacity += 0.6
+    join_child(main, "ScrollEventInfo")
+    finded.ans.do_scroll = True
+
+class Success:
+    value = 0
+
+def showMessage(classMessage, name, title, body, position):
+    mainConfig = appList().mycon
+
+    if mainConfig.children[0].__class__.__name__ == name and name != "Message":
+        deleteChild(mainConfig, mainConfig.children[0])
+    elif mainConfig.children[0].__class__.__name__ == name:
+        position = (position[0], position[1] + Success.value * 95)
+    
+    Success.value += (name == "Message")
+
+    message = classMessage(title, body)
+
+    message.opacity = 1
+    message.pos = position
+    mainConfig.add_widget(message)
+
+    DisolveAnimation(mainConfig, message, 4, 0, 2, name == "Message") 
+
+
+def DisolveAnimation(parent, widget, duration, opacity, delay, flag=False):
     animaDelay = Animation(duration=delay)
     anima = Animation(opacity=opacity, duration=duration)
     sequence = animaDelay + anima
-    sequence.on_complete = lambda widget: deleteChild(parent, widget)
+    sequence.on_complete = lambda widget: CompleteAnimation(parent, widget, flag) 
     sequence.start(widget)
+
+def CompleteAnimation(parent, widget, flag):
+    deleteChild(parent, widget)
+    Success.value = 0
 
 class MainConfig(FloatLayout):
     def __init__(self):
         super().__init__()
+        self.hole = None
         self.img = Image(source="assets/background_config.png")
         self.add_widget(self.img)
         self.backbutton = Backbutton()
@@ -380,7 +501,6 @@ class MainConfig(FloatLayout):
         self.reso = ResourceInfoLayoutP()
         self.layo = self.cefi.layo
         self.add_widget(self.reso)
-        self.adventureButton = AdventureButton()
-        self.add_widget(self.adventureButton)
- 
+        self.command = FloatContainer(CommandAdventure())
+        self.add_widget(self.command)
        

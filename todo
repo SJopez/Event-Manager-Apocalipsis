@@ -1,2 +1,15 @@
 #error de EventInfo con el currentMonth del calendario(puede ser que el acceso al finded se este haciendo despues de que acabe la busqueda)
+'''
+vy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+   File "/media/sergio22/data1/Programming/Python/Kivy/kivy_venv/lib/python3.13/site-packages/kivy/uix/widget.py", line 589, in on_touch_down
+     if child.dispatch('on_touch_down', touch):
+        ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+   File "kivy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
+   File "/media/sergio22/data1/Programming/Python/Kivy/calendar_widget.py", line 69, in on_touch_down
+     month = calendar.currentMonth
+             ^^^^^^^^^^^^^^^^^^^^^
+ AttributeError: 'EventInfo' object has no attribute 'currentMonth'
+
+'''
 #ortografia de todos los textos
+#hacer clase hoverable que herede el setup hover y el parametro hoverd

@@ -1,0 +1,88 @@
+<Calendar@BoxLayout>:
+    size_hint: None, None
+    width: 350
+    height: 250
+    pos_hint: {'center_x': .5, 'center_y': .5}
+    orientation: "lr-tb"
+
+<Day>:
+    font_size: 24
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            rectangle: (self.x, self.y, self.width, self.height)
+            width: 1
+
+    color: 1, 1, 1, 1
+    size_hint: None, None
+    size: (50, 50)
+
+<ButtonContainer>:
+    size_hint: None, None
+    size: (200, 50)
+    pos_hint: {'center_x': .5, 'y': 0}
+
+<AdvanceMonth>:
+    text: "Siguiente"
+    size_hint: None, None
+    size: (100, 40)
+    pos: (200, 200)
+
+<PreviousMonth>:
+    text: "Anterior"
+    size_hint: None, None
+    size: (100, 40)
+    pos: (200, 200)
+
+<TotalCalendar>:
+    orientation: "vertical"
+    canvas.before:
+        Color:
+            rgba: 0.1, 0.1, 0.15, 0.9
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    canvas.after:
+        Color:
+            rgba: 0.05, 0.05, 0.1, 1
+        Line:
+            rectangle: (self.x, self.y, self.width, self.height)
+            width: 2
+        
+    size_hint: None, None
+    size: 360, 380
+    padding: 0, 0, 0, 10
+    pos_hint: {'right': 1, 'top': 1}
+    
+<Info>
+    size_hint: None, None
+    canvas.before:
+        Color:
+            rgba: 0.05, 0.05, 0.1, 1   
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    size: (350, 68)
+    orientation: "vertical"
+    padding: 8
+    index: 0
+    Label:
+        text: "Enero"
+        id: month
+        font_size: 28
+        color: 1, 1, 1, 0.8
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'center_x': .5, 'y': 0}
+    Label:
+        text: "2025"
+        id: year
+        font_size: 20
+        color: 1, 1, 1, 0.8
+        size_hint: None, None
+        size: self.texture_size
+        pos_hint: {'center_x': .5, 'y': 0}
+        
+    

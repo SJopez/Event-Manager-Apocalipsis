@@ -6,7 +6,7 @@
     "tipo": ["Defensa"],
     "complementario": ["Balas de escopeta"],
     "excluyente": ["Baby Shark"],
-    "cantidad": 2
+    "cantidad": 4
   },
   {
     "id": 2,
@@ -24,7 +24,7 @@
     "tipo": ["Defensa"],
     "complementario": ["Balas del Baby Shark"],
     "excluyente": ["Escopeta de caza"],
-    "cantidad": 1
+    "cantidad": 5
   },
   {
     "id": 4,
@@ -37,37 +37,37 @@
   },
   {
     "id": 5,
-    "nombre": "Osvaldo el mulato",
-    "descripcion": "Este emigrante era un antiguo carnicero en su tierra natal, Cuba. Dicen que es capaz de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
+    "nombre": "Emigrante cubano",
+    "descripcion": "Estos emigrantes son antiguos cortadores de cana de azucar en su tierra natal Cuba. No les gustan nada los perros. Dicen que son capaces de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
     "tipo": ["Defensa"],
     "complementario": ["Machetes oxidados"],
-    "excluyente": ["Rocky"],
-    "cantidad": 1
+    "excluyente": ["Husky del refugio"],
+    "cantidad": 5
   },
   {
     "id": 6,
     "nombre": "Machetes oxidados",
-    "descripcion": "Solo Osvaldo sabe cómo usar estos machetes oxidados; no le gusta que los toquen.",
+    "descripcion": "Solo los cortadores de cana sabe cómo usar estos machetes oxidados; no les gusta que los toquen.",
     "tipo": ["Defensa"],
-    "complementario": ["Osvaldo el mulato", "Piedra de afilar"],
+    "complementario": ["Emigrante cubano", "Piedra de afilar"],
     "excluyente": ["Galletas en forma de hueso"],
-    "cantidad": 2
+    "cantidad": 5
   },
   {
     "id": 7,
-    "nombre": "Rocky",
-    "descripcion": "Este cachorro de husky siberiano fue el único superviviente junto al abuelo del ataque que sufrió el actual refugio antes de nuestra llegada; le gustan mucho las galletas.",
+    "nombre": "Husky del refugio",
+    "descripcion": "Estos cachorros de husky siberiano fueron los únicos supervivientes, junto al abuelo Polkish, del ataque que sufrió el actual refugio antes de nuestra llegada; les gustan mucho las galletas.",
     "tipo": ["Defensa", "Refugio"],
     "complementario": ["Galletas en forma de hueso"],
-    "excluyente": ["Osvaldo el mulato"],
-    "cantidad": 1
+    "excluyente": ["Emigrante cubano"],
+    "cantidad": 7
   },
   {
     "id": 8,
     "nombre": "Galletas en forma de hueso",
-    "descripcion": "Estas galletas son las favoritas de Rocky; lánzaselas encima de los caminantes y deja que haga el trabajo.",
+    "descripcion": "Estas galletas son las favoritas de los husky; lánzaselas encima de los caminantes y deja que hagan el trabajo.",
     "tipo": ["Defensa", "Refugio"],
-    "complementario": ["Rocky"],
+    "complementario": ["Husky del refugio"],
     "excluyente": ["Machetes oxidados"],
     "cantidad": 14
   },
@@ -128,7 +128,7 @@
   {
     "id": 15,
     "nombre": "Polkish, el abuelo",
-    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Rocky, es un experto en exploracion y supervivencia",
+    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Husky del refugio, es un experto en exploracion y supervivencia",
     "tipo": ["Refugio", "Supervivencia"],
     "complementario": ["Ziggy el filoso"],
     "excluyente": ["Navaja suiza de Osvaldo"],
@@ -150,7 +150,7 @@
     "tipo": ["Supervivencia"],
     "complementario": ["Galón de gasolina"],
     "excluyente": ["TIBURON"],
-    "cantidad": 1
+    "cantidad": 2
   },
   {
     "id": 18,
@@ -164,20 +164,20 @@
   {
     "id": 19,
     "nombre": "TIBURÓN",
-    "descripcion": "Esta moto perteneció al abuelo en sus años de juventud cuando formaba parte de una banda de motoristas exploradores; está equipada con una escopeta cartucho adaptada.",
+    "descripcion": "Estas motos pertenecieron al abuelo en sus años de juventud cuando formaba parte de una banda de motoristas exploradores; están equipadas con una escopeta cartucho adaptada.",
     "tipo": ["Supervivencia", "Defensa"],
     "complementario": ["Galón de gasolina", "Escopeta recortada adaptada"],
     "excluyente": ["Pathfinder"],
-    "cantidad": 1
+    "cantidad": 3
   },
   {
     "id": 20,
     "nombre": "Escopeta recortada adaptada",
     "descripcion": "Escopeta recortada italiana de 2 proyectiles; el abuelo la llama 'Abremundos'.",
     "tipo": ["Supervivencia", "Defensa"],
-    "complementario": ["Balas de escopeta"],
+    "complementario": ["TIBURÓN"],
     "excluyente": ["Escopeta de caza"],
-    "cantidad": 1
+    "cantidad": 3
   },
   {
     "id": 21,
@@ -199,17 +199,17 @@
   },
   {
     "id": 23,
-    "nombre": "Navaja suiza de Osvaldo",
+    "nombre": "Navaja suiza de los emigrantes",
     "descripcion": "Navaja suiza hecha en Cuba; sirve para todo.",
     "tipo": ["Supervivencia", "Refugio", "Defensa"],
     "complementario": ["Piedra de afilar"],
     "excluyente": ["Polkish, el abuelo"],
-    "cantidad": 1
+    "cantidad": 5
   },
   {
     "id": 24,
     "nombre": "Piedra de afilar",
-    "descripcion": "Piedra de afilar para filos menores; aunque Osvaldo la usa con sus machetes.",
+    "descripcion": "Piedra de afilar para filos menores; aunque los emigrantes cubanos las usan con sus machetes.",
     "tipo": ["Supervivencia", "Refugio", "Defensa"],
     "complementario": ["Navaja suiza de Osvaldo", "Machetes oxidados"],
     "excluyente": ["Ziggy el filoso"],

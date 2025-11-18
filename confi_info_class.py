@@ -57,7 +57,7 @@ class CuantitySelector(TextInput):
         else: 
             if len(self.text) < 2:
                 self.text += text
-  
+
 class ResourceP(FloatLayout):
     def __init__(self, item, cuantiable, hoverable=True):
         super().__init__()
@@ -72,6 +72,7 @@ class ResourceP(FloatLayout):
         self.cuantity.text = "01"
         self.add_widget(self.cuantity)
         Window.bind(mouse_pos=self.on_move)
+        
         if hoverable:
             self.on_hover = setup_hover(self, 1, 0.8)
         if not cuantiable:
@@ -80,11 +81,12 @@ class ResourceP(FloatLayout):
     hovered = False
 
     def on_move(self, win, pos):  
-        if CurrentScreen.screen != 1:
+        if CurrentScreen.screen != 1 or Disable.value:
             return
         
+        main = appList().mycon
         resource = get_one(self.id)
-        info = appList().mycon.reso
+        info = main.reso
 
         if self.collide_point(*pos):
             self.cuantity.focus = True
@@ -114,10 +116,13 @@ class ResourceP(FloatLayout):
 
             info.complementary = comp
             
-            calendar = appList().mycon.children[0]
-
-            if not calendar.collide_point(*pos):
+            join_child(appList().mycon, "TotalCalendar")
+            calendar = finded.ans
+        
+            if not calendar.collide_point(*pos) or calendar.width != 360:
                 info.opacity = 1
+                
+                
         else:
             if self.hovered:
                 info.opacity = 0
@@ -142,17 +147,8 @@ class ResourceP(FloatLayout):
         with open("recursos_seleccionados_event.json", "w") as file:
             json.dump(data, file, indent=4)
             
-    def quit_resource(self):
-        recurso = get_one(self.id)
-        with open("recursos_seleccionados_event.json", "r") as data:
-            data = json.load(data)
-            data.remove(recurso)
-            
-        with open("recursos_seleccionados_event.json", "w") as file:
-            json.dump(data, file, indent=4)
-
     def on_touch_down(self, touch):
-        if CurrentScreen.screen != 1:
+        if CurrentScreen.screen != 1 or Disable.value:
             return
     
         if self.collide_point(*touch.pos):
@@ -160,12 +156,12 @@ class ResourceP(FloatLayout):
                 self.my_color = [0, 0.8, 0.6, 0.8]
                 self.selected = 1
                 self.opacity = 1
-                self.quit_resource()         
+                toDelete.append(self.id)         
             else:
                 self.my_color = [0.1, 0.1, 0.1, 1]
                 self.selected = 0
                 self.opacity = 0.8
-                self.add_resource()
+                toDelete.remove(self.id)
 
 
 class ResourceListP(StackLayout):
@@ -191,7 +187,22 @@ class Delete(ButtonBehavior, Image):
         
     hovered = False
 
+    def quit_resource(self, id):
+        recurso = get_one(id)
+        with open("recursos_seleccionados_event.json", "r") as data:
+            data = json.load(data)
+            data.remove(recurso)
+            
+
+        with open("recursos_seleccionados_event.json", "w") as file:
+            json.dump(data, file, indent=4)
+
     def on_press(self):
+        for resource in toDelete:
+            self.quit_resource(resource)
+
+        toDelete.clear()
+        
         appList().mycon.layo.rlist.update("recursos_seleccionados_event.json") 
         
 class ResourcesLayoutP(BoxLayout):

@@ -15,7 +15,7 @@
     "descripcion": "De las profundidades del bunker abandonado surgen oleadas de infectados todos los días; ir allí y eliminar un poco de \"población\" disminuiría la probabilidad de un ataque masivo al refugio. Solo recuerda ir bien armado y con un compañero.",
     "peligro": 4,
     "ubicacion": "Bunker militar del sur",
-    "necesita": [1, 2, 5, 6, 18, 19, 20]
+    "necesita": [3, 4, 5, 6, 18, 19, 20]
   },
   {
     "id": 3,
@@ -78,7 +78,7 @@
     "descripcion": "De nada sirve unas puertas sólidas si el agua que bebes está podrida. Cambia los filtros de H2O cada cierto tiempo y no tendrás infectados en tu refugio.",
     "peligro": 1,
     "ubicacion": "Modulo de purificacion",
-    "necesita": [9, 10, 11, 12]
+    "necesita": [11, 12]
   },
   {
     "id": 10,
