@@ -81,7 +81,19 @@ class FloatContainer(FloatLayout):
         self.add_widget(child)
         self.status = False
         
-     
+def configShowAnimation(parent, pos):
+    command = parent.command
+    c1 = command.children[0]
+    c2 = command.children[1]
+
+    if c1.collide_point(*pos) or c2.collide_point(*pos):
+        if not command.status:
+            showAnimation(command, 100)
+            command.status = True
+    elif command.status:
+        showAnimation(command, 0)
+        command.status = False     
+
 
 class SelectorCaller(FloatLayout):
     def __init__(self):
@@ -100,19 +112,10 @@ class SelectorCaller(FloatLayout):
 
         if pos[1] > 570 or pos[1] < 130:
             self.selector.dismiss()
-    
-        command = appList().mycon.command
-        c1 = command.children[0]
-        c2 = command.children[1]
 
-        if c1.collide_point(*pos) or c2.collide_point(*pos):
-            if not command.status:
-                showAnimation(command, 100)
-                command.status = True
-        elif command.status:
-            showAnimation(command, 0)
-            command.status = False
-
+        configShowAnimation(appList().mycon, pos)
+        configShowAnimation(appList().menu, pos)
+        
 
     def set_bind(self):
         self.selector.bind(on_dismiss=self.change_icon)

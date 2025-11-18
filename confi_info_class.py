@@ -128,9 +128,8 @@ class ResourceP(FloatLayout):
 
             info.complementary = comp
             
-            join_child(appList().mycon, "TotalCalendar")
-            calendar = finded.ans
-        
+            calendar = appList().mycon.children[0]
+    
             if not calendar.collide_point(*pos) or calendar.width != 360:
                 info.opacity = 1
                 

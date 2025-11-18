@@ -16,7 +16,7 @@ from kivy.core.window import Window
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-from configuracion import MainConfig
+from configuracion import MainConfig, Show, showAnimation, CommandAdventure, FloatContainer, ListAdventures
 import json
 from kivy.lang import Builder
 from kivy.clock import Clock
@@ -172,7 +172,6 @@ class ResourcesLayout(BoxLayout):
         super().__init__()
         self.add_widget(ResourceList(), index=0)
         self.add_widget(Label(), index=0)
-        self.add_widget(ButtonAdvance())
         
 """
 contenedor del jugador con su inventario
@@ -194,7 +193,22 @@ class ResourceMenu(FloatLayout):
         self.add_widget(ConfigEvent())
         self.rInfo = ResourceInfoLayout()
         self.add_widget(self.rInfo)
-    
+        self.command = FloatContainer(CommandADventureMain())
+        self.add_widget(self.command)
+
+class CommandADventureMain(CommandAdventure):
+    def __init__(self):
+        super().__init__()
+        self.remove_widget(self.children[0])
+        self.remove_widget(self.children[0])
+        self.add_widget(ListAdventuresMain())
+        self.add_widget(ButtonAdvance())
+
+class ListAdventuresMain(ListAdventures):
+    def __init__(self):
+        super().__init__()
+        setup_hover(self, 0)
+
 class ButtonAdvance(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
