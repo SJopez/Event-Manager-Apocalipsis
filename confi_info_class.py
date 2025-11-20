@@ -186,7 +186,17 @@ class ResourceP(FloatLayout):
                 main = appList().mycon
                 info = main.reso
                 info.opacity = 0
-
+        elif Utils.isSelected == self:
+            childSelected = Utils.isSelected
+            
+            if childSelected != False:
+                Utils.isSelected = False
+                childSelected.my_color = [0.1, 0.1, 0.1, 1]
+                childSelected.selected = 0
+                childSelected.opacity = 1
+                childSelected.icon.opacity = 1
+                childSelected.delete.opacity = 0
+                
 
 
 class ResourceListP(StackLayout):

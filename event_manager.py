@@ -67,15 +67,17 @@ def validResources():
             if value != False:
                 return "verifique para cada recurso que su excluyente no se encuentre seleccionado!"
         
-        cnt = 0
+        flag = False
 
         for complement in resource["complementario"]:
             value = getOneByName(complement, "recursos_seleccionados_event.json")
          
-            if value == False:
-                cnt += 1
+            if value != False:
+                flag = True
+                break
         
-        if len(resource["complementario"]) == cnt:
+        if not flag:
+            print(resource["nombre"])
             return "verifique que cada recurso este seleccionado junto con su complementario!"
  
 

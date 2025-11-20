@@ -61,10 +61,10 @@ class Day(Label):
     hovered = False
         
     def on_touch_down(self, touch):
+        calendar = getCalendar()
         if self.collide_point(*touch.pos) and not Disable.value:
             join_child(appList().mycon, "EventInfo")
             evinfo = finded.ans
-            calendar = getCalendar()
             day = self.text
             month = calendar.currentMonth
             year = calendar.currentYear
@@ -75,6 +75,9 @@ class Day(Label):
                 evinfo.updateIni(f"{day}/{month}/{year}")
 
             appList().mycon.remove_widget(calendar)
+        elif not calendar.collide_point(*touch.pos):
+            appList().mycon.remove_widget(calendar)
+
 
 class Calendar(StackLayout):
     def __init__(self, month, year):
@@ -97,8 +100,6 @@ class ButtonContainer(BoxLayout):
         self.advance = AdvanceMonth()
         self.add_widget(self.previous)
         self.add_widget(self.advance)
-
-        
 
 class TotalCalendar(BoxLayout):
     def __init__(self, flag):

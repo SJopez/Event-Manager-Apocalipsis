@@ -97,9 +97,7 @@ kv = '''
     size_hint: None, None
     size: self.texture_size
     font_size: 20
-
     
-
 '''
 
 Builder.load_string(kv)

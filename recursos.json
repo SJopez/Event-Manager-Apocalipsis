@@ -211,7 +211,7 @@
     "nombre": "Piedra de afilar",
     "descripcion": "Piedra de afilar para filos menores; aunque los emigrantes cubanos las usan con sus machetes.",
     "tipo": ["Supervivencia", "Refugio", "Defensa"],
-    "complementario": ["Navaja suiza de Osvaldo", "Machetes oxidados"],
+    "complementario": ["Navaja suiza de los emigrantes", "Machetes oxidados"],
     "excluyente": ["Ziggy el filoso"],
     "cantidad": 3
   }

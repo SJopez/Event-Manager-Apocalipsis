@@ -159,7 +159,6 @@ class DateEndButton(Button):
         if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar") and not Disable.value:
             appList().mycon.add_widget(TotalCalendar(1))
             
-
 Factory.register('DateEndButton', DateEndButton)
 
 class Date(Label):
@@ -383,6 +382,12 @@ class ListAdventures(ButtonBehavior, Image):
 
     hovered = False
 
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos):
+            getPlaces()
+            print(Places)
+
+
 class AdventureButton(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
@@ -476,7 +481,6 @@ def showMessage(classMessage, name, title, body, position):
     message.opacity = 1
     message.pos = position
     mainConfig.add_widget(message)
-
     DisolveAnimation(mainConfig, message, 4, 0, 2, name == "Message") 
 
 
