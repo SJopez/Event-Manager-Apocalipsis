@@ -21,6 +21,7 @@ from kivy.lang import Builder
 from kivy.clock import Clock
 from utilities import *
 from kivy.uix.textinput import TextInput
+from kivy.animation import Animation
 
 class ResourceInfoLayoutP(StackLayout):
     def __init__(self):
@@ -41,11 +42,11 @@ class CuantitySelector(TextInput):
         super().__init__()
         self.size_hint = (None, None)
         self.size = (22, 20)
-        self.pos_hint = {'center_x': 0.84, 'center_y': 0.15}
+        self.pos_hint = {'center_x': 0.80, 'center_y': 0.18}
         self.foreground_color = (1, 1, 1, 1)
+        self.background_color = (0.12, 0.12, 0.12, 0.9)
         self.font_size = 16
-        self.background_color = (0, 0, 0, 0.5)
-        self.padding = 0
+        self.padding = [3, 0, 0, 0]
         self.cursor_color = (1, 1, 1, 1)
         self.multiline = False
 
@@ -144,8 +145,6 @@ class ResourceP(FloatLayout):
                 elif len(text) < 2:
                     self.cuantity.text = "0" + text
 
-
-
     my_color = ListProperty([0.1, 0.1, 0.1, 1])
 
     def quit_resource(self, id):
@@ -176,7 +175,7 @@ class ResourceP(FloatLayout):
                     childSelected.delete.opacity = 0
                 
                 self.opacity = 1
-                self.my_color = [0.5, 0.5, 0.8, 1]
+                self.my_color = [0.8, 0.8, 0.8, 0.8]
                 self.selected = 1
                 self.icon.opacity = 0.5
                 self.delete.opacity = 1
@@ -213,7 +212,8 @@ class ResourceListP(StackLayout):
         with open(src, "r") as file:
             file = json.load(file)
             for i in file:
-                self.add_widget(ResourceP(i["id"], True))
+                resource = ResourceP(i["id"], True)
+                self.add_widget(resource)
 
 class ResourcesLayoutP(BoxLayout):
     def __init__(self):

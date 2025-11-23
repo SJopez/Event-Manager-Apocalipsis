@@ -47,16 +47,16 @@ kv = '''
     spacing: 12
     canvas.before:
         Color:
-            rgba: 0.15, 0.15, 0.2, 0.9
+            rgba: (0.07, 0.07, 0.07, 0.95)
         Rectangle:
             pos: self.pos
             size: self.size
     canvas.after:
         Color:
-            rgba: 0, 0, 0, 1
+            rgba: 0.8, 0.8, 0.8, 0.8
         Line:
             rectangle: (self.x, self.y, self.width, self.height)
-            width: 2
+            width: 1
 
 <AceptJoinButton>:
     size_hint: None, None
@@ -85,7 +85,7 @@ kv = '''
 
     canvas.after:
         Color:
-            rgba: 0.5, 0.5, 0.8, 1
+            rgba: 0.8, 0.8, 0.8, 0.8
         Line:
             points: (self.x + 4, self.y - 4, self.x + self.width - 24, self.y - 4)
             width: 2

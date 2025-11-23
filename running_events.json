@@ -1,1 +1,975 @@
-[]
+[
+    {
+        "id": 1763862249.400559,
+        "titulo": "Aniquilamiento en la vecindad",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "Nunca est\u00e1 de m\u00e1s salir un rato a estirar las piernas por los alrededores del refugio y eliminar alg\u00fan que otro infectado por el camino, pero ten cuidado no te sigan al regresar!",
+        "peligro": 2,
+        "ubicacion": "Alrededores del refugio",
+        "necesita": [
+            1,
+            2,
+            7,
+            8
+        ],
+        "recursos": [
+            [
+                8,
+                1
+            ],
+            [
+                7,
+                1
+            ],
+            [
+                2,
+                1
+            ],
+            [
+                1,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 1
+    },
+    {
+        "id": 1763862258.234115,
+        "titulo": "Expedici\u00f3n al bunker abandonado",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "De las profundidades del bunker abandonado surgen oleadas de infectados todos los d\u00edas; ir all\u00ed y eliminar un poco de \"poblaci\u00f3n\" disminuir\u00eda la probabilidad de un ataque masivo al refugio. Solo recuerda ir bien armado y con un compa\u00f1ero.",
+        "peligro": 4,
+        "ubicacion": "Bunker militar del sur",
+        "necesita": [
+            3,
+            4,
+            5,
+            6,
+            18,
+            19,
+            20
+        ],
+        "recursos": [
+            [
+                20,
+                1
+            ],
+            [
+                19,
+                1
+            ],
+            [
+                18,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                5,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 2
+    },
+    {
+        "id": 1763862267.667167,
+        "titulo": "Limpieza de carreteras",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "\u00daltimamente las carreteras cercanas al refugio se encuentran repletas de infectados, lo cual podr\u00eda dificultar la ejecuci\u00f3n de la huida en caso de emergencia. Hora de barrer toda la suciedad en ellas!",
+        "peligro": 2,
+        "ubicacion": "Carreteras cercanas al refugio",
+        "necesita": [
+            3,
+            4,
+            18,
+            19,
+            20
+        ],
+        "recursos": [
+            [
+                20,
+                1
+            ],
+            [
+                19,
+                1
+            ],
+            [
+                18,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 3
+    },
+    {
+        "id": 1763862278.589809,
+        "titulo": "Preparar el armamento",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "Solo a los infectados les agrada que tu arma falle; por eso cada cierto tiempo debes darle mantenimiento a tus armas, hasta la navaja suiza lo necesita!",
+        "peligro": 1,
+        "ubicacion": "Cuarto de armamento",
+        "necesita": [
+            1,
+            2,
+            15,
+            16
+        ],
+        "recursos": [
+            [
+                16,
+                1
+            ],
+            [
+                15,
+                1
+            ],
+            [
+                2,
+                1
+            ],
+            [
+                1,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 4
+    },
+    {
+        "id": 1763862288.693782,
+        "titulo": "Vuelvete tramposo!",
+        "tipo": [
+            "Refugio"
+        ],
+        "descripcion": "Desde hoyos con p\u00faas hasta cuerdas decapitadoras, todo en este juego de la supervivencia vale. Ampl\u00eda las trampas en tu refugio para aumentar tus probabilidades de supervivencia en caso de una invasi\u00f3n.",
+        "peligro": 1,
+        "ubicacion": "Patio exterior",
+        "necesita": [
+            13,
+            14,
+            15,
+            16
+        ],
+        "recursos": [
+            [
+                16,
+                1
+            ],
+            [
+                15,
+                1
+            ],
+            [
+                14,
+                1
+            ],
+            [
+                13,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735794060.0,
+            1735880460.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 5
+    },
+    {
+        "id": 1763862304.673509,
+        "titulo": "Podar el jardin",
+        "tipo": [
+            "Refugio",
+            "Defensa"
+        ],
+        "descripcion": "Las tareas dentro del refugio suelen ser bastante tranquilas, pero de vez en cuando uno que otro infectado rompe la cerca electrificada y es necesario ir a despejar todo el per\u00edmetro del patio exterior.",
+        "peligro": 3,
+        "ubicacion": "Perimetro del refugio",
+        "necesita": [
+            3,
+            4,
+            7,
+            8,
+            9,
+            10,
+            15,
+            16
+        ],
+        "recursos": [
+            [
+                16,
+                1
+            ],
+            [
+                15,
+                1
+            ],
+            [
+                10,
+                1
+            ],
+            [
+                9,
+                1
+            ],
+            [
+                8,
+                1
+            ],
+            [
+                7,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735880520.0,
+            1735966920.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 6
+    },
+    {
+        "id": 1763862317.207179,
+        "titulo": "Bombillas defectuosas",
+        "tipo": [
+            "Refugio"
+        ],
+        "descripcion": "Las torres de iluminaci\u00f3n a menudo presentan problemas t\u00e9cnicos; sube ah\u00ed arriba y dales mantenimiento. Los infectados no podr\u00e1n llegar hasta ti pero tarde o temprano tendr\u00e1s que bajar.",
+        "peligro": 2,
+        "ubicacion": "Torres de iluminacion K3",
+        "necesita": [
+            9,
+            10,
+            11,
+            12
+        ],
+        "recursos": [
+            [
+                12,
+                1
+            ],
+            [
+                11,
+                1
+            ],
+            [
+                10,
+                1
+            ],
+            [
+                9,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 7
+    },
+    {
+        "id": 1763862328.210179,
+        "titulo": "Tapar los agujeros",
+        "tipo": [
+            "Refugio"
+        ],
+        "descripcion": "No basta con mantener puertas y ventanas cerradas si no cumplen su funci\u00f3n. Repara las fisuras o tendr\u00e1s visitantes inesperados en un abrir y cerrar de ojos.",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [
+            13,
+            14
+        ],
+        "recursos": [
+            [
+                14,
+                1
+            ],
+            [
+                13,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 8
+    },
+    {
+        "id": 1763862405.255752,
+        "titulo": "Depurar H2O",
+        "tipo": [
+            "Refugio"
+        ],
+        "descripcion": "De nada sirve unas puertas s\u00f3lidas si el agua que bebes est\u00e1 podrida. Cambia los filtros de H2O cada cierto tiempo y no tendr\u00e1s infectados en tu refugio.",
+        "peligro": 1,
+        "ubicacion": "Modulo de purificacion",
+        "necesita": [
+            11,
+            12
+        ],
+        "recursos": [
+            [
+                12,
+                1
+            ],
+            [
+                11,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 9
+    },
+    {
+        "id": 1763862424.299985,
+        "titulo": "Ir de compras",
+        "tipo": [
+            "Supervivencia"
+        ],
+        "descripcion": "Los recursos en el refugio no son ilimitados; hacer expediciones a supermercados abandonados es una buena manera de conseguir v\u00edveres, pero ten cuidado. Ese tipo de zonas que en el pasado eran ampliamente frecuentadas ahora tambi\u00e9n lo son.",
+        "peligro": 3,
+        "ubicacion": "Supermercados WaltMart",
+        "necesita": [
+            3,
+            4,
+            5,
+            6,
+            15,
+            16,
+            17,
+            18
+        ],
+        "recursos": [
+            [
+                18,
+                1
+            ],
+            [
+                17,
+                1
+            ],
+            [
+                16,
+                1
+            ],
+            [
+                15,
+                1
+            ],
+            [
+                6,
+                1
+            ],
+            [
+                5,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735966980.0,
+            1736053380.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 10
+    },
+    {
+        "id": 1763862435.834043,
+        "titulo": "Pasaje a lo desconocido",
+        "tipo": [
+            "Supervivencia"
+        ],
+        "descripcion": "La exploraci\u00f3n no es una actividad muy bonita que digamos comparada a quedarse bajo la seguridad de las puertas del refugio, pero nunca se sabe qu\u00e9 podr\u00eda aguardar para ti descubrir nuevos horizontes.",
+        "peligro": 3,
+        "ubicacion": "Fronteras de la ciudad",
+        "necesita": [
+            3,
+            4,
+            18,
+            19,
+            20,
+            21,
+            22
+        ],
+        "recursos": [
+            [
+                22,
+                1
+            ],
+            [
+                21,
+                1
+            ],
+            [
+                20,
+                1
+            ],
+            [
+                19,
+                1
+            ],
+            [
+                18,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 11
+    },
+    {
+        "id": 1763862447.068246,
+        "titulo": "Eliminar colmena",
+        "tipo": [
+            "Supervivencia",
+            "Defensa"
+        ],
+        "descripcion": "Las colmenas son los epicentros de la infecci\u00f3n, est\u00e1n plagadas de infectados; por lo tanto nadie se acerca ah\u00ed excepto nosotros. Eliminando estas colmenas la infecci\u00f3n disminuye considerablemente aunque es una actividad sumamente riesgosa.",
+        "peligro": 5,
+        "ubicacion": "Area 0 de infeccion",
+        "necesita": [
+            1,
+            2,
+            7,
+            8,
+            15,
+            16,
+            17,
+            18
+        ],
+        "recursos": [
+            [
+                18,
+                1
+            ],
+            [
+                17,
+                1
+            ],
+            [
+                16,
+                1
+            ],
+            [
+                15,
+                1
+            ],
+            [
+                8,
+                1
+            ],
+            [
+                7,
+                1
+            ],
+            [
+                2,
+                1
+            ],
+            [
+                1,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1736053440.0,
+            1736139840.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 12
+    },
+    {
+        "id": 1763862458.094965,
+        "titulo": "Recetas de plomo",
+        "tipo": [
+            "Supervivencia"
+        ],
+        "descripcion": "Las expediciones a hospitales abandonados son lugares excelentes para obtener medicinas y reactivos para el desarrollo de la cura; no te dejes enga\u00f1ar por sus batas blancas, est\u00e1n todos muertos.",
+        "peligro": 4,
+        "ubicacion": "Hospital abandonado",
+        "necesita": [
+            3,
+            4,
+            15,
+            16,
+            17,
+            18
+        ],
+        "recursos": [
+            [
+                18,
+                1
+            ],
+            [
+                17,
+                1
+            ],
+            [
+                16,
+                1
+            ],
+            [
+                15,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1736139900.0,
+            1736226300.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 13
+    },
+    {
+        "id": 1763862465.816045,
+        "titulo": "Buscar chatarra",
+        "tipo": [
+            "Supervivencia",
+            "Refugio"
+        ],
+        "descripcion": "La maquinaria necesaria para el funcionamiento del refugio requiere de piezas que no son nada f\u00e1ciles de fabricar; sin embargo los dep\u00f3sitos de chatarra son minas de oro. Hazte de un buen manojo de materiales a \"bajo costo\".",
+        "peligro": 2,
+        "ubicacion": "Cementerio de autos",
+        "necesita": [
+            1,
+            2,
+            17,
+            18,
+            23,
+            24
+        ],
+        "recursos": [
+            [
+                24,
+                1
+            ],
+            [
+                23,
+                1
+            ],
+            [
+                18,
+                1
+            ],
+            [
+                17,
+                1
+            ],
+            [
+                2,
+                1
+            ],
+            [
+                1,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1735707600.0,
+            1735794000.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 14
+    },
+    {
+        "id": 1763862478.515163,
+        "titulo": "Rescatar supervivientes",
+        "tipo": [
+            "Supervivencia"
+        ],
+        "descripcion": "Las expediciones de b\u00fasqueda de supervivientes son un gesto de humanidad, pero ten cuidado porque algunos intentar\u00e1n aprovecharse de ti; lleva tu arma bien cargada.",
+        "peligro": 4,
+        "ubicacion": "Refugios Infectados",
+        "necesita": [
+            3,
+            4,
+            7,
+            8,
+            15,
+            16,
+            21,
+            22
+        ],
+        "recursos": [
+            [
+                22,
+                1
+            ],
+            [
+                21,
+                1
+            ],
+            [
+                16,
+                1
+            ],
+            [
+                15,
+                1
+            ],
+            [
+                8,
+                1
+            ],
+            [
+                7,
+                1
+            ],
+            [
+                4,
+                1
+            ],
+            [
+                3,
+                1
+            ]
+        ],
+        "tiempoReal": [
+            1736226360.0,
+            1736312760.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2025"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2025"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "eventID": 15
+    }
+]

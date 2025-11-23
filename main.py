@@ -23,6 +23,7 @@ from kivy.clock import Clock
 from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP, ResourceP
 from utilities import *
 from calendar_widget import TotalCalendar
+from events import MainEventContainter
 
 """
 imagen del jugador
@@ -126,7 +127,7 @@ class Resource(FloatLayout):
         
         if self.collide_point(*touch.pos):
             if not self.selected:
-                self.my_color = [0.5, 0.5, 0.8, 1]
+                self.my_color = [0.8, 0.8, 0.8, 0.8]
                 self.selected = 1
                 self.opacity = 1
                 self.add_resource()              
@@ -244,6 +245,7 @@ class ScreenParent(ScreenManager):
         super().__init__()
         self.add_widget(ScreenChild("main", appList().menu))
         self.add_widget(ScreenChild("config", appList().mycon))
+        self.add_widget(ScreenChild("events", appList().events))
         self.transition = SlideTransition(duration=0.5, direction="left")
 
 """
@@ -253,14 +255,14 @@ class Main(App):
     def build(self):        
         self.mycon = MainConfig()
         self.menu = ResourceMenu()
+        self.events = MainEventContainter()
         self.screenParent = ScreenParent()
         return self.screenParent
 
 def cleanJSON(*args):
-    with open("recursos_seleccionados.json", "w") as file:
-        json.dump([], file, indent=4)
-    with open("recursos_seleccionados_event.json", "w") as file:
-        json.dump([], file, indent=4)
+    writeJson("recursos_seleccionados.json", [])
+    writeJson("recursos_seleccionados_event.json", [])
+    #writeJson("running_events.json", [])
 
 Window.bind(on_request_close=cleanJSON)
 Builder.load_file("calendar_widget.kv")    

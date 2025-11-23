@@ -2,12 +2,14 @@
 <ResourcesLayoutP@BoxLayout>:
     orientation: 'vertical'
     padding: 4
+    spacing: 8
     canvas.before:
         Color:
-            rgba: 0.1, 0.1, 0.15, 0.8
-        Rectangle:
+            rgba:(0.12, 0.12, 0.12, 0.9)
+        RoundedRectangle:
             pos: self.pos
             size: self.size
+            radius: [0, 12, 0, 0]
 
     Label: 
         text: 'Mochila'
@@ -19,15 +21,16 @@
         pos_hint: {'center_x': .5, 'y': 0}
         canvas.before:
             Color:
-                rgba: 0, 0, 0, 1   
+                rgba: 0.8, 0.8, 0.8, 0.8
             Rectangle:
-                pos: root.x, self.y - 3
-                size: root.width, 4
+                pos: root.x, self.y - 4
+                size: root.width, 2
             Color:
-                rgba: 0.05, 0.05, 0.1, 1
-            Rectangle:
+                rgba: (0.1, 0.1, 0.1, 1)
+            RoundedRectangle:
                 pos: root.x, self.y
                 size: root.width, self.height
+                radius: [0, 12, 0, 0]
         size: self.texture_size
 
 
@@ -46,28 +49,29 @@
         Color:
             rgba: self.my_color
         Line:
-            rectangle: (self.x, self.y, self.width, self.height)
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
             width: 1.5
 
 <ResourceInfoLayoutP>:
     canvas.before:
         Color:
-            rgba: 0.15, 0.15, 0.2, 0.8
-        Rectangle:
+            rgba: (0.12, 0.12, 0.12, 0.9)
+        RoundedRectangle:
             pos: self.pos
             size: self.size
+            radius: [12]
     canvas.after:
         Color:
-            rgba: 0.05, 0.05, 0.1, 1
+            rgba: 0.8, 0.8, 0.8, 0.8
         Line:
-            rectangle: (self.x, self.y, self.width, self.height)
-            width: 4
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.5
         Line:
             rectangle: (0, self.y + (self.height - 120), 120, self.height)
-            width: 2
+            width: 1
         Line:
             rectangle: (0, self.y + (self.height - 120), self.width, self.y + (self.height - 120))
-            width: 2
+            width: 1
     
     size_hint: None, None
     size: 300, 400

@@ -3,22 +3,11 @@ import datetime as dt
 from utilities import *
 import datetime
 
-class Manager():
-    def __init__(self):
-        self.events = []
-
-    def pushEvent(self, event):
-        self.events.append(event)
-        
-
-manager = Manager()
-
 sg1 = "por favor verifique que los valores seleccionados sean correctos!"
 sg2 = "su evento debe tener una duracion de al menos 1 minuto!"
 
 def setEvent(event):
-    with open('current_event.json', 'w') as file:
-        json.dump(event, file, indent=4)
+    writeJson('current_event.json', [event])
 
 def validDate(Ini, End, TimeIni, TimeEnd):
     Ini = Ini.split("/")
@@ -50,7 +39,7 @@ def validDate(Ini, End, TimeIni, TimeEnd):
         return ((start, end), (Ini, End), ((hi, mi), (he, me)))
 
 def validResources():
-    event = readJson("current_event.json")
+    event = readJson("current_event.json")[0]
     resources = readJson("recursos_seleccionados_event.json")
 
     for need in event["necesita"]:
@@ -107,7 +96,7 @@ def conflict(event1, event2):
 def verifyInterval(event, ini, end):
     nested = []
 
-    for e in manager.events:
+    for e in readJson("running_events.json"):
         timeEvent = e["tiempoReal"]
 
         if interception(timeEvent[0], timeEvent[1], ini, end):
@@ -146,7 +135,7 @@ def joinTime(event):
     if verifyInterval(event, default, default + time):
         return (default, default + time)
 
-    for e in manager.events:
+    for e in readJson("running_events.json"):
         tr = e["tiempoReal"]
         if verifyInterval(event, tr[1] + 60, tr[1] + 60  + time):
             return (tr[1] + 60, tr[1] + 60 + time)     
@@ -154,7 +143,7 @@ def joinTime(event):
     
 
 def mergeInformation(Date, Resources):
-    event = readJson("current_event.json")
+    event = readJson("current_event.json")[0]
 
     event["recursos"] = Resources
     event["tiempoReal"] = Date[0]
@@ -168,13 +157,11 @@ def mergeInformation(Date, Resources):
 
 def createEvent(event):
     if verifyInterval(event, event["tiempoReal"][0], event["tiempoReal"][1]):
-        manager.pushEvent(event)
         return (True, toDate(event["tiempoReal"][0]), toDate(event["tiempoReal"][1]))
     else:
         hole = joinTime(event)
         dateIni = toDate(hole[0])
         dateEnd = toDate(hole[1])
-        manager.pushEvent(event)
         event["tiempoReal"] = (hole[0], hole[1])
         return (False, dateIni, dateEnd)
     

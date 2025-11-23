@@ -187,6 +187,7 @@ class TimeInput(TextInput):
                 self.focus = False
                 minu.focus = True
         
+        
 Factory.register('Time', TimeInput)
 
 def getSize(widget, target):
@@ -331,7 +332,6 @@ class Backpack(StackLayout):
     def __init__(self):
         super().__init__()
 
-
 class ConfiEvent(BoxLayout):
     def __init__(self):
         super().__init__()
@@ -345,8 +345,8 @@ class Backbutton(ButtonBehavior, Image):
         super().__init__()
         self.source = "assets/backbutton.png"
         self.size_hint = (None, None)
-        self.size = (70, 70)
-        self.pos_hint = {'x': 0.06, 'top': 0.98}
+        self.width = 150
+        self.pos_hint = {'x': 0.02, 'top': 0.99}
         setup_hover(self, 1)
     
     hovered = False
@@ -384,9 +384,16 @@ class ListAdventures(ButtonBehavior, Image):
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
-            getPlaces()
-            print(Places)
+            apps = appList()
+            apps.events.scrollList.running.update()
 
+            screenParent = appList().screenParent
+            CurrentScreen.before = (CurrentScreen.screen, screenParent.current)
+            CurrentScreen.screen = 2
+            Window.set_system_cursor("arrow")
+            apps.mycon.layo.rlist.update("recursos_seleccionados.json")
+            screenParent.transition = SlideTransition(duration=0.5, direction="down")
+            screenParent.current = "events"
 
 class AdventureButton(ButtonBehavior, Image):
     def __init__(self):
@@ -422,12 +429,13 @@ class AdventureButton(ButtonBehavior, Image):
             else:
                 event = mergeInformation(dateValid, resourceValid)
                 response = createEvent(event)
+                rawEvent = readJson("current_event.json")
+
+                if len(rawEvent) == 1:
+                    addToJson("current_event.json", event)
 
                 if response[0]:
-                    title = "Aventura creada exitosamente!"
-                    body = " " + event["titulo"]
-                    pos = (WindowWidth - 400, 0)
-                    showMessage(Message, "Message", title, body, pos)
+                    manageAdventure(True)
                 else:
                     title = "Su aventura no puede ser creada en la fecha especificada!"
                     body = "La cantidad de uno o varios de los recursos seleccionados excede lo disponible en el inventario. Desea buscar un intervalo de tiempo valido para su aventura?"
@@ -446,22 +454,26 @@ class AdventureButton(ButtonBehavior, Image):
 
 def manageAdventure(response):
     main = appList().mycon
-
+    
     if response:
-        event = readJson("current_event.json")
+        event = readJson("current_event.json")[0]
         title = "Aventura creada exitosamente!"
         body = " " + event["titulo"]
         pos = (WindowWidth - 400, 0)
         showMessage(Message, "Message", title, body, pos)
-    else: 
-        pass    
+        current = readJson("current_event.json")[1]
+        current["eventID"] = current["id"]
+        current["id"] = dt.datetime.now().timestamp()
+        addToJson("running_events.json", current)
 
-    main.remove_widget(main.hole)
-    Disable.value = False
-    for child in main.children:
-        child.opacity += 0.6
-    join_child(main, "ScrollEventInfo")
-    finded.ans.do_scroll = True
+    if main.hole != None:
+        main.remove_widget(main.hole)
+        Disable.value = False
+        for child in main.children:
+            child.opacity += 0.6
+        join_child(main, "ScrollEventInfo")
+        finded.ans.do_scroll = True
+        main.hole = None
 
 class Success:
     value = 0

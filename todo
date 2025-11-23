@@ -1,4 +1,5 @@
 #error de EventInfo con el currentMonth del calendario(puede ser que el acceso al finded se este haciendo despues de que acabe la busqueda)
+#nota: el error da al pulsar dos dias al mismo tiempo
 '''
 vy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
    File "/media/sergio22/data1/Programming/Python/Kivy/kivy_venv/lib/python3.13/site-packages/kivy/uix/widget.py", line 589, in on_touch_down
@@ -13,3 +14,7 @@ vy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
 '''
 #ortografia de todos los textos
 #hacer clase hoverable que herede el setup hover y el parametro hoverd
+#punto rojo de kivy al tocarr
+#optimizar la forma de cargar los eventos de tal forma que no sea borrar todos, leer y anadir en events.py
+#crear funcion de clean para borrar los hijos
+#funcion de screenmanager para hacer las transiciones

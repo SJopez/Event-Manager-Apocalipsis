@@ -1,13 +1,13 @@
 <ConfiEvent@BoxLayout>:
     canvas.after:
         Color:
-            rgba: 0.05, 0.05, 0.1, 1
+            rgba: 0.8, 0.8, 0.8, 0.8
         Line:
-            rectangle: (self.x, self.y, self.width, self.height)
-            width: 4    
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.5
         Line:
             rectangle: (self.x + 500, self.y, 0, self.height)
-            width: 4
+            width: 1
     
     size_hint: (None, None)
     size: (850, 500)
@@ -22,10 +22,11 @@
 
     canvas.before:
         Color:
-            rgba: 0.1, 0.1, 0.15, 1
-        Rectangle:
+            rgba: (0.07, 0.07, 0.07, 0.95)
+        RoundedRectangle:
             pos: self.pos
             size: self.size
+            radius: [12, 0, 0, 12]
     Label: 
         index: 0
         text: 'Configura tu aventura!'
@@ -38,15 +39,16 @@
         pos_hint: {'center_x': 0.5, 'center_y': 0}
         canvas.before:
             Color:
-                rgba: 0, 0, 0, 1   
+                rgba: 0.8, 0.8, 0.8, 0.8
             Rectangle:
-                pos: root.x, self.y - 4
-                size: root.width, 4
+                pos: root.x, self.y - 5
+                size: root.width, 2
             Color:
-                rgba: 0.05, 0.05, 0.1, 1
-            Rectangle:
+                rgba: (0.1, 0.1, 0.1, 1)
+            RoundedRectangle:
                 pos: root.x, self.y
                 size: root.width, self.height
+                radius: [12, 0, 0, 0]
         
 <SelectorCaller>:
     size_hint: None, None
@@ -55,7 +57,7 @@
     
     canvas.before:
         Color:
-            rgba: 0.15, 0.15, 0.2, 1
+            rgba: (0.18, 0.18, 0.18, 0.85)
         RoundedRectangle:
             pos: self.pos
             size: self.size
@@ -84,7 +86,7 @@
     height: 40
     canvas.before:
         Color:
-            rgba: 0.15, 0.15, 0.2, 1
+            rgba: (0.18, 0.18, 0.18, 1)
         Rectangle:
             pos: self.pos
             size: self.size
@@ -218,6 +220,7 @@
         index: 0
         size_hint: None, None
         width: root.width
+        
     AddNeedButton:
         index: 0
         size_hint: None, None
@@ -384,25 +387,24 @@
     padding: 10, 20, 10, 0
     width: 390
 
-    canvas.before:
-        Color:
-            rgba: 0.15, 0.15, 0.2, 0.7
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-            radius: [12, 12, 0, 0]
-
     canvas.after:
         Color:
-            rgba: 0.5, 0.5, 0.8, 0.8
+            rgba: 0.8, 0.8, 0.8, 0.8
         Line:
             points: (self.x, self.top, self.x + self.width, self.top)
             width: 3
-
+<BackButton>
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            rounded_rectangle: (self.x, self.y + 20, self.width, 60, 5)
+            width: 1
+            
 <TimeInput>:
     canvas.after:
         Color:
-            rgba: 0.5, 0.5, 0.8, 0.8
+            rgba: (0.07, 0.07, 0.07, 0.95)
         Line:
             rounded_rectangle: (self.x, self.y, self.width, self.height, 5)
             width: 2

@@ -15,6 +15,11 @@ class Disable:
 
 class CurrentScreen:
     screen = 0
+    before = 0
+
+def deleteAll(parent):
+    for child in parent.children:
+        deleteChild(parent, child)
 
 def getPlaces():
     events = readJson("eventos.json")
@@ -36,6 +41,11 @@ def readJson(src):
 def writeJson(src, value):
     with open(src, 'w') as file:
         json.dump(value, file, indent=4)
+
+def addToJson(src, value):
+    data = readJson(src)
+    data.append(value)
+    writeJson(src, data)
 
 def get_all():
     with open("recursos.json") as file:
@@ -64,12 +74,11 @@ def join_child(child, joined):
 def deleteChild(parent, child):
     parent.remove_widget(child)
 
-def on_hover(widget, pos, opacity, flag):
-    if flag != CurrentScreen.screen or Disable.value:
+def on_hover(widget, pos, opacity, screen, src, default, cursor):
+    if screen != CurrentScreen.screen or Disable.value:
         return
     
     element = appList().mycon.children[0]
-    calendar = element if element.__class__.__name__ == "TotalCalendar" else False
 
     if hasattr(widget, "selected") and widget.selected:
         opacity = 1
@@ -77,15 +86,23 @@ def on_hover(widget, pos, opacity, flag):
     if widget.collide_point(*pos):
         widget.hovered = True
         widget.opacity = opacity
-        Window.set_system_cursor('hand')
+        if cursor == None: Window.set_system_cursor('hand')
+        else: Window.set_system_cursor(cursor)
+
+        if src != None:
+            widget.source = src
+        
 
     elif not widget.collide_point(*pos) and widget.hovered:
         widget.hovered = False
         widget.opacity = 1
         Window.set_system_cursor('arrow')
 
-def setup_hover(widget, flag, opacity=0.9):
-    l = lambda win, pos: on_hover(widget, pos, opacity, flag)
+        if src != None:
+            widget.source = default
+
+def setup_hover(widget, flag, opacity=0.9, src=None, default=None, cursor=None):
+    l = lambda win, pos: on_hover(widget, pos, opacity, flag, src, default, cursor)
 
     Window.bind(mouse_pos=l)
 
