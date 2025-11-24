@@ -125,24 +125,26 @@ class Message(Error):
         self.title_size = 22
 
 class ButtonSet(BoxLayout):
-    def __init__(self):
+    def __init__(self, info, realTime):
         super().__init__()
         self.add_widget(DeniedJoinHole())
-        self.add_widget(AceptJoinHole())
+        self.add_widget(AceptJoinHole(info, realTime))
 
 def getConfig():
     from configuracion import manageAdventure
     return manageAdventure
 
 class AceptJoinHole(Button):
-    def __init__(self):
+    def __init__(self, info, realTime):
         super().__init__()
         self.text = "Hazlo!"
+        self.info = info
+        self.realTime = realTime
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             manageAdventure = getConfig()
-            manageAdventure(True)
+            manageAdventure(True, self.info, self.realTime)
 
 class DeniedJoinHole(Button):
     def __init__(self):
@@ -152,7 +154,7 @@ class DeniedJoinHole(Button):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             manageAdventure = getConfig()
-            manageAdventure(False)
+            manageAdventure(False, None)
 
 
 class TitleHole(Label):
@@ -165,10 +167,10 @@ class BodyHole(Label):
             
 
 class JoinHole(BoxLayout):
-    def __init__(self, title, body):
+    def __init__(self, title, body, info, realTime):
         super().__init__()
         self.add_widget(TitleHole(title))
         self.add_widget(BodyHole(body))
-        self.add_widget(ButtonSet())
+        self.add_widget(ButtonSet(info, realTime))
 
 Factory.register('Error', Error)

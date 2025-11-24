@@ -84,12 +84,6 @@
 <Event>:
     size_hint_y: None
     height: 40
-    canvas.before:
-        Color:
-            rgba: (0.18, 0.18, 0.18, 1)
-        Rectangle:
-            pos: self.pos
-            size: self.size
 
     canvas.after:
         Color:
@@ -97,6 +91,14 @@
         Line:
             points: [self.x, self.y, self.x + self.width, self.y]
             width: 1  
+    canvas.before:
+        Color:
+            rgba: self.bg_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    
 
     Label:
         font_size: 20
@@ -217,6 +219,7 @@
         index: 0
     NeedResources:
         id: need
+        spacing: 4
         index: 0
         size_hint: None, None
         width: root.width

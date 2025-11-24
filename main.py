@@ -232,8 +232,7 @@ class ButtonAdvance(ButtonBehavior, Image):
         Window.set_system_cursor('arrow')
         screenParent.current = "config"
         screenParent.transition = SlideTransition(duration=0.5, direction="right")
-       
-
+    
 class ScreenChild(Screen):
     def __init__(self, nombre, contenido):
         super().__init__()

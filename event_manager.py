@@ -140,8 +140,6 @@ def joinTime(event):
         if verifyInterval(event, tr[1] + 60, tr[1] + 60  + time):
             return (tr[1] + 60, tr[1] + 60 + time)     
 
-    
-
 def mergeInformation(Date, Resources):
     event = readJson("current_event.json")[0]
 
@@ -154,7 +152,6 @@ def mergeInformation(Date, Resources):
     
     return event    
 
-
 def createEvent(event):
     if verifyInterval(event, event["tiempoReal"][0], event["tiempoReal"][1]):
         return (True, toDate(event["tiempoReal"][0]), toDate(event["tiempoReal"][1]))
@@ -163,5 +160,5 @@ def createEvent(event):
         dateIni = toDate(hole[0])
         dateEnd = toDate(hole[1])
         event["tiempoReal"] = (hole[0], hole[1])
-        return (False, dateIni, dateEnd)
+        return (False, (dateIni, dateEnd), (hole[0], hole[1]))
     

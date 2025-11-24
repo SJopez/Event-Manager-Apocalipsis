@@ -45,8 +45,11 @@ class Event(FloatLayout):
         super().__init__()
         self.index = index
         self.selector = selector
+        self.hover = setup_hover(self, 1, 1, scroll=True, dropdown=self)
 
     title = StringProperty("")
+    bg_color = ListProperty([0.18, 0.18, 0.18, 1])
+    hovered = False
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and not Disable.value:
@@ -94,7 +97,6 @@ def configShowAnimation(parent, pos):
         showAnimation(command, 0)
         command.status = False     
 
-
 class SelectorCaller(FloatLayout):
     def __init__(self):
         super().__init__()
@@ -127,11 +129,13 @@ class SelectorCaller(FloatLayout):
 
     def change_icon(self, *args):
         self.icon = "assets/minus.png"
+        Utils.isDismiss = True
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and not Disable.value:
             self.selector.open(self)
             self.icon = "assets/plus.png"
+            Utils.isDismiss = False
 
 class NeedResources(StackLayout):
     def __init__(self, **kwargs):
@@ -143,6 +147,9 @@ Factory.register('NeedResources', cls=NeedResources)
 class DateIniButton(Button):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        setup_hover(self, 1, scroll=True)
+
+    hovered = False
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar") and not Disable.value:
@@ -154,6 +161,9 @@ Factory.register('DateIniButton', DateIniButton)
 class DateEndButton(Button):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        setup_hover(self, 1, scroll=True)
+    
+    hovered = False
         
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and (appList().mycon.children[0].__class__.__name__ != "TotalCalendar") and not Disable.value:
@@ -165,7 +175,6 @@ class Date(Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.text = "None"
-        
 
 Factory.register('Date', Date)
 
@@ -173,6 +182,9 @@ class TimeInput(TextInput):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.background_color = (1, 1, 1, 0.9)
+        setup_hover(self, 1, cursor="ibeam", scroll=True)
+    
+    hovered = False
 
     def keyboard_on_textinput(self, window, text):
         try:
@@ -187,7 +199,7 @@ class TimeInput(TextInput):
                 self.focus = False
                 minu.focus = True
         
-        
+
 Factory.register('Time', TimeInput)
 
 def getSize(widget, target):
@@ -202,6 +214,9 @@ def getSize(widget, target):
 class AddNeedButton(Button):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        setup_hover(self, 1, scroll=True)
+    
+    hovered = False
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos) and not Disable.value:
@@ -252,14 +267,6 @@ class EventInfo(BoxLayout):
     danger_color = ListProperty([0, 0, 0, 0])
     place = StringProperty("")
 
-
-    dg_colors = {
-        1: [0.18,0.80,0.44,1], 
-        2: [0.60,0.88,0.60,1],  
-        3: [1.00,0.82,0.40,1],  
-        4: [1.00,0.48,0.27,1],  
-        5: [0.90,0.30,0.20,1]  
-    }
     danger_words = {
         1: "Pan comido",
         2: "Vigila tus espaldas",
@@ -298,8 +305,8 @@ class EventInfo(BoxLayout):
                 self.type += "• 🏕️ Supervivencia \n"
 
         dg = e["peligro"]
-        self.danger = "-" + self.danger_words[dg] + "-"
-        self.danger_color = self.dg_colors[dg]
+        self.danger = "-" + danger_words[dg] + "-"
+        self.danger_color = dg_colors[dg]
         self.place = "• " + e["ubicacion"]
         self.height = 500 + self.need.height + HeightDescription[e["id"]] + 75
 
@@ -308,7 +315,6 @@ class EventInfo(BoxLayout):
 
     def updateEnd(self, value):
         self.dateEnd.text = value
-
 
 class ScrollEventInfo(ScrollView):
     def __init__(self):
@@ -386,6 +392,7 @@ class ListAdventures(ButtonBehavior, Image):
         if self.collide_point(*touch.pos):
             apps = appList()
             apps.events.scrollList.running.update()
+            writeJson("recursos_seleccionados_event.json", [])
 
             screenParent = appList().screenParent
             CurrentScreen.before = (CurrentScreen.screen, screenParent.current)
@@ -435,7 +442,7 @@ class AdventureButton(ButtonBehavior, Image):
                     addToJson("current_event.json", event)
 
                 if response[0]:
-                    manageAdventure(True)
+                    manageAdventure(True, None, None)
                 else:
                     title = "Su aventura no puede ser creada en la fecha especificada!"
                     body = "La cantidad de uno o varios de los recursos seleccionados excede lo disponible en el inventario. Desea buscar un intervalo de tiempo valido para su aventura?"
@@ -449,22 +456,38 @@ class AdventureButton(ButtonBehavior, Image):
                     join_child(main, "ScrollEventInfo")
                     finded.ans.do_scroll = False
 
-                    main.hole = JoinHole(title, body)
+                    main.hole = JoinHole(title, body, response[1], response[2])
                     main.add_widget(main.hole)
 
-def manageAdventure(response):
+def addToEventList(event):
+    running = appList().events.scrollList.running
+    
+    from events import RunningEvent
+
+    running.add_widget(RunningEvent(event))
+
+def manageAdventure(response, info, realTime):
     main = appList().mycon
     
     if response:
+        current = readJson("current_event.json")[1]
+        
+        if info != None:
+            current["fechaInicio"] = [str(info[0].day), str(info[0].month), str(info[0].year)]
+            current["fechaFin"] = [str(info[1].day), str(info[1].month), str(info[1].year)]
+            current["tiempoInicio"] = [info[0].hour - 5, info[0].minute]
+            current["tiempoFin"] = [info[1].hour - 5, info[1].minute]
+            current["tiempoReal"] = [*realTime]
+
         event = readJson("current_event.json")[0]
         title = "Aventura creada exitosamente!"
         body = " " + event["titulo"]
         pos = (WindowWidth - 400, 0)
         showMessage(Message, "Message", title, body, pos)
-        current = readJson("current_event.json")[1]
         current["eventID"] = current["id"]
         current["id"] = dt.datetime.now().timestamp()
         addToJson("running_events.json", current)
+        addToEventList(current)
 
     if main.hole != None:
         main.remove_widget(main.hole)

@@ -6,9 +6,24 @@ from kivy.uix.widget import Widget
 Places = []
 HeightDescription = [0, 108, 130, 108, 86, 130, 108, 108, 86, 86, 130, 108, 130, 108, 130, 108]
 WindowWidth, WindowHeight = 1280, 768
+danger_words = {
+    1: "Pan comido",
+    2: "Vigila tus espaldas",
+    3: "Huele a peligro",
+    4: "Sal corriendo",
+    5: "Muerte segura"
+}
+dg_colors = {
+    1: [0.18,0.80,0.44,1], 
+    2: [0.60,0.88,0.60,1],  
+    3: [1.00,0.82,0.40,1],  
+    4: [1.00,0.48,0.27,1],  
+    5: [0.90,0.30,0.20,1]  
+}
 
 class Utils:
     isSelected = False
+    isDismiss = True
 
 class Disable:
     value = False
@@ -18,8 +33,8 @@ class CurrentScreen:
     before = 0
 
 def deleteAll(parent):
-    for child in parent.children:
-        deleteChild(parent, child)
+    while len(parent.children):
+        parent.remove_widget(parent.children[0])
 
 def getPlaces():
     events = readJson("eventos.json")
@@ -74,24 +89,31 @@ def join_child(child, joined):
 def deleteChild(parent, child):
     parent.remove_widget(child)
 
-def on_hover(widget, pos, opacity, screen, src, default, cursor):
+def on_hover(widget, pos, opacity, screen, src, default, cursor, scroll, dropdown):
     if screen != CurrentScreen.screen or Disable.value:
         return
-    
+    if dropdown != None and Utils.isDismiss:
+        return
+
     element = appList().mycon.children[0]
 
     if hasattr(widget, "selected") and widget.selected:
         opacity = 1
     
+    pos = widget.to_widget(*pos) if scroll else pos
+
     if widget.collide_point(*pos):
         widget.hovered = True
         widget.opacity = opacity
-        if cursor == None: Window.set_system_cursor('hand')
-        else: Window.set_system_cursor(cursor)
-
-        if src != None:
-            widget.source = src
         
+        if cursor == None: 
+            Window.set_system_cursor('hand')
+        else: 
+            Window.set_system_cursor(cursor)
+        if src != None: 
+            widget.source = src
+        if dropdown != None:
+            widget.bg_color = [0.2, 0.2, 0.2, 1]
 
     elif not widget.collide_point(*pos) and widget.hovered:
         widget.hovered = False
@@ -100,12 +122,13 @@ def on_hover(widget, pos, opacity, screen, src, default, cursor):
 
         if src != None:
             widget.source = default
+        if dropdown != None:
+            widget.bg_color = [0.18, 0.18, 0.18, 1]
 
-def setup_hover(widget, flag, opacity=0.9, src=None, default=None, cursor=None):
-    l = lambda win, pos: on_hover(widget, pos, opacity, flag, src, default, cursor)
+def setup_hover(widget, flag, opacity=0.9, src=None, default=None, cursor=None, scroll=False, dropdown=None):
+    l = lambda win, pos: on_hover(widget, pos, opacity, flag, src, default, cursor, scroll, dropdown)
 
     Window.bind(mouse_pos=l)
 
     return l
     
-getPlaces()
