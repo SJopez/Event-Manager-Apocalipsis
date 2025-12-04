@@ -7,34 +7,27 @@
 
 <Day>:
     font_size: 24
-    canvas.after:
-        Color:
-            rgba: 1, 1, 1, 1
-        Line:
-            rectangle: (self.x, self.y, self.width, self.height)
-            width: 1
-
-    color: 1, 1, 1, 1
+    color: 0.8, 0.8, 0.8, 1
     size_hint: None, None
     size: (50, 50)
 
 <ButtonContainer>:
     size_hint: None, None
-    size: (200, 50)
-    pos_hint: {'center_x': .5, 'y': 0}
+    size: (360, 50)
+    padding: 5, 10, 5, 0
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            points: (self.x, self.y + 50, self.x + self.width, self.y + 50)
+            width: 1
 
 <AdvanceMonth>:
-    text: "Siguiente"
     size_hint: None, None
-    size: (100, 40)
-    pos: (200, 200)
 
 <PreviousMonth>:
-    text: "Anterior"
     size_hint: None, None
-    size: (100, 40)
-    pos: (200, 200)
-
+  
 <TotalCalendar>:
     orientation: "vertical"
     canvas.before:
@@ -45,10 +38,11 @@
             size: self.size
     canvas.after:
         Color:
-            rgba: 0.05, 0.05, 0.1, 1
+            rgba: 0.8, 0.8, 0.8, 0.8
         Line:
-            rectangle: (self.x, self.y, self.width, self.height)
-            width: 2
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
+            width: 1.2
+        
         
     size_hint: None, None
     size: 360, 380
@@ -63,8 +57,14 @@
         Rectangle:
             pos: self.pos
             size: self.size
+    canvas.after:
+        Color:
+            rgba: 0.8, 0.8, 0.8, 0.8
+        Line:
+            points: (self.x, self.y, self.x + self.width, self.y)
+            width: 1
 
-    size: (350, 68)
+    size: (360, 78)
     orientation: "vertical"
     padding: 8
     index: 0

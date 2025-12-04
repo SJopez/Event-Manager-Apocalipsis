@@ -65,7 +65,7 @@ class Selector(DropDown):
         self.caller = caller
         self.evinfo = evinfo
         
-        for i in range(15):
+        for i in range(18):
             e = Event(i, self)
             e.title = Manage.get_one(i)["titulo"]
             self.add_widget(e)
@@ -353,7 +353,7 @@ class Backbutton(ButtonBehavior, Image):
         self.size_hint = (None, None)
         self.width = 150
         self.pos_hint = {'x': 0.02, 'top': 0.99}
-        setup_hover(self, 1)
+        self.hover = setup_hover(self, 1)
     
     hovered = False
 
@@ -421,7 +421,7 @@ class AdventureButton(ButtonBehavior, Image):
             timeEnd = (eventInfo.timeEnd[0].text, eventInfo.timeEnd[1].text)
             dateValid = validDate(dateIni, dateEnd, timeIni, timeEnd)
             resourceValid = validResources()
-           
+            
             if type(dateValid) != tuple or type(resourceValid) != list:
                 title, body = "No es posible crear la aventura!", ""
 
@@ -440,6 +440,10 @@ class AdventureButton(ButtonBehavior, Image):
 
                 if len(rawEvent) == 1:
                     addToJson("current_event.json", event)
+                else:
+                    rawEvent.pop()
+                    rawEvent.append(event)
+                    writeJson("current_event.json", rawEvent)
 
                 if response[0]:
                     manageAdventure(True, None, None)
@@ -507,8 +511,8 @@ def manageAdventure(response, info, realTime):
 class Success:
     value = 0
 
-def showMessage(classMessage, name, title, body, position):
-    mainConfig = appList().mycon
+def showMessage(classMessage, name, title, body, position, alter=None):
+    mainConfig = appList().mycon if alter == None else alter
 
     if mainConfig.children[0].__class__.__name__ == name and name != "Message":
         deleteChild(mainConfig, mainConfig.children[0])

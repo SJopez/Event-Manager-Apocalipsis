@@ -16,7 +16,7 @@ from kivy.core.window import Window
 from kivy.properties import BooleanProperty
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import Screen, ScreenManager, SlideTransition
-from configuracion import MainConfig, Show, showAnimation, CommandAdventure, FloatContainer, ListAdventures
+from configuracion import MainConfig, Backbutton, Show, showAnimation, CommandAdventure, FloatContainer, ListAdventures
 import json
 from kivy.lang import Builder
 from kivy.clock import Clock
@@ -24,6 +24,7 @@ from confi_info_class import ResourceInfoLayoutP, ResourcesLayoutP, ResourceP
 from utilities import *
 from calendar_widget import TotalCalendar
 from events import MainEventContainter
+from face import Container
 
 """
 imagen del jugador
@@ -191,11 +192,13 @@ class ResourceMenu(FloatLayout):
         super().__init__()
         self.background = Image(source="assets/background_main.png")
         self.add_widget(self.background)
+        self.add_widget(BackButtonMain())
         self.add_widget(ConfigEvent())
         self.rInfo = ResourceInfoLayout()
         self.add_widget(self.rInfo)
         self.command = FloatContainer(CommandADventureMain())
         self.add_widget(self.command)
+        
 
 class CommandADventureMain(CommandAdventure):
     def __init__(self):
@@ -209,6 +212,21 @@ class ListAdventuresMain(ListAdventures):
     def __init__(self):
         super().__init__()
         setup_hover(self, 0)
+
+class BackButtonMain(Backbutton):
+    def __init__(self):
+        super().__init__()
+        Window.unbind(mouse_pos=self.hover)
+        setup_hover(self, 0)
+        
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos) and not Disable.value:
+            CurrentScreen.screen = 3
+            screenParent = appList().screenParent
+            screenParent.transition = SlideTransition(duration=0.5, direction="right")
+            screenParent.current = "menu"
+            screenParent.transition = SlideTransition(duration=0.5, direction="left")
+
 
 class ButtonAdvance(ButtonBehavior, Image):
     def __init__(self):
@@ -230,6 +248,7 @@ class ButtonAdvance(ButtonBehavior, Image):
         screenParent = appList().screenParent
         appList().mycon.layo.rlist.update("recursos_seleccionados.json")
         Window.set_system_cursor('arrow')
+        screenParent.transition = SlideTransition(duration=0.5, direction="left")
         screenParent.current = "config"
         screenParent.transition = SlideTransition(duration=0.5, direction="right")
     
@@ -242,6 +261,7 @@ class ScreenChild(Screen):
 class ScreenParent(ScreenManager):
     def __init__(self):
         super().__init__()
+        self.add_widget(ScreenChild("menu", appList().mainMenu))
         self.add_widget(ScreenChild("main", appList().menu))
         self.add_widget(ScreenChild("config", appList().mycon))
         self.add_widget(ScreenChild("events", appList().events))
@@ -251,7 +271,8 @@ class ScreenParent(ScreenManager):
 cuerpo de la aplicacion
 """
 class Main(App):
-    def build(self):        
+    def build(self):
+        self.mainMenu = Container()        
         self.mycon = MainConfig()
         self.menu = ResourceMenu()
         self.events = MainEventContainter()
@@ -261,7 +282,6 @@ class Main(App):
 def cleanJSON(*args):
     writeJson("recursos_seleccionados.json", [])
     writeJson("recursos_seleccionados_event.json", [])
-    writeJson("running_events.json", [])
 
 Window.bind(on_request_close=cleanJSON)
 Builder.load_file("calendar_widget.kv")    

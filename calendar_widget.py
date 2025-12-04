@@ -30,9 +30,12 @@ def getCalendar():
     join_child(appList().mycon, "TotalCalendar")
     return finded.ans
 
-class AdvanceMonth(Button):
+class AdvanceMonth(ButtonBehavior, Image):
     def __init__(self):
         super().__init__()
+        self.source = "assets/right.png"
+        self.size_hint: None
+        self.size = (40, 40)
         self.hover = setup_hover(self, 1)
 
     hovered = False
@@ -41,9 +44,12 @@ class AdvanceMonth(Button):
         if self.collide_point(*touch.pos) and not Disable.value:
             getCalendar().update(1)
 
-class PreviousMonth(Button):
+class PreviousMonth(ButtonBehavior, Image):
     def __init__(self, flag):
         super().__init__()
+        self.source = "assets/left.png"
+        self.size_hint: None
+        self.size = (40, 40)
         self.hover = setup_hover(self, 1) if not flag else None
 
     hovered = False
@@ -99,6 +105,7 @@ class ButtonContainer(BoxLayout):
         self.previous.opacity = 0 if flag else 1
         self.advance = AdvanceMonth()
         self.add_widget(self.previous)
+        self.add_widget(Label())
         self.add_widget(self.advance)
 
 class TotalCalendar(BoxLayout):
@@ -113,6 +120,7 @@ class TotalCalendar(BoxLayout):
         self.add_widget(self.info)
         self.add_widget(self.calendar)
         self.add_widget(self.buttons)
+        self.add_widget(Label())
 
     def update(self, type):
         if type and self.currentYear == 2222:
@@ -146,4 +154,3 @@ class TotalCalendar(BoxLayout):
         self.remove_widget(self.buttons)
         self.buttons = ButtonContainer(flag)
         self.add_widget(self.buttons)
-

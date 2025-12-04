@@ -114,8 +114,6 @@ def createGraph():
     ax.spines["bottom"].set_color("white")
     plt.xlim(0, 10)
     plt.ylim(0, 7)
-    plt.title("Gráfico de Aventuras")
-    plt.title = ""
     plt.xlabel("Fecha→",fontsize=20, fontweight='bold', color="white", loc='right')
     plt.ylabel("Aventuras→",fontsize=20, fontweight='bold', color="white", loc='top')
 

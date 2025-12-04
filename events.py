@@ -24,6 +24,7 @@ from configuracion import ConfiEvent
 import datetime as dt
 from kivy.animation import Animation
 from plot import createGraph, plt
+from event_manager import *
 
 class OpenEvent(ButtonBehavior, Image):
     def __init__(self, **kwargs):
@@ -102,6 +103,7 @@ class ShowEventWIndow(BoxLayout):
 
         for r in event["recursos"]:
             resource = Resource(r[0], True, False)
+            resource.cuantity.text = str(r[1])
             resource.my_color = [0.5, 0.5, 0.5, 1]
             resource.icon.size = (50, 50)
             resource.on_move = None
@@ -194,8 +196,8 @@ def sortEvents(parent):
         event = RunningEvent(e)
         parent.add_widget(event)
 
-def resizeList(parent):
-    childCount = len(readJson("running_events.json"))
+def resizeList(parent, value=None):
+    childCount = len(readJson("running_events.json")) if value == None else value
     childCount += 4 if childCount % 4 != 0 else 0
     childCount -= (childCount % 4)
     parent.height = (childCount / 4) * 460 + (childCount / 4) * 20 + 170
@@ -226,6 +228,8 @@ class JoinEvent(TextInput):
                 
                 self.delete = toDelete
 
+            resizeList(running, len(running.children))
+
     def keyboard_on_textinput(self, window, text):
         if len(self.text) == 24 or Disable.value: return
 
@@ -246,6 +250,8 @@ class JoinEvent(TextInput):
 
         for child in self.delete:
             deleteChild(running, child)
+        
+        resizeList(running, len(running.children))
 
 class RunningEvent(BoxLayout):
     def __init__(self, event):
@@ -277,8 +283,33 @@ class RunningEventList(StackLayout):
     def __init__(self):
         super().__init__()
         self.vis = False
+        value = readJson("running_events.json")
+        self.update(True, value)
 
-    def update(self):
+    def update(self, load=False, value=None):
+        if load:
+            running = readJson("running_events.json")
+            writeJson("running_events.json", [])
+            
+            flag = True
+            for event in value:
+                if not flag:
+                    break
+                try:
+                    flag = createEvent(event)[0]
+                except:
+                    flag = False
+
+            if flag:
+               deleteAll(self)
+               writeJson("running_events.json", value)
+               for e in value:
+                   self.add_widget(RunningEvent(e))
+            else:
+                writeJson("running_events.json", running)
+                
+            return flag
+        
         resizeList(self)
  
 class Search(Image):

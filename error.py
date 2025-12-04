@@ -47,28 +47,52 @@ kv = '''
     spacing: 12
     canvas.before:
         Color:
-            rgba: (0.07, 0.07, 0.07, 0.95)
+            rgba: (0.07, 0.07, 0.07, 1)
         Rectangle:
             pos: self.pos
             size: self.size
-    canvas.after:
-        Color:
-            rgba: 0.8, 0.8, 0.8, 0.8
-        Line:
-            rectangle: (self.x, self.y, self.width, self.height)
-            width: 1
 
+           
 <AceptJoinButton>:
     size_hint: None, None
     size: (90, 35)
-    color: 1, 1, 1, 1
-    font_size: 22
+    font_size: 24
 
-<DeniedJoinButton>:
-    size_hint: None, None
-    size: (90, 35)
-    color: 1, 1, 1, 1
-    font_size: 22
+<AceptJoinHole>:
+    background_color: 0, 0, 0, 0
+    markup: True
+    text: "[b] Hazlo! [/b]"
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+    canvas.after:
+        Color:
+            rgba: 0.137, 0.525, 0.212, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+            width: 1.01
+    
+<DeniedJoinHole>:
+    background_color: 0, 0, 0, 0
+    markup: True
+    text: "[b] Cancelar [/b]"
+    canvas.before:
+        Color:
+            rgba: 0.12, 0.12, 0.12, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [12]
+    canvas.after:
+        Color:
+            rgba: 0.980, 0.169, 0.133, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+            width: 1.01 
 
 <ButtonSet>:
     size_hint: None, None
@@ -85,10 +109,10 @@ kv = '''
 
     canvas.after:
         Color:
-            rgba: 0.8, 0.8, 0.8, 0.8
+            rgba: 0.9, 0.9, 0.9, 0.9
         Line:
             points: (self.x + 4, self.y - 4, self.x + self.width - 24, self.y - 4)
-            width: 2
+            width: 1.5
     
 <BodyHole>:
     multiline: True
@@ -134,28 +158,47 @@ def getConfig():
     from configuracion import manageAdventure
     return manageAdventure
 
+def errorHover(widget, pos):
+    if Utils.errorHover:    
+        if widget.collide_point(*pos):
+            widget.hovered = True
+            widget.opacity = 0.9
+            Window.set_system_cursor('hand')
+
+        elif not widget.collide_point(*pos) and widget.hovered:
+            widget.hovered = False
+            widget.opacity = 1
+            Window.set_system_cursor('arrow')
+
 class AceptJoinHole(Button):
     def __init__(self, info, realTime):
         super().__init__()
-        self.text = "Hazlo!"
         self.info = info
         self.realTime = realTime
+        Utils.errorHover = True
+        Window.bind(mouse_pos=lambda win, pos: errorHover(self, pos))
+    
+    hovered = False
 
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
+            Utils.errorHover = False
+            
             manageAdventure = getConfig()
             manageAdventure(True, self.info, self.realTime)
 
 class DeniedJoinHole(Button):
     def __init__(self):
         super().__init__()
-        self.text = "Cancelar"
+        Window.bind(mouse_pos=lambda win, pos: errorHover(self, pos))
+    
+    hovered = False
     
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
+            Utils.errorHover = False
             manageAdventure = getConfig()
-            manageAdventure(False, None)
-
+            manageAdventure(False, None, None)
 
 class TitleHole(Label):
     def __init__(self, content):
@@ -165,7 +208,6 @@ class BodyHole(Label):
     def __init__(self, content):
         super().__init__(text=content)
             
-
 class JoinHole(BoxLayout):
     def __init__(self, title, body, info, realTime):
         super().__init__()

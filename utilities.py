@@ -4,7 +4,7 @@ import json
 from kivy.uix.widget import Widget
 
 Places = []
-HeightDescription = [0, 108, 130, 108, 86, 130, 108, 108, 86, 86, 130, 108, 130, 108, 130, 108]
+HeightDescription = [0, 108, 130, 108, 86, 130, 108, 108, 86, 86, 130, 108, 130, 108, 130, 108, 108, 108, 108]
 WindowWidth, WindowHeight = 1280, 768
 danger_words = {
     1: "Pan comido",
@@ -21,34 +21,13 @@ dg_colors = {
     5: [0.90,0.30,0.20,1]  
 }
 
-colors = ["#1A1B3A","#20214D","#262760","#2C2D73","#323386",
-          "#383999","#3E3FAC","#4445BF","#4A4BD2","#5051E5",
-          "#5A4FD9","#644CCF","#6E49C5","#7846BB","#8243B1"]
-
-colors = [
-    "#A3C4BC", "#D5E1DF", "#F2D7B6", "#C9BBCF", "#BFD8B8",
-    "#E6CFC7", "#C2D4DD", "#F6EAC2", "#D4A5A5", "#B4C6A6",
-    "#EAD9D1", "#C3CEDA", "#D7C8B4", "#B8B8D1", "#D0E1D4"
-]
 colors = [
     "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F",
     "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC",
-    "#6A9FB5", "#F4A259", "#D95F02", "#66A61E", "#E6AB02"
+    "#6A9FB5", "#F4A259", "#D95F02", "#66A61E", "#E6AB02",
+    "#8E6C8A", "#17BECF", "#BCBD22"
 ]
 
-
-
-class Utils:
-    isSelected = False
-    isDismiss = True
-    eventCounter = 1
-
-class Disable:
-    value = False
-
-class CurrentScreen:
-    screen = 0
-    before = 0
 
 def deleteAll(parent):
     while len(parent.children):
@@ -97,6 +76,22 @@ def get_active():
 class finded:
     ans = 0
 
+class Utils:
+    isSelected = False
+    isDismiss = True
+    eventCounter = 1
+    for e in readJson("running_events.json"):
+        eventCounter = max(eventCounter, e["eventNum"] + 1)
+    errorHover = False
+
+class Disable:
+    value = False
+
+class CurrentScreen:
+    screen = 3
+    before = 0
+
+
 def join_child(child, joined):
     if child.__class__.__name__ == joined:
         finded.ans = child
@@ -113,13 +108,11 @@ def on_hover(widget, pos, opacity, screen, src, default, cursor, scroll, dropdow
     if dropdown != None and Utils.isDismiss:
         return
 
-    element = appList().mycon.children[0]
-
     if hasattr(widget, "selected") and widget.selected:
         opacity = 1
     
     pos = widget.to_widget(*pos) if scroll else pos
-
+   
     if widget.collide_point(*pos):
         widget.hovered = True
         widget.opacity = opacity

@@ -15,12 +15,10 @@ vy/_event.pyx", line 731, in kivy._event.EventDispatcher.dispatch
 #ortografia de todos los textos
 #hacer clase hoverable que herede el setup hover y el parametro hoverd
 #punto rojo de kivy al tocarr
-#optimizar la forma de cargar los eventos de tal forma que no sea borrar todos, leer y anadir en events.py
-#crear funcion de clean para borrar los hijos
 #funcion de screenmanager para hacer las transiciones
-
-#para manana
-#hacer el bind de el dropdown de eventos
-#cambiar estilo de ventana de joinHole
 #funcion para disable
-#limites
+#limitar el tiempo maximo de un evento
+#revisar la jugada esa de que no se estan eliminando
+#optimizar el tema de verificar intervalo(se puede hacer con un solo for)
+#hacer que en vez de una lista de pares los recursos esten en un diccionario
+#quitar un poco de json y hacerlos listas, solo mantener los eventos
