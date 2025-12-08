@@ -1,119 +1,19 @@
 [
     {
-        "id": 1765053562.569944,
-        "titulo": "gracias por todo",
+        "id": 1765121715.846398,
+        "titulo": "adaed",
         "tipo": [
             "Defensa"
         ],
-        "descripcion": "Fidel",
+        "descripcion": "afr4fr4a",
         "peligro": 1,
         "ubicacion": "Interior del refugio",
         "necesita": [],
         "recurrente": true,
-        "recursos": [
-            [
-                2,
-                1
-            ],
-            [
-                1,
-                1
-            ]
-        ],
-        "tiempoReal": [
-            3376702800.0,
-            3376789200.0
-        ],
-        "fechaInicio": [
-            "1",
-            "1",
-            "2077"
-        ],
-        "fechaFin": [
-            "2",
-            "1",
-            "2077"
-        ],
-        "tiempoInicio": [
-            0,
-            0
-        ],
-        "tiempoFin": [
-            0,
-            0
-        ],
-        "imagen": "assets/event_running_images/example.png",
-        "eventNum": 1,
-        "eventID": -1
-    },
-    {
-        "id": 1765053562.729673,
-        "titulo": "gracias por todo",
-        "tipo": [
-            "Defensa"
-        ],
-        "descripcion": "Fidel",
-        "peligro": 1,
-        "ubicacion": "Interior del refugio",
-        "necesita": [],
-        "recurrente": true,
-        "recursos": [
-            [
-                2,
-                1
-            ],
-            [
-                1,
-                1
-            ]
-        ],
-        "tiempoReal": [
-            3376702800.0,
-            3376789200.0
-        ],
-        "fechaInicio": [
-            "1",
-            "1",
-            "2077"
-        ],
-        "fechaFin": [
-            "2",
-            "1",
-            "2077"
-        ],
-        "tiempoInicio": [
-            0,
-            0
-        ],
-        "tiempoFin": [
-            0,
-            0
-        ],
-        "imagen": "assets/event_running_images/example.png",
-        "eventNum": 2,
-        "eventID": -1
-    },
-    {
-        "id": 1765053562.865897,
-        "titulo": "gracias por todo",
-        "tipo": [
-            "Defensa"
-        ],
-        "descripcion": "Fidel",
-        "peligro": 1,
-        "ubicacion": "Interior del refugio",
-        "necesita": [],
-        "recurrente": true,
-        "recursos": [
-            [
-                2,
-                1
-            ],
-            [
-                1,
-                1
-            ]
-        ],
+        "recursos": {
+            "2": 1,
+            "1": 1
+        },
         "tiempoReal": [
             3376702800.0,
             3376789200.0
@@ -138,100 +38,6 @@
         ],
         "imagen": "assets/event_running_images/example.png",
         "eventNum": 3,
-        "eventID": -1
-    },
-    {
-        "id": 1765053563.090634,
-        "titulo": "gracias por todo",
-        "tipo": [
-            "Defensa"
-        ],
-        "descripcion": "Fidel",
-        "peligro": 1,
-        "ubicacion": "Interior del refugio",
-        "necesita": [],
-        "recurrente": true,
-        "recursos": [
-            [
-                2,
-                1
-            ],
-            [
-                1,
-                1
-            ]
-        ],
-        "tiempoReal": [
-            3376702800.0,
-            3376789200.0
-        ],
-        "fechaInicio": [
-            "1",
-            "1",
-            "2077"
-        ],
-        "fechaFin": [
-            "2",
-            "1",
-            "2077"
-        ],
-        "tiempoInicio": [
-            0,
-            0
-        ],
-        "tiempoFin": [
-            0,
-            0
-        ],
-        "imagen": "assets/event_running_images/example.png",
-        "eventNum": 4,
-        "eventID": -1
-    },
-    {
-        "id": 1765053565.015099,
-        "titulo": "gracias por todo",
-        "tipo": [
-            "Defensa"
-        ],
-        "descripcion": "Fidel",
-        "peligro": 1,
-        "ubicacion": "Interior del refugio",
-        "necesita": [],
-        "recurrente": true,
-        "recursos": [
-            [
-                2,
-                1
-            ],
-            [
-                1,
-                1
-            ]
-        ],
-        "tiempoReal": [
-            3376789260.0,
-            3376875660.0
-        ],
-        "fechaInicio": [
-            "2",
-            "1",
-            "2077"
-        ],
-        "fechaFin": [
-            "3",
-            "1",
-            "2077"
-        ],
-        "tiempoInicio": [
-            0,
-            1
-        ],
-        "tiempoFin": [
-            0,
-            1
-        ],
-        "imagen": "assets/event_running_images/example.png",
-        "eventNum": 5,
         "eventID": -1
     }
 ]
