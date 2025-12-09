@@ -12,11 +12,11 @@
   },
   {
     "id": 2,
-    "titulo": "Expedición al bunker abandonado",
+    "titulo": "Expedición al búnker abandonado",
     "tipo": ["Defensa"],
-    "descripcion": "De las profundidades del bunker abandonado surgen oleadas de infectados todos los días; ir allí y eliminar un poco de \"población\" disminuiría la probabilidad de un ataque masivo al refugio. Solo recuerda ir bien armado y con un compañero.",
+    "descripcion": "De las profundidades del búnker abandonado surgen oleadas de infectados todos los días; ir allí y eliminar un poco de \"población\" disminuiría la probabilidad de un ataque masivo al refugio. Solo recuerda ir bien armado y con un compañero.",
     "peligro": 4,
-    "ubicacion": "Bunker militar del sur",
+    "ubicacion": "Búnker militar del sur",
     "necesita": [3, 4, 5, 6, 18, 19, 20],
     "recurrente": false
   },
@@ -42,7 +42,7 @@
   },
   {
     "id": 5,
-    "titulo": "Vuelvete tramposo!",
+    "titulo": "¡Vuélvete tramposo!",
     "tipo": ["Refugio"],
     "descripcion": "Desde hoyos con púas hasta cuerdas decapitadoras, todo en este juego de la supervivencia vale. Amplía las trampas en tu refugio para aumentar tus probabilidades de supervivencia en caso de una invasión.",
     "peligro": 1,
@@ -52,11 +52,11 @@
   },
   {
     "id": 6,
-    "titulo": "Podar el jardin",
+    "titulo": "Podar el jardín",
     "tipo": ["Refugio", "Defensa"],
     "descripcion": "Las tareas dentro del refugio suelen ser bastante tranquilas, pero de vez en cuando uno que otro infectado rompe la cerca electrificada y es necesario ir a despejar todo el perímetro del patio exterior.",
     "peligro": 3,
-    "ubicacion": "Perimetro del refugio",
+    "ubicacion": "Perímetro del refugio",
     "necesita": [3, 4, 7, 8, 9, 10, 15, 16],
     "recurrente": false
   },
@@ -66,7 +66,7 @@
     "tipo": ["Refugio"],
     "descripcion": "Las torres de iluminación a menudo presentan problemas técnicos; sube ahí arriba y dales mantenimiento. Los infectados no podrán llegar hasta ti pero tarde o temprano tendrás que bajar.",
     "peligro": 2,
-    "ubicacion": "Torres de iluminacion K3",
+    "ubicacion": "Torres de iluminación K3",
     "necesita": [9, 10, 11, 12],
     "recurrente": false
   },
@@ -86,7 +86,7 @@
     "tipo": ["Refugio"],
     "descripcion": "De nada sirve unas puertas sólidas si el agua que bebes está podrida. Cambia los filtros de H2O cada cierto tiempo y no tendrás infectados en tu refugio.",
     "peligro": 1,
-    "ubicacion": "Modulo de purificacion",
+    "ubicacion": "Módulo de purificación",
     "necesita": [11, 12],
     "recurrente": false
   },
@@ -96,7 +96,7 @@
     "tipo": ["Supervivencia"],
     "descripcion": "Los recursos en el refugio no son ilimitados; hacer expediciones a supermercados abandonados es una buena manera de conseguir víveres, pero ten cuidado. Ese tipo de zonas que en el pasado eran ampliamente frecuentadas ahora también lo son.",
     "peligro": 3,
-    "ubicacion": "Supermercados WaltMart",
+    "ubicacion": "Supermercados Walmart",
     "necesita": [3, 4, 5, 6, 15, 16, 17, 18],
     "recurrente": false
   },
@@ -116,7 +116,7 @@
     "tipo": ["Supervivencia", "Defensa"],
     "descripcion": "Las colmenas son los epicentros de la infección, están plagadas de infectados; por lo tanto nadie se acerca ahí excepto nosotros. Eliminando estas colmenas la infección disminuye considerablemente aunque es una actividad sumamente riesgosa.",
     "peligro": 5,
-    "ubicacion": "Area 0 de infeccion",
+    "ubicacion": "Área 0 de infección",
     "necesita": [1, 2, 7, 8, 15, 16, 17, 18],
     "recurrente": false
   },
@@ -155,7 +155,7 @@
     "id": 16,
     "titulo": "Visita programada",
     "tipo": ["Defensa"],
-    "descripcion": "En los alrededores del refugio hay gran cantidad de casas y edificios de lujo, ahora sus inquilinos estan todos muertos y desean visitarnos, pero no los dejaremos!",
+    "descripcion": "En los alrededores del refugio hay gran cantidad de casas y edificios de lujo, ahora sus inquilinos están todos muertos y desean visitarnos, pero no los dejaremos!",
     "peligro": 3,
     "ubicacion": "Vecindario del refugio",
     "necesita": [3, 4, 18, 19, 20],
@@ -163,9 +163,9 @@
   },
   {
     "id": 17,
-    "titulo": "Control de bugs",
+    "titulo": "Control de plagas",
     "tipo": ["Refugio"],
-    "descripcion": "Diagnosticar los problemas del refugio antes de que escalen a una catástrofe de aniquilación total es una muy buena práctica. Toma tu llave inglesa de vez un cuando y descubre todas las anomalias",
+    "descripcion": "Diagnosticar los problemas del refugio antes de que escalen a una catástrofe de aniquilación total es una muy buena práctica. Toma tu llave inglesa de vez un cuando y descubre todas las anomalías",
     "peligro": 1,
     "ubicacion": "Interior del refugio",
     "necesita": [11, 12],
@@ -175,7 +175,7 @@
     "id": 18,
     "titulo": "Atender cultivos",
     "tipo": ["Supervivencia"],
-    "descripcion": "Tu cuerpo no aguantara mucho tiempo comiendo solamente comida enlatada, prestale atencion a tus cultivos y al menos comeras como un rey hasta que los infectados te coman a ti el cerebro",
+    "descripcion": "Tu cuerpo no aguantará mucho tiempo comiendo solamente comida enlatada, préstale atención a tus cultivos y al menos comerás como un rey hasta que los infectados te coman a ti el cerebro",
     "peligro": 1,
     "ubicacion": "Patio exterior",
     "necesita": [5, 6, 15, 16],

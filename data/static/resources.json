@@ -38,7 +38,7 @@
   {
     "id": 5,
     "nombre": "Emigrante cubano",
-    "descripcion": "Estos emigrantes son antiguos cortadores de cana de azucar en su tierra natal Cuba. No les gustan nada los perros. Dicen que son capaces de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
+    "descripcion": "Estos emigrantes son antiguos cortadores de caña de azúcar en su tierra natal Cuba. No les gustan nada los perros. Dicen que son capaces de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
     "tipo": ["Defensa"],
     "complementario": ["Machetes oxidados"],
     "excluyente": ["Husky del refugio"],
@@ -47,7 +47,7 @@
   {
     "id": 6,
     "nombre": "Machetes oxidados",
-    "descripcion": "Solo los cortadores de cana sabe cómo usar estos machetes oxidados; no les gusta que los toquen.",
+    "descripcion": "Solo los cortadores de caña saben cómo usar estos machetes oxidados; no les gusta que los toquen.",
     "tipo": ["Defensa"],
     "complementario": ["Emigrante cubano", "Piedra de afilar"],
     "excluyente": ["Galletas en forma de hueso"],
@@ -83,7 +83,7 @@
   {
     "id": 10,
     "nombre": "Llave inglesa de papá",
-    "descripcion": "El primer juguete que tuvo Milly la dio su padre. Puede reparar cualquier cosa.",
+    "descripcion": "El primer juguete que tuvo Milly le dio su padre. Puede reparar cualquier cosa.",
     "tipo": ["Refugio"],
     "complementario": ["Milly, la mecánica"],
     "excluyente": ["Abrelatas"],
@@ -128,7 +128,7 @@
   {
     "id": 15,
     "nombre": "Polkish, el abuelo",
-    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Husky del refugio, es un experto en exploracion y supervivencia",
+    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Husky del refugio, es un experto en exploración y supervivencia",
     "tipo": ["Refugio", "Supervivencia"],
     "complementario": ["Ziggy el filoso"],
     "excluyente": ["Navaja suiza de Osvaldo"],
@@ -146,10 +146,10 @@
   {
     "id": 17,
     "nombre": "Pathfinder",
-    "descripcion": "El Pathfinder es un Voksgawen modificado del año 68; sirve para realizar exploraciones rápidas al exterior.",
+    "descripcion": "El Pathfinder es un Volkswagen modificado del año 68; sirve para realizar exploraciones rápidas al exterior.",
     "tipo": ["Supervivencia"],
     "complementario": ["Galón de gasolina"],
-    "excluyente": ["TIBURON"],
+    "excluyente": ["TIBURÓN"],
     "cantidad": 2
   },
   {
@@ -194,7 +194,7 @@
     "descripcion": "Abrelatas marca OpenAll; sirve para abrir todo tipo de latas.",
     "tipo": ["Supervivencia"],
     "complementario": ["Raciones enlatadas"],
-    "excluyente": ["LLave inglesa de papá"],
+    "excluyente": ["Llave inglesa de papá"],
     "cantidad": 3
   },
   {
