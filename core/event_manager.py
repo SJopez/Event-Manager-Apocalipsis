@@ -288,7 +288,7 @@ def joinTime(event):
     if verifyInterval(event, default, default + time):
         return (default, default + time)
 
-    # 2. Buscar huecos entre eventos existentes
+    # 2. Buscar el mejor hueco entre eventos existentes
     ans = getDate(1, 1, 2222)
     for e in readJson("data/dynamic/running_events.json"):
         tr = e["tiempoReal"]

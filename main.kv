@@ -1,4 +1,6 @@
 <ConfigEvent@BoxLayout>:
+    # Layout utilizado para la configuración de eventos.
+    # Muestra un borde redondeado y una línea divisoria central.
     canvas.after:
         Color:
             rgba: 0.8, 0.8, 0.8, 0.8
@@ -15,6 +17,8 @@
     orientation: "horizontal"
     
 <PlayerLayout@BoxLayout>:
+    # Panel que muestra la información del jugador (nombre e imagen del personaje).
+    # Tiene un fondo oscuro con esquinas redondeadas a la izquierda.
     orientation: 'vertical'
     padding: 4
     canvas.before:
@@ -58,6 +62,8 @@
             pos_hint: {'center_x': .5}
            
 <ResourcesLayout@BoxLayout>:
+    # Panel que contiene la lista de recursos (inventario).
+    # Tiene un fondo oscuro con esquinas redondeadas a la derecha.
     orientation: 'vertical'
     padding: 4
     spacing: 8
@@ -91,6 +97,8 @@
         size: self.texture_size
 
 <ResourceList>:
+    # Widget contenedor de la lista de recursos (inventario).
+    # Alberga los items de recursos individuales.
     spacing: 2
     canvas.before:
         Color:
@@ -99,6 +107,8 @@
             pos: self.pos
             size: self.size
 <Resource>:
+    # Representación visual de un item individual en el inventario.
+    # Muestra un borde de color personalizable (my_color).
     size_hint: None, None
     size: 66.6, 65
     canvas.after:
@@ -109,6 +119,9 @@
             width: 2
 
 <ResourceInfoLayout>:
+    # Panel de detalles que se muestra al pasar el cursor sobre un recurso.
+    # Muestra imagen, nombre, tipo, cantidad, descripción y atributos del recurso.
+    # Inicialmente invisible (opacity: 0).
     canvas.before:
         Color:
             rgba: (0.12, 0.12, 0.12, 0.9)
@@ -218,6 +231,8 @@
 
         
 <ButtonAdvance>:
+    # Botón personalizado con una imagen de fondo para confirmar la selección de recursos
+    # Avanza a la sección de configuración de evento.
     canvas.before:
         Color:
             rgba: 1, 1, 1, 0

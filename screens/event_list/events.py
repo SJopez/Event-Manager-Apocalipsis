@@ -16,35 +16,46 @@ from kivy.animation import Animation
 from screens.event_list.graphic.plot import createGraph, plt
 from core.event_manager import *
 
-class OpenEvent(ButtonBehavior, Image):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
 class EventName(Label):
+    """
+    Etiqueta para mostrar el nombre del evento en la lista.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
        
     textName = StringProperty("")
 
 class Ini(Label):
+    """
+    Etiqueta para mostrar la fecha/hora de inicio del evento.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
     
     ini = StringProperty("")
 
 class End(Label):
+    """
+    Etiqueta para mostrar la fecha/hora de fin del evento.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
     
     end = StringProperty("")
 
 class EventNum(Label):
+    """
+    Etiqueta para mostrar el número identificador del evento.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
     
     enum = StringProperty("")
 
 class DeleteButton(ButtonBehavior, Image):
+    """
+    Botón para eliminar un evento de la lista de eventos en ejecución.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         setup_hover(self, 2, src="assets/deleteEventIcon.png", default="assets/deleteIcon.png", scroll=True)
@@ -52,6 +63,10 @@ class DeleteButton(ButtonBehavior, Image):
     hovered = False
 
     def on_touch_down(self, touch):
+        """
+        Maneja la eliminación del evento al hacer clic.
+        Actualiza el archivo JSON y la interfaz gráfica.
+        """
         if self.collide_point(*touch.pos) and not Disable.value:
             event = self.parent.parent.parent
             running = appList().events.scrollList.running
@@ -62,6 +77,9 @@ class DeleteButton(ButtonBehavior, Image):
             resizeList(running)
 
 class ShowEventWIndow(BoxLayout):
+    """
+    Ventana emergente que muestra los detalles completos de un evento seleccionado.
+    """
     def __init__(self):
         super().__init__()
 
@@ -77,9 +95,14 @@ class ShowEventWIndow(BoxLayout):
 
 
     def update(self, event):
+        """
+        Actualiza los datos mostrados en la ventana con la información del evento.
+        Carga recursos, imágen, textos de horario y colores de peligro.
+        """
         self.name = event["titulo"]
         self.description = event["descripcion"]
         
+        # Seccion de recursos
         from screens.event_configuration.widgets.resource_widgets import ResourceP
 
         parent = self.ids.need
@@ -105,6 +128,7 @@ class ShowEventWIndow(BoxLayout):
 
         deleteAll(container)
 
+        # Información de tipo de evento, peligro y ubicación
         for tp in event["tipo"]:
             icon = Image(source=f"assets/{tp}.png", size=(50, 50))
             container.add_widget(icon)
@@ -114,6 +138,10 @@ class ShowEventWIndow(BoxLayout):
         self.place = event["ubicacion"]
 
     def on_touch_down(self, touch):
+        """
+        Cierra la ventana de detalles si se hace clic fuera de ella.
+        Restaura la interactividad de la lista principal.
+        """
         if self.collide_point(*touch.pos) and Disable.value:
             pass
         elif Disable.value:
@@ -125,6 +153,10 @@ class ShowEventWIndow(BoxLayout):
         
 
 def config(widget, special, opacity, parent):
+    """
+    Ajusta la opacidad de los widgets hijos para crear efecto de foco.
+    Si la opacidad es baja (ventana abierta), actualiza el contenido de la ventana.
+    """
     for child in widget.children:
         if child != special:
             child.opacity = opacity
@@ -134,11 +166,17 @@ def config(widget, special, opacity, parent):
 
 
 def windowAnimation(widget, main, parent=None, x=215, opacity=0.6):
+    """
+    Anima la entrada/salida de la ventana de detalles del evento.
+    """
     anima = Animation(x=x, duration=0.3, t='out_quad')
     config(main, widget, opacity, parent)
     anima.start(widget)
 
 class ShowEventButton(ButtonBehavior, Image):
+    """
+    Botón dentro de un evento en la lista para abrir sus detalles.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         setup_hover(self, 2, src="assets/openEventIcon.png", default="assets/openIcon.png", scroll=True)
@@ -146,6 +184,10 @@ class ShowEventButton(ButtonBehavior, Image):
     hovered = False
 
     def on_touch_down(self, touch):
+        """
+        Abre la ventana de detalles del evento al hacer clic.
+        Deshabilita el scroll de la lista principal.
+        """
         if self.collide_point(*touch.pos) and not Disable.value:
             main = appList().events
             window = main.window
@@ -156,28 +198,38 @@ class ShowEventButton(ButtonBehavior, Image):
             
 
 def parseDate(date):
+    """Convierte una lista [D, M, Y] a string 'D/M/Y'."""
     day, month, year = date[0], date[1], date[2]
     return day + "/" + month + "/" + year
 
 def parseHour(hour):
+    """Convierte una lista [H, M] a string 'HH:MM'."""
     hour, minute = str(hour[0]), str(hour[1])
     hour = "0" + hour if len(hour) == 1 else hour
     minute = "0" + minute if len(minute) == 1 else minute
     return hour + ":" + minute
 
 def hasChild(parent, child):
+    """Verifica si un evento ya existe en la lista visual."""
     for c in parent.children:
         if c.isEvent and c.id == child.id:
             return True
     return False
 
 def resizeList(parent, value=None):
+    """
+    Recalcula y ajusta la altura del contenedor de la lista de eventos
+    para asegurar que el scroll funcione correctamente.
+    """
     childCount = len(readJson("data/dynamic/running_events.json")) if value == None else value
     childCount += 4 if childCount % 4 != 0 else 0
     childCount -= (childCount % 4)
     parent.height = (childCount / 4) * 460 + (childCount / 4) * 20 + 170
 
 class JoinEvent(TextInput):
+    """
+    Campo de búsqueda para filtrar eventos por nombre.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         setup_hover(self, 2, 1, cursor='ibeam')
@@ -186,6 +238,10 @@ class JoinEvent(TextInput):
     delete = []
 
     def keyboard_on_key_down(self, window, keycode, text, modifiers):
+        """
+        Maneja el borrado de caracteres (Backspace).
+        Restaura eventos previamente ocultos si coinciden con el nuevo texto de búsqueda.
+        """
         if keycode[0] == 8 and not Disable.value:
             running = appList().events.scrollList.running
             self.text = self.text[:-1]
@@ -206,6 +262,10 @@ class JoinEvent(TextInput):
             resizeList(running, len(running.children))
 
     def keyboard_on_textinput(self, window, text):
+        """
+        Maneja la entrada de texto para filtrar la lista de eventos.
+        Oculta los eventos que no coinciden con el texto ingresado.
+        """
         if len(self.text) == 24 or Disable.value: return
 
         self.text += text
@@ -229,6 +289,10 @@ class JoinEvent(TextInput):
         resizeList(running, len(running.children))
 
 class RunningEvent(BoxLayout):
+    """
+    Representación visual de un evento individual en la lista.
+    Contiene imagen, nombre, fechas y número de evento.
+    """
     def __init__(self, event):
         super().__init__()
         self.id = event["id"]
@@ -242,6 +306,7 @@ class RunningEvent(BoxLayout):
         self.assign(event)
 
     def assign(self, event):
+        """Asigna los valores del evento a los widgets correspondientes."""
         self.eventName.textName = event["titulo"]
         self.image.source = event["imagen"]
         self.timeIni.ini = parseDate(event["fechaInicio"]) + " - " + parseHour(event["tiempoInicio"])
@@ -249,12 +314,19 @@ class RunningEvent(BoxLayout):
         self.eventNum.enum = str(event["eventNum"])
 
 class ScrollEventList(ScrollView):
+    """
+    Contenedor con scroll para la lista de eventos.
+    """
     def __init__(self):
         super().__init__()
         self.running = RunningEventList()
         self.add_widget(self.running)
 
 class RunningEventList(StackLayout):
+    """
+    Layout que organiza los eventos en ejecución.
+    Carga los eventos desde el archivo JSON al iniciarse.
+    """
     def __init__(self):
         super().__init__()
         self.vis = False
@@ -262,6 +334,11 @@ class RunningEventList(StackLayout):
         self.update(True, value)
 
     def update(self, load=False, value=None):
+        """
+        Actualiza la lista de eventos.
+        Si load=True, intenta cargar y crear los widgets para cada evento.
+        Maneja errores de carga restaurando el estado anterior si es necesario.
+        """
         if load:
             running = readJson("data/dynamic/running_events.json")
             writeJson("data/dynamic/running_events.json", [])
@@ -288,6 +365,9 @@ class RunningEventList(StackLayout):
         resizeList(self)
  
 class Search(Image):
+    """
+    Icono decorativo para la barra de búsqueda.
+    """
     def __init__(self):
         super().__init__()
         self.size_hint = (None, None)
@@ -295,6 +375,9 @@ class Search(Image):
         self.source = "assets/search.png"
 
 class Sort(Image):
+    """
+    Botón para ordenar la lista de eventos.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.size_hint = (None, None)
@@ -306,6 +389,7 @@ class Sort(Image):
     hovered = False
 
     def on_touch_down(self, touch):
+        """Ordena los eventos por su numero al hacer clic."""
         if self.collide_point(*touch.pos) and not Disable.value:
             from utilities.ui_utils import sortEvents
             root = self.parent
@@ -313,6 +397,9 @@ class Sort(Image):
             sortEvents(eventList)
 
 class Graphic(Image):
+    """
+    Botón para abrir la visualización gráfica de los eventos.
+    """
     def __init__(self):
         super().__init__()
         self.size_hint = (None, None)
@@ -324,11 +411,15 @@ class Graphic(Image):
     hovered = False
 
     def on_touch_down(self, touch):
+        """Genera y muestra el gráfico."""
         if self.collide_point(*touch.pos) and not Disable.value:
             createGraph()
             plt.show()
 
 class Back(Image):
+    """
+    Botón para regresar a la pantalla anterior.
+    """
     def __init__(self):
         super().__init__()
         self.size_hint = (None, None)
@@ -340,6 +431,7 @@ class Back(Image):
     hovered = False   
 
     def on_touch_down(self, touch):
+        """Gestiona la transición de regreso a la pantalla anterior."""
         if self.collide_point(*touch.pos) and not Disable.value:
             infoScreen = CurrentScreen.before
             screenParent = appList().screenParent
@@ -352,10 +444,17 @@ class Back(Image):
                 screenParent.transition = SlideTransition(duration=0.5, direction="right")
 
 class Header(BoxLayout):
+    """
+    Encabezado de la lista de eventos (definido visualmente en el KV).
+    """
     def __init__(self):
         super().__init__()
 
 class MainEventContainter(FloatLayout):
+    """
+    Contenedor principal de la pantalla de lista de eventos.
+    Agrupa el fondo, la lista, la barra de búsqueda y los botones de control.
+    """
     def __init__(self):
         super().__init__()
         self.background = Image(source="assets/background_events.png")

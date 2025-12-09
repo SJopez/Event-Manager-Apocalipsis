@@ -1,28 +1,5 @@
-<Menu>:
-    canvas.before:
-        Color:
-            rgba: 0.07, 0.07, 0.07, 0.85
-        RoundedRectangle:
-            pos: self.pos
-            size: self.size
-    canvas.after:
-        Color:
-            rgba: 1, 1, 1, 1
-        Line:
-            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
-            width: 1.5
-        
-    size_hint: None, None
-    size: (400, 450)
-    pos_hint: {'center_x':  0.75, 'center_y': 0.5}
-    orientation: "vertical"
-
-<Option>:
-    size_hint: None, None
-    width: 250
-    pos_hint: {'center_x': 0.5, 'y': 0}
-
 <FileSelectorWindow>:
+    # Ventana del selector de archivos
     size_hint: None, None
     size: (900, 600)
     orientation: "vertical"
@@ -33,7 +10,9 @@
         Rectangle:
             pos: self.pos
             size: self.size
+
 <Title>:
+    # Título de la ventana del selector de archivos
     canvas.after:
         Color:
             rgba: 1, 1, 1, 1
@@ -55,6 +34,7 @@
     height: 50
 
 <Path>:
+    # Etiqueta que muestra la ruta seleccionada
     size_hint: None, None
     font_size: 15
     size: (400, 30)
@@ -71,12 +51,14 @@
             width: 1.01
 
 <BottomBar>:
+    # Barra inferior con el botón de selección y la ruta
     padding: 10
     size_hint_y: None
     height: 60
     spacing: 10
 
 <SelectionButton>:
+    # Botón para confirmar la selección
     background_color: 0, 0, 0, 0
     markup: True
     text: "[b] Seleccionar [/b]"
@@ -96,40 +78,3 @@
         Line:
             rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
             width: 1.01
-
-<NameContainer>:
-    size_hint: None, None
-    pos_hint: {'x': 0, 'y': 0}
-    width: 300
-    padding: 10
-    orientation: "vertical"
-    spacing: 8
-
-    Label:
-        size_hint: None, None
-        size: self.texture_size
-        text: "Te llamabas:"
-        font_size: 28
-        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
-        
-    NameInput:
-        id: nameValue
-        background_color: 0, 0, 0, 0
-        cursor_color: 1, 1, 1, 1
-        foreground_color: 1, 1, 1, 1
-        size_hint_y: None
-        height: 36
-        font_size: 18
-        hovered: False
-        hint_text: "Elige un nombre"
-        multiline: False
-        canvas.after:
-            Color: 
-                rgba: 1, 1, 1, 1
-            Line:
-                points: (self.x, self.y + 4, 200, self.y + 4)
-                width: 1
-        
-    Label:
-        index: 0
-

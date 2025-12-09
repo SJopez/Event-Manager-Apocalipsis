@@ -1,14 +1,53 @@
 [
     {
         "id": -1,
-        "titulo": "Atender cultivos",
+        "titulo": "elbala",
         "tipo": [
-            "Supervivencia"
+            "Defensa"
         ],
-        "descripcion": "Tu cuerpo no aguantara mucho tiempo comiendo solamente comida enlatada, prestale atencion a tus cultivos y al menos comeras como un rey hasta que los infectados te coman a ti el cerebro",
+        "descripcion": "pingon",
         "peligro": 1,
-        "ubicacion": "Patio exterior",
+        "ubicacion": "Interior del refugio",
         "necesita": [],
         "recurrente": true
+    },
+    {
+        "id": -1,
+        "titulo": "elbala",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "pingon",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
+        "recursos": {
+            "1": 1,
+            "2": 2
+        },
+        "tiempoReal": [
+            3376702800.0,
+            3376789200.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2077"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2077"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "imagen": "assets/event_running_images/example.png"
     }
 ]

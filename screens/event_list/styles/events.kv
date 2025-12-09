@@ -1,3 +1,5 @@
+# Encabezado de la pantalla de lista de eventos
+# Contiene el título y la barra de búsqueda
 <Header>:
     pos: (40, 768 - self.height - 40)
     size_hint: None, None
@@ -5,6 +7,7 @@
     orientation: "vertical"
     isEvent: False
 
+    # Título de la sección
     Image:
         source: "assets/titleEventList.png"
         size_hint: None, None
@@ -15,6 +18,7 @@
         size_hint: None, None
         height: 16
     
+    # Campo de texto para buscar eventos por nombre
     JoinEvent:
         id: join
         size_hint: None, None
@@ -28,6 +32,7 @@
         text_size: (300, None)
         padding: 8
 
+        # Línea decorativa inferior para el campo de búsqueda
         canvas.after:
             Color:
                 rgba: (0.8, 0.8, 0.8, 0.8)
@@ -43,12 +48,14 @@
     Label:
         index: 0
     
+# Contenedor con scroll para la lista de eventos
 <ScrollEventList>:
     pos: (0, -150)
     bar_width: 16
     bar_color: 0.8, 0.8, 0.8, 0.8
     bar_inactive_color: 0.8, 0.8, 0.8, 0.8
 
+# Layout que organiza los eventos en una cuadrícula o lista
 <RunningEventList>:
     padding: 40, 16, 40, 40
     spacing: 20
@@ -57,11 +64,13 @@
     orientation: "lr-tb"
        
 
+# Widget que representa un evento individual en la lista
 <RunningEvent>:
     size_hint: None, None
     size: (285, 460)
     orientation: "vertical"
 
+    # Fondo oscuro para la tarjeta del evento
     canvas.before:
         Color:
             rgba: (0.12, 0.12, 0.12, 1)
@@ -69,6 +78,7 @@
             pos: self.pos
             size: self.size
     
+    # Imagen del evento
     StackLayout:
         size_hint: None, None
         size: (285, 285)
@@ -87,6 +97,7 @@
                     points: (self.x, self.y, self.x + self.width, self.y)
                     width: 1
         
+    # Información del evento (Nombre, Fechas, ID)
     BoxLayout:
         orientation: "vertical"
         size_hint: None, None
@@ -127,6 +138,8 @@
         Label:
             size_hint: None, None
             size: (285, 20)
+        
+        # Botones de acción (Ver detalles, Eliminar)
         BoxLayout:
             Label:
                 size_hint: None, None
@@ -146,6 +159,7 @@
         index: 0
       
     
+# Ventana emergente con detalles completos del evento
 <ShowEventWindow>:
     size_hint: None, None
     size: 850, 540
@@ -159,6 +173,8 @@
     pos: (-850, 114)
     padding: 20
     spacing: 20
+    
+    # Panel izquierdo: Imagen y metadatos (Tipo, Peligro, Ubicación)
     BoxLayout:
         size_hint_x: None
         width: 300
@@ -229,6 +245,8 @@
             pos_hint: {'center_x': .5, 'y': 0}       
         Label:
             index: 0
+    
+    # Panel derecho: Descripción, Recursos y Fechas
     BoxLayout:
         size_hint_x: None
         width: 550
@@ -296,6 +314,7 @@
             spacing: 4
             padding: 0
         
+        # Fechas de inicio y fin
         BoxLayout:
             size_hint: (1, 1)
             canvas.before:

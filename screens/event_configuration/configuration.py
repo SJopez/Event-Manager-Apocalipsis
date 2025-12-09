@@ -16,11 +16,18 @@ from screens.event_configuration.widgets.configuration_widgets import *
 from screens.event_configuration.widgets.configuration_buttons import *
 
 class NeedResources(StackLayout):
+    """
+    Contenedor para mostrar los recursos necesarios para un evento.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.padding = (30, 0, 30, 0)
 
 class AddNeedButton(Button):
+    """
+    Botón que añade automáticamente los recursos necesarios del evento actual
+    a la lista de recursos seleccionados por el usuario.
+    """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         setup_hover(self, 1, scroll=True)
@@ -28,6 +35,10 @@ class AddNeedButton(Button):
     hovered = False
 
     def on_touch_down(self, touch):
+        """
+        Al presionar, lee los requisitos del evento actual y añade los recursos faltantes
+        a la selección del usuario, actualizando la vista.
+        """
         if self.collide_point(*touch.pos) and not Disable.value:
             e = Manage.get_one(self.parent.current)
             setEvent(e)
@@ -37,6 +48,7 @@ class AddNeedButton(Button):
                 data = readJson("data/dynamic/selected_resources_event.json")
                 ignore = False
 
+                # Evitar duplicados
                 for i in data:
                     if i["id"] == recurso["id"]:
                         ignore = True             
@@ -46,12 +58,17 @@ class AddNeedButton(Button):
                 data.append(recurso)
                 writeJson("data/dynamic/selected_resources_event.json", data)
         
+            # Actualizar la lista visual de recursos
             child = join_child(appList().mycon, "ResourceListP")
             child.update("data/dynamic/selected_resources_event.json")
         
     hovered = False      
 
 class EventInfo(BoxLayout):
+    """
+    Panel principal que muestra la información detallada del evento seleccionado.
+    Maneja tanto la visualización de eventos predefinidos como el formulario de eventos personalizados.
+    """
     def __init__(self):
         super().__init__()
         self.orientation = "vertical"
@@ -79,26 +96,35 @@ class EventInfo(BoxLayout):
     }
 
     def update(self, i):
+        """
+        Actualiza la vista con la información del evento seleccionado (índice i).
+        Si i es -1, cambia al modo de edición para crear un evento personalizado.
+        """
         e = Manage.get_one(i)
 
+        # Restaurar widgets originales si se vuelve de modo edición
         if self.current == -1:
             for child in self.childs:
                 self.add_widget(child)
 
         self.current = i
 
+        # Limpiar lista de recursos necesarios
         for x in list(self.need.children):
             self.need.remove_widget(x)
    
         if i == -1:
+            # Modo edición: Crear el formulario de evento personalizado
             createEditableAdventure(self)
             setEvent(e, True)
         else:
+            # Modo visualización: Mostrar datos del evento predefinido
             setEvent(e)
             if self.editable != None:
                 self.remove_widget(self.editable)
                 self.editable = None
 
+            # Mostrar recursos necesarios
             for x in e["necesita"]:
                 resource = ResourceP(x, False, False)
                 resource.my_color = [0.5, 0.5, 0.5, 1]
@@ -107,6 +133,7 @@ class EventInfo(BoxLayout):
                 resource.on_touch_down = lambda x: None
                 self.need.add_widget(resource)
 
+            # Ajustar altura y textos
             self.need.height = ((len(e["necesita"]) // 6) + (1 and (len(e["necesita"]) % 6 != 0))) * 65
             self.ids.description.text = e["descripcion"]
             self.img = f"assets/event_images/{i + 1}.png"
@@ -127,24 +154,33 @@ class EventInfo(BoxLayout):
             self.height = 500 + self.need.height + HeightDescription[e["id"]] + 75
         
     def updateIni(self, value):
+        """Actualiza la fecha de inicio en el widget correspondiente."""
         if self.editable != None:
             self.editable.dateIni.text = value
         else:
             self.dateIni.text = value
 
     def updateEnd(self, value):
+        """Actualiza la fecha de fin en el widget correspondiente."""
         if self.editable != None:
             self.editable.dateEnd.text = value
         else:
             self.dateEnd.text = value
 
 class ScrollEventInfo(ScrollView):
+    """
+    Contenedor con desplazamiento para la información del evento.
+    """
     def __init__(self):
         super().__init__()
         self.evinfo = EventInfo()
         self.add_widget(self.evinfo)
        
 class EventHandler(BoxLayout):
+    """
+    Manejador principal de la sección de eventos.
+    Combina el selector de eventos (SelectorCaller) y la vista de información (ScrollEventInfo).
+    """
     def __init__(self):
         super().__init__()
         self.scevinfo = ScrollEventInfo()
@@ -154,12 +190,13 @@ class EventHandler(BoxLayout):
         self.selcal.set_bind()
         self.add_widget(self.selcal, index=0)
         self.add_widget(self.scevinfo, index=0)
-               
-class Backpack(StackLayout):
-    def __init__(self):
-        super().__init__()
-
+        
 class ConfiEvent(BoxLayout):
+    """
+    Layout que divide la pantalla de configuración en dos:
+    - Izquierda: Información y selección del evento (EventHandler).
+    - Derecha: Selección de recursos (ResourcesLayoutP).
+    """
     def __init__(self):
         super().__init__()
         self.eventHandler = EventHandler()
@@ -168,6 +205,11 @@ class ConfiEvent(BoxLayout):
         self.add_widget(self.layo)
 
 class MainConfig(FloatLayout):
+    """
+    Pantalla principal de configuración de eventos.
+    Estructura general que incluye fondo, botón de retroceso, panel de configuración
+    y botones de acción (crear aventura).
+    """
     def __init__(self):
         super().__init__()
         self.hole = None

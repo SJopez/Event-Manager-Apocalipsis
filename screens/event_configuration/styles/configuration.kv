@@ -1,11 +1,14 @@
+# Elementos definidos en el .py
 #:import NeedResources screens.event_configuration.configuration.NeedResources
 #:import DateIniButton screens.event_configuration.configuration.DateIniButton
 #:import DateEndButton screens.event_configuration.configuration.DateEndButton
 #:import Date screens.event_configuration.configuration.Date
 #:import TimeInput screens.event_configuration.configuration.TimeInput
 #:import AddNeedButton screens.event_configuration.configuration.AddNeedButton
-#: import Time screens.event_configuration.configuration.TimeInput
+#:import Time screens.event_configuration.configuration.TimeInput
 
+# Layout principal para la configuración de eventos
+# Define el contenedor general con un borde redondeado y una línea divisoria vertical
 <ConfiEvent@BoxLayout>:
     canvas.after:
         Color:
@@ -22,12 +25,14 @@
     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
     orientation: "horizontal"
 
+# Panel izquierdo que contiene el título y el selector de eventos
 <EventHandler>:
     size_hint: None, None
     size: (500, 500)
     orientation: 'vertical'
     spacing: 20
 
+    # Fondo oscuro con esquinas redondeadas a la izquierda
     canvas.before:
         Color:
             rgba: (0.07, 0.07, 0.07, 0.95)
@@ -35,6 +40,8 @@
             pos: self.pos
             size: self.size
             radius: [12, 0, 0, 12]
+    
+    # Título de la sección
     Label: 
         index: 0
         text: 'Configura tu aventura!'
@@ -45,6 +52,7 @@
         width: self.parent.width
         height: self.texture_size[1] + 3
         pos_hint: {'center_x': 0.5, 'center_y': 0}
+        # Línea decorativa debajo del título
         canvas.before:
             Color:
                 rgba: 0.8, 0.8, 0.8, 0.8
@@ -58,11 +66,13 @@
                 size: root.width, self.height
                 radius: [12, 0, 0, 0]
         
+# Botón que despliega el menú de selección de eventos
 <SelectorCaller>:
     size_hint: None, None
     size: (450, 30)
     pos_hint: {'center_x': 0.5, 'y': 0}
     
+    # Fondo y borde del botón
     canvas.before:
         Color:
             rgba: (0.18, 0.18, 0.18, 0.85)
@@ -77,11 +87,15 @@
         Line:
             rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
             width: 1
+    
+    # Icono de flecha (arriba/abajo) a la derecha del selector
     Image:
         source: self.parent.icon
         size_hint: None, None
         size: (30, 30)
         pos: (root.x + root.width - self.width, root.y)    
+    
+    # Texto del evento seleccionado
     Label:
         size_hint: None, None
         font_size: 20
@@ -89,10 +103,12 @@
         size: self.texture_size
         text: self.parent.name
 
+# Elemento que representa los eventos predefinidos
 <Event>:
     size_hint_y: None
     height: 40
 
+    # Línea separadora inferior
     canvas.after:
         Color:
             rgba: 1, 1, 1, 1
@@ -105,9 +121,6 @@
         Rectangle:
             pos: self.pos
             size: self.size
-
-    
-
     Label:
         font_size: 20
         text: self.parent.title
@@ -115,20 +128,25 @@
         size: self.texture_size
         size_hint: None, None
         pos_hint: {'x': 0.02, 'center_y': .5}
-        
+
+# Configuración del ScrollView para la información del evento   
 <ScrollEventInfo>
     bar_width: 16
     bar_color: 0.8, 0.8, 0.9, 0.7
 
+# Panel de información detallada del evento
 <EventInfo>
     spacing: 8
     size_hint_y: None
   
+    # Sección superior con imagen y datos básicos (Tipo, Peligro, Ubicación)
     StackLayout:
         size_hint: None, None
         size: (root.width, 200)
         padding: 30, 0, 0, 0
         spacing: 8
+        
+        # Imagen del evento
         Image:
             source: root.img
             size_hint: None, None
@@ -140,6 +158,7 @@
                     rounded_rectangle: (self.x, self.y, self.width, self.height, 5)
                     width: 1.6
             
+        # Datos a la derecha de la imagen
         StackLayout:
             size_hint: None, None
             size: (240, 200)
@@ -183,6 +202,8 @@
                 size: self.texture_size
                 font_name: "fonts/symbola/Symbola.ttf"
                 text_size: 250, None
+    
+    # Sección de descripción del evento
     Label:
         markup: True
         text: "[b] Descripcion: [/b]"
@@ -202,6 +223,7 @@
         index: 0
         id: description
     
+        # Fondo semitransparente para la descripción
         canvas.before:
             Color:
                 rgba: 0.15, 0.15, 0.2, 0.5
@@ -217,6 +239,7 @@
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                 width: 1    
 
+    # Sección de recursos necesarios
     Label:
         markup: True
         text: "[b] Recursos necesarios: [/b]"
@@ -225,6 +248,8 @@
         size: self.texture_size 
         pos_hint:{'x': 0.05, 'y':0}
         index: 0
+    
+    # Contenedor dinámico para los iconos de recursos
     NeedResources:
         id: need
         spacing: 4
@@ -232,6 +257,7 @@
         size_hint: None, None
         width: root.width
         
+    # Botón para añadir automáticamente los recursos necesarios
     AddNeedButton:
         index: 0
         size_hint: None, None
@@ -241,6 +267,7 @@
         padding: 10
         pos_hint:{'x': 0.05, 'y':0}
         
+    # Sección de selección de fecha
     Label:
         index: 0
         markup: True
@@ -249,6 +276,8 @@
         size_hint: None, None
         size: self.texture_size 
         pos_hint:{'x': 0.05, 'y':0}
+    
+    # Botones para abrir el calendario (Inicio y Fin)
     BoxLayout:
         pos_hint: {'x': 0.06, 'y': 0}
         size_hint: None, None
@@ -270,6 +299,8 @@
             size_hint: None, None
             size: self.texture_size
             padding: 4
+    
+    # Etiquetas que muestran las fechas seleccionadas
     BoxLayout:
         pos_hint: {'x': 0.05, 'y': 0}
         size_hint: None, None
@@ -293,6 +324,8 @@
             size_hint: None, None
             size: self.texture_size
             padding: 4
+    
+    # Sección de selección de horario
     Label:
         index: 0
         markup: True
@@ -301,10 +334,13 @@
         size_hint: None, None
         size: self.texture_size 
         pos_hint:{'x': 0.05, 'y':0}
+    
+    # Inputs para hora de inicio y fin (HH:MM - HH:MM)
     BoxLayout:
         pos_hint: {'x': 0.06, 'y': 0}
         size_hint: None, None
         height: 30
+        # Hora inicio
         TimeInput:
             id: hourIni
             name: "ini"
@@ -318,6 +354,7 @@
             size_hint: None, None
             pos_hint: {'center_x': .5, "center_y": .5}
             width: 20
+        # Minuto inicio
         TimeInput:
             id: minuIni
             name: "ini"
@@ -331,6 +368,7 @@
             size_hint: None, None
             pos_hint: {'center_x': .5, "center_y": .5}
             width: 40
+        # Hora fin
         TimeInput:
             id: hourEnd
             name: "end"
@@ -344,6 +382,7 @@
             size_hint: None, None
             pos_hint: {'center_x': .5, "center_y": .5}
             width: 20
+        # Minuto fin
         TimeInput:
             id: minuEnd
             name: "end"
@@ -352,6 +391,8 @@
             size: (30, 30)
             max_text_length: 20
             multiline: False
+    
+    # Nota informativa sobre el formato de hora
     Label:
         index: 0
         markup: True
@@ -368,14 +409,17 @@
         height: 10
         index: 0
 
+# Botonn para crear aventura
 <AdventureButton>:
     size_hint: None, None
     width: 180
 
+# Botón para listar aventuras
 <ListAdventures>:
     size_hint: None, None
     width: 180
 
+# Boton de flecha hacia arriba del panel inferior
 <Show>:
     size_hint: None, None
     size: 40, 40
@@ -390,7 +434,7 @@
             size: self.size
             radius: [12, 12, 0, 0]
 
-
+# Contenedor de botones de comando o panel inferior (Crear, Listar)
 <CommandAdventure>:
     size_hint: None, None
     pos_hint: {'center_x': .5, 'top': 0.005}
@@ -404,6 +448,8 @@
         Line:
             points: (self.x, self.top, self.x + self.width, self.top)
             width: 3
+
+# Botón de retroceso
 <BackButton>
     canvas.after:
         Color:
@@ -411,7 +457,8 @@
         Line:
             rounded_rectangle: (self.x, self.y + 20, self.width, 60, 8)
             width: 1.2
-            
+
+# Estilo para los inputs de tiempo
 <TimeInput>:
     canvas.after:
         Color:

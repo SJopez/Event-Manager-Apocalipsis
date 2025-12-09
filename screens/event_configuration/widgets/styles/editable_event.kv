@@ -1,3 +1,4 @@
+# Define un contenedor general con scroll vertical (al estar dentro de un ScrollView)
 <EditableAdventure>:
     padding: 20, 0, 0, 0
     size_hint_y: None
@@ -5,6 +6,7 @@
     orientation: "vertical"
     spacing: 8
 
+    # Etiqueta para el campo de nombre
     Label: 
         markup: True
         text: "[b] Nombre de la aventura:[/b]"
@@ -12,6 +14,7 @@
         size_hint: None, None
         size: self.texture_size
     
+    # Campo de texto para ingresar el nombre
     NameAdventure:
         background_color: 0, 0, 0, 0
         cursor_color: 1, 1, 1, 1
@@ -24,12 +27,15 @@
         hint_text: "Elige un nombre"
         multiline: False
         id: name
+        # Línea inferior decorativa
         canvas.after:
             Color: 
                 rgba: 1, 1, 1, 1
             Line:
                 points: (self.x, self.y + 4, 400, self.y + 4)
                 width: 1
+    
+    # Etiqueta para la descripción
     Label: 
         markup: True
         text: "[b] Descripcion:[/b]"
@@ -37,6 +43,7 @@
         size_hint: None, None
         size: self.texture_size
 
+    # Campo de texto multilínea para la descripción
     Description:
         size_hint: None, None
         size: 420, 150
@@ -51,6 +58,7 @@
         foreground_color: 1, 1, 1, 1
         hint_text: "Describe tu aventura"
 
+        # Borde redondeado decorativo
         canvas.after:
             Color:
                 rgba: 1, 1, 1, 1
@@ -58,6 +66,7 @@
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                 width: 1    
 
+    # Etiqueta para el tipo de aventura
     Label: 
         markup: True
         text: "[b] Tipo de aventura:[/b]"
@@ -65,6 +74,7 @@
         size_hint: None, None
         size: self.texture_size
 
+    # Selector (Spinner) para el tipo de aventura
     TypeAdventure:
         id: type
         size_hint: None, None
@@ -73,6 +83,7 @@
         font_size: 16
         text: "Defensa"
         background_color: 0, 0, 0, 0
+        # Fondo y borde redondeado
         canvas.before:
             Color:
                 rgba: (0.18, 0.18, 0.18, 0.85)
@@ -88,6 +99,7 @@
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                 width: 1.1
 
+    # Etiqueta para el nivel de peligro
     Label: 
         markup: True
         text: "[b] Peligro: [/b]"
@@ -95,6 +107,7 @@
         size_hint: None, None
         size: self.texture_size
 
+    # Selector (Spinner) del mismo tipo que el anterior para el nivel de peligro
     TypeAdventure:
         id: danger
         size_hint: None, None
@@ -103,6 +116,7 @@
         font_size: 16
         text: "Pan comido"
         background_color: 0, 0, 0, 0
+        # Fondo y borde redondeado
         canvas.before:
             Color:
                 rgba: (0.18, 0.18, 0.18, 0.85)
@@ -118,6 +132,7 @@
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                 width: 1.1
 
+    # Etiqueta para la ubicación
     Label: 
         markup: True
         text: "[b] Ubicacion: [/b]"
@@ -125,6 +140,7 @@
         size_hint: None, None
         size: self.texture_size
     
+    # Selector (Spinner) para la ubicación
     PlaceSelection:
         id: place
         size_hint: None, None
@@ -133,6 +149,7 @@
         font_size: 16
         text: "Interior del refugio"
         background_color: 0, 0, 0, 0
+        # Fondo y borde redondeado
         canvas.before:
             Color:
                 rgba: (0.18, 0.18, 0.18, 0.85)
@@ -148,6 +165,7 @@
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                 width: 1.1
     
+    # Etiqueta que da inicio a la sección de selección de imagen
     Label: 
         markup: True
         text: "[b] Imagen de la aventura: [/b]"
@@ -155,11 +173,13 @@
         size_hint: None, None
         size: self.texture_size
     
+    # Imagen de la aventura
     AdventureImage:
         size_hint: None, None
         source: "assets/event_running_images/example.png"
         size: (320, 320)
 
+    # Contenedor para la ruta de la imagen y el botón de selección
     BoxLayout:
         spacing: 8
         size_hint_y: None
@@ -175,12 +195,14 @@
             cursor_color: (1, 1, 1, 1)
             padding: 6
             text: "assets/event_running_images/example.png"
+            # Borde decorativo redondeado
             canvas.after:
                 Color:
                     rgba: 1, 1, 1, 1
                 Line:
                     rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
                     width: 1.01  
+        # Boton de seleccion de ruta para la imagen
         SelectImage:
             size_hint: None, None
             pos_hint: {'x': 0, 'center_y': .5}
@@ -188,6 +210,8 @@
             markup: True
             text: "[b] Seleccionar [/b]"
             padding: 10
+    
+    # Sección de selección de fecha
     Label:
         index: 0
         markup: True
@@ -196,6 +220,7 @@
         size_hint: None, None
         size: self.texture_size 
 
+    # Botones para abrir el calendario (Inicio y Fin)
     BoxLayout:
         size_hint: None, None
         height: 30
@@ -217,6 +242,8 @@
             size_hint: None, None
             size: self.texture_size
             padding: 4
+    
+    # Etiquetas que muestran las fechas seleccionadas
     BoxLayout:
         size_hint: None, None
         pos_hint: {'x': 0.01, 'y': 0}
@@ -240,6 +267,8 @@
             size_hint: None, None
             size: self.texture_size
             padding: 4
+    
+    # Sección de selección de horario
     Label:
         index: 0
         markup: True
@@ -247,10 +276,13 @@
         font_size: 24
         size_hint: None, None
         size: self.texture_size 
+    
+    # Inputs para hora de inicio y fin (HH:MM - HH:MM)
     BoxLayout:
         size_hint: None, None
         pos_hint: {'x': 0.01, 'y': 0}
         height: 30
+        # Hora inicio
         TimeInput:
             id: hourIni
             name: "ini"
@@ -264,6 +296,7 @@
             size_hint: None, None
             pos_hint: {'center_x': .5, "center_y": .5}
             width: 20
+        # Minuto inicio
         TimeInput:
             id: minuIni
             name: "ini"
@@ -277,6 +310,7 @@
             size_hint: None, None
             pos_hint: {'center_x': .5, "center_y": .5}
             width: 40
+        # Hora fin
         TimeInput:
             id: hourEnd
             name: "end"
@@ -290,6 +324,7 @@
             size_hint: None, None
             pos_hint: {'center_x': .5, "center_y": .5}
             width: 20
+        # Minuto fin
         TimeInput:
             id: minuEnd
             name: "end"
@@ -298,6 +333,8 @@
             size: (30, 30)
             max_text_length: 20
             multiline: False
+    
+    # Nota informativa sobre el formato de hora
     Label:
         index: 0
         markup: True

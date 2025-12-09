@@ -1,0 +1,63 @@
+<Menu>:
+    # Contenedor principal del menú con fondo semitransparente y borde
+    canvas.before:
+        Color:
+            rgba: 0.07, 0.07, 0.07, 0.85
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+    canvas.after:
+        Color:
+            rgba: 1, 1, 1, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+            width: 1.5
+        
+    size_hint: None, None
+    size: (400, 450)
+    pos_hint: {'center_x':  0.75, 'center_y': 0.5}
+    orientation: "vertical"
+
+<Option>:
+    # Botones de opción del menú (Start, Load, Save, Exit)
+    size_hint: None, None
+    width: 250
+    pos_hint: {'center_x': 0.5, 'y': 0}
+
+<NameContainer>:
+    # Contenedor para el ingreso del nombre del jugador
+    size_hint: None, None
+    pos_hint: {'x': 0, 'y': 0}
+    width: 300
+    padding: 10
+    orientation: "vertical"
+    spacing: 8
+
+    Label:
+        size_hint: None, None
+        size: self.texture_size
+        text: "Te llamabas:"
+        font_size: 28
+        font_name: 'fonts/Roboto,Roboto_Condensed/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf'
+        
+    NameInput:
+        id: nameValue
+        background_color: 0, 0, 0, 0
+        cursor_color: 1, 1, 1, 1
+        foreground_color: 1, 1, 1, 1
+        size_hint_y: None
+        height: 36
+        font_size: 18
+        hovered: False
+        hint_text: "Elige un nombre"
+        multiline: False
+        canvas.after:
+            Color: 
+                rgba: 1, 1, 1, 1
+            Line:
+                points: (self.x, self.y + 4, 200, self.y + 4)
+                width: 1
+        
+    Label:
+        index: 0
+

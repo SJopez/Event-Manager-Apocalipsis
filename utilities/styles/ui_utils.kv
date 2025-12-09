@@ -1,4 +1,5 @@
 <Error>:
+    # Estilo para mensajes de error y notificaciones emergentes
     opacity: 0
     Label:
         id: errorText
@@ -11,6 +12,7 @@
         font_size: 20
 
 <JoinHole>:
+    # Contenedor principal para diálogos de confirmación (buscar intervalo de tiempo)
     orientation: "vertical"
     size_hint: None, None
     size: (410, 250)
@@ -24,13 +26,8 @@
             pos: self.pos
             size: self.size
 
-           
-<AceptJoinButton>:
-    size_hint: None, None
-    size: (90, 35)
-    font_size: 24
-
 <AceptJoinHole>:
+    # Botón de "Aceptar" con borde verde
     background_color: 0, 0, 0, 0
     markup: True
     text: "[b] Hazlo! [/b]"
@@ -49,6 +46,7 @@
             width: 1.01
     
 <DeniedJoinHole>:
+    # Botón de "Cancelar" con borde rojo
     background_color: 0, 0, 0, 0
     markup: True
     text: "[b] Cancelar [/b]"
@@ -67,12 +65,14 @@
             width: 1.01 
 
 <ButtonSet>:
+    # Contenedor horizontal para los botones de acción
     size_hint: None, None
     size: (180, 40)
     pos_hint: {'right': 1, 'y': 0}
     spacing: 5
 
 <TitleHole>:
+    # Título del diálogo con línea separadora inferior
     font_size: 24
     size_hint: None, None
     multiline: True
@@ -87,6 +87,7 @@
             width: 1.5
     
 <BodyHole>:
+    # Texto del cuerpo del mensaje
     multiline: True
     text_size: 400, None
     color: 1, 1, 1, 0.8

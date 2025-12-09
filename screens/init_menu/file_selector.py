@@ -1,40 +1,36 @@
 from kivy.uix.label import Label
-from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.button import Button
+from kivy.uix.filechooser import FileChooserIconView
 from kivy.core.window import Window
-from kivy.uix.screenmanager import SlideTransition
 from kivy.lang import Builder
 from utilities.utilities import *
-from kivy.animation import Animation
-from kivy.uix.filechooser import FileChooserIconView
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
+from utilities.ui_utils import showMessage, Message, Error
 import os, sys, shutil
 
-def on_start(start, touch):
-    if start.collide_point(*touch.pos) and not Disable.value:
-        screenParent = appList().screenParent
-        menu = appList().menu
-        nameLabel =  join_child(menu, "PlayerLayout").ids.inputName
-        name = appList().mainMenu.name.ids.nameValue
-        nameLabel.text = name.text
-        CurrentScreen.screen = 0
-        transition("main", 0.5, "left")
-        screenParent.transition = SlideTransition(duration=0.5, direction="right")
+Builder.load_file("screens/init_menu/styles/file_selector.kv")
 
 class Path(Label):
+    """
+    Etiqueta que muestra la ruta del archivo o directorio seleccionado.
+    """
     def __init__(self):
         super().__init__()
        
 def to_close(main, touch):
+    """
+    Cierra el selector de archivos si se hace clic fuera de él.
+    """
     selector = main.fileSelector
     
     if selector != None and not selector.collide_point(*touch.pos):
         closeSelector(main)
 
 class SelectionButton(Button):
+    """
+    Botón de selección en el selector de archivos.
+    Maneja carga, guardado y selección.
+    """
     def __init__(self, type):
         super().__init__()
         setup_hover(self, 3)
@@ -43,12 +39,16 @@ class SelectionButton(Button):
     hovered = False
 
     def on_touch_down(self, touch):
+        """
+        Maneja el evento de clic en el botón de selección.
+        Ejecuta la acción correspondiente según el tipo de botón (load, save, image).
+        Maneja además mensajes de errores de carga incorrecta y confirmaciones.
+        Aprovecha el evento de toque para comprobar si se debe cerrar el selector (to_close).        
+        """
         to_close(appList().mycon, touch)
         to_close(appList().mainMenu, touch)
 
         if self.collide_point(*touch.pos):
-            from utilities.ui_utils import showMessage
-            from utilities.ui_utils import Message, Error
             main = appList().mainMenu
 
             if self.type == "load":    
@@ -111,6 +111,9 @@ class SelectionButton(Button):
                     closeSelector(main)
 
 class BottomBar(BoxLayout):
+    """
+    Barra inferior del selector de archivos que contiene la ruta y el botón de selección.
+    """
     def __init__(self, type):
         super().__init__()
         self.add_widget(Label())
@@ -119,6 +122,9 @@ class BottomBar(BoxLayout):
         self.add_widget(SelectionButton(type))
 
 class Title(Label):
+    """
+    Título del selector de archivos, cambia según el contexto (cargar, guardar, imagen).
+    """
     def __init__(self, type):
         super().__init__()
         
@@ -130,10 +136,17 @@ class Title(Label):
             self.text = "Seleccione la imagen de su aventura"
 
 def selectFile(selected):
+    """
+    Actualiza la lista de eventos con el archivo seleccionado.
+    """
     eventList = appList().events.scrollList.running
     return eventList.update(True, selected)
 
 class FileSelector(FileChooserIconView):
+    """
+    Vista de selector de archivos con iconos.
+    Configura filtros y manejo de selección.
+    """
     def __init__(self, type):
         super().__init__()
         self.path = '.'
@@ -151,12 +164,18 @@ class FileSelector(FileChooserIconView):
             self.bind(selection=self.update_path)
         
     def update_path(self, *args):
+        """
+        Actualiza la etiqueta de ruta cuando se selecciona un archivo o cambia el directorio.
+        """
         main = appList().mainMenu if self.type != "image" else appList().mycon
         pathLabel = join_child(main, "Path")
         if type(pathLabel) != int:
             pathLabel.text = self.path if len(self.selection) == 0 else self.selection[0]
         
 class FileSelectorWindow(BoxLayout):
+    """
+    Ventana contenedora del selector de archivos.
+    """
     def __init__(self, type):
         super().__init__()
         self.type = type
@@ -165,85 +184,28 @@ class FileSelectorWindow(BoxLayout):
         self.add_widget(BottomBar(type))
 
 def openSelector(main, type):
+    """
+    Abre el selector de archivos en la pantalla principal.
+    Deshabilita otras interacciones mientras está abierto.
+    """
     Disable.value = True
     Window.set_system_cursor('arrow')
     main.fileSelector = FileSelectorWindow(type)
     main.add_widget(main.fileSelector)
 
 def closeSelector(main):
+    """
+    Cierra el selector de archivos y restaura la interacción.
+    """
     Disable.value = False
     Window.set_system_cursor('arrow')
     main.remove_widget(main.fileSelector)
     main.fileSelector = None
     
 def on_press(button, touch, type):        
+    """
+    Maneja la interacción de botones que abren el selector de archivos.
+    """
     if button.collide_point(*touch.pos) and not Disable.value:
         main = appList().mainMenu
         openSelector(main, type)
-
-def close_program(exit, touch):
-    if exit.collide_point(*touch.pos):
-        App.get_running_app().stop()
-
-class Option(ButtonBehavior, Image):
-    def __init__(self, src, delay):
-        super().__init__()
-        self.opacity = 0
-        self.source = f"assets/{src}"
-        InitAnimation(self, delay)
-        setup_hover(self, 3, 0.8)
-
-        if src == "start.png":
-            self.on_touch_down = lambda touch: on_start(self, touch)
-        if src == "load.png":
-            self.on_touch_down = lambda touch: on_press(self, touch, "load")
-        if src == "save.png":
-            self.on_touch_down = lambda touch: on_press(self, touch, "save")
-        if src == "exit.png":
-            self.on_touch_down = lambda touch: close_program(self, touch)
-
-    hovered = False
-
-def InitAnimation(widget, delay):
-    anima = Animation(opacity=1, duration=0.75)
-    delay = Animation(opacity=0, duration=delay)
-    seq = delay + anima
-    seq.start(widget)
-
-class NameInput(TextInput):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        setup_hover(self, 3, cursor="ibeam")
-
-    def keyboard_on_textinput(self, window, text): 
-        if len(self.text) < 16:
-            self.text += text
-
-class NameContainer(BoxLayout):
-    def __init__(self):
-        super().__init__()
-        
-class Menu(BoxLayout):
-    def __init__(self):
-        super().__init__()
-        self.add_widget(Option("start.png", 0.25))
-        self.add_widget(Option("load.png", 0.45))
-        self.add_widget(Option("save.png", 0.65))
-        self.add_widget(Option("exit.png", 0.85))
-        self.add_widget(Label(
-            size_hint_y = None,
-            height = 25
-        ))
-
-class Container(FloatLayout):
-    def __init__(self):
-        super().__init__()
-        self.background = Image(source="assets/background_face.png")
-        self.add_widget(self.background)
-        self.add_widget(Menu())
-        self.name = NameContainer()
-        self.add_widget(self.name)
-
-    fileSelector = None
-
-Builder.load_file("screens/main_menu/styles/face.kv")

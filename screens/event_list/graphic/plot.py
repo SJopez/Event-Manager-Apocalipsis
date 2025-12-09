@@ -6,6 +6,9 @@ from datetime import datetime, timedelta
 import matplotlib
 
 def get_duration(event):
+    """
+    Calcula la duración de un evento en días (incluyendo fracción de tiempo).
+    """
     di = event["fechaInicio"]
     df = event["fechaFin"]
     ti = event["tiempoInicio"]
@@ -19,6 +22,10 @@ def get_duration(event):
     return diff.days + diff.seconds / 60 / 60 / 24
 
 def get_ini_sum(event):
+    """
+    Calcula la fracción del día en la que inicia el evento.
+    Retorna un valor entre 0 y 1.
+    """
     d = event["fechaInicio"]
     t = event["tiempoInicio"]
 
@@ -30,12 +37,22 @@ def get_ini_sum(event):
     return diff.seconds / 60 / 60 / 24
 
 def get_end(event):
+    """
+    Obtiene el día de finalización del evento.
+    """
     return int(event["fechaFin"][0])
 
 def get_date(day, month, year, hour, min):
+    """
+    Crea un objeto datetime a partir de los componentes de fecha y hora.
+    """
     return datetime(int(year), int(month), int(day), int(hour), int(min))
     
 def get_maximum(running):
+    """
+    Encuentra la fecha máxima de finalización entre todos los eventos en ejecución.
+    Retorna la fecha máxima + 1 día para dar margen al gráfico.
+    """
     ans = get_date(1, 1, 2000, 22, 22)
 
     for event in running:
@@ -46,15 +63,18 @@ def get_maximum(running):
     return ans + timedelta(1)
 
 def get_max_num(running):
+    """
+    Obtiene el número de evento más alto (para determinar la altura del eje Y).
+    """
     ans = 0
     for event in running:
         ans = max(ans, event["eventNum"])
     return ans
 
-class Utils:
-    axis = 0
-
 def createGraph():
+    """
+    Genera y muestra un gráfico con los eventos en ejecución usando Matplotlib.
+    """
     matplotlib.rcParams['toolbar'] = 'none'
     running = readJson("data/dynamic/running_events.json")
     
@@ -65,6 +85,7 @@ def createGraph():
     x_axis, label_x = [], []
     y_axis = []
 
+    # Genera el eje X con todas las fechas desde 2077 hasta la fecha máxima encontrada
     for year in range(2077, maxDate.year + 1):
         rm = maxDate.month if year == maxDate.year else 12
 
@@ -75,9 +96,11 @@ def createGraph():
                 x_axis.append(len(x_axis) + 1)
                 label_x.append(f"{day}/{month}\n{year}")
     
+    # Genera el eje Y basado en el número máximo de eventos simultáneos
     for count in range(1, max(8, get_max_num(running) + 2)):
         y_axis.append(count)
 
+    # Asegura un mínimo de 10 días en el eje X si hay pocos datos
     if len(x_axis) < 10:
         x_axis = []
         label_x = []
@@ -85,14 +108,17 @@ def createGraph():
             x_axis.append(x)
             label_x.append(f"{x}/{1}\n{2077}")
     
+    # Configuración visual de los ejes
     ax.set_xticks(x_axis)
     ax.set_xticklabels(label_x)
     ax.set_yticks(y_axis)
     ax.tick_params(colors="white")
 
+    # Dibuja cada evento como un rectángulo en el gráfico
     for event in running:
         eini = event["fechaInicio"]
         ini = f"{eini[0]}/{eini[1]}\n{eini[2]}"
+        # Calcula la posición X basada en la fecha y hora de inicio
         x = label_x.index(ini) + get_ini_sum(event) + 1
 
         r = patches.Rectangle(
@@ -106,6 +132,7 @@ def createGraph():
         ax.add_patch(r)
         index += 1
 
+    # Estilización del gráfico (colores oscuros para fondo)
     fig.patch.set_facecolor([0.07, 0.07, 0.07, 1])
     fig.canvas.manager.set_window_title("Gráfico de Aventuras")
     ax.set_facecolor([0.12, 0.12, 0.12, 1])
@@ -117,6 +144,9 @@ def createGraph():
     plt.ylabel("Aventuras→",fontsize=20, fontweight='bold', color="white", loc='top')
 
     def keypress(press):
+        """
+        Maneja eventos de teclado para navegar por el gráfico (scroll).
+        """
         x = ax.get_xlim()
         y = ax.get_ylim()
         

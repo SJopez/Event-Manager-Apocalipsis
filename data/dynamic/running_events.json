@@ -1,1 +1,84 @@
-[]
+[
+    {
+        "id": 1765297556.290706,
+        "titulo": "elbala",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "pingon",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
+        "recursos": {
+            "1": 1,
+            "2": 1
+        },
+        "tiempoReal": [
+            3376702800.0,
+            3376789200.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2077"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2077"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "imagen": "assets/event_running_images/example.png",
+        "eventNum": 1,
+        "eventID": -1
+    },
+    {
+        "id": 1765297564.92762,
+        "titulo": "elbala",
+        "tipo": [
+            "Defensa"
+        ],
+        "descripcion": "pingon",
+        "peligro": 1,
+        "ubicacion": "Interior del refugio",
+        "necesita": [],
+        "recurrente": true,
+        "recursos": {
+            "1": 1,
+            "2": 2
+        },
+        "tiempoReal": [
+            3376702800.0,
+            3376789200.0
+        ],
+        "fechaInicio": [
+            "1",
+            "1",
+            "2077"
+        ],
+        "fechaFin": [
+            "2",
+            "1",
+            "2077"
+        ],
+        "tiempoInicio": [
+            0,
+            0
+        ],
+        "tiempoFin": [
+            0,
+            0
+        ],
+        "imagen": "assets/event_running_images/example.png",
+        "eventNum": 2,
+        "eventID": -1
+    }
+]
