@@ -1,16 +1,10 @@
-from kivy.uix.textinput import TextInput
-from kivy.uix.image import Image
-from kivy.uix.boxlayout import BoxLayout
-from kivy.core.window import Window
-from kivy.lang import Builder
+from modules.modules import *
 from kivy.uix.dropdown import DropDown
 from utilities import *
-from kivy.uix.button import Button
 from core.event_manager import *
 from utilities.ui_utils import *
 from utilities.utilities import *
 from kivy.uix.spinner import Spinner
-from kivy.factory import Factory
 
 class AdventureImage(Image):
     """

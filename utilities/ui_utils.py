@@ -1,13 +1,5 @@
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
-from kivy.core.window import Window
-from kivy.lang import Builder
-from utilities import *
-from kivy.factory import Factory
-from kivy.uix.button import Button
-from kivy.uix.popup import Popup
+from modules.modules import *
 from utilities.utilities import * 
-from kivy.animation import Animation
 
 # Carga el archivo KV con los estilos para las utilidades de UI
 Builder.load_file("utilities/styles/ui_utils.kv")

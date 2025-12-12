@@ -11,7 +11,7 @@
   {
     "id": 2,
     "nombre": "Balas de escopeta",
-    "descripcion": "Balas de escopeta; puede que los magos las detengan con la boca, pero los infectados no son magos.",
+    "descripcion": "Balas de escopeta; puede que los magos las detengan con la boca, pero los infectados no.",
     "tipo": ["Defensa"],
     "complementario": ["Escopeta de caza"],
     "excluyente": ["Balas del Baby Shark"],
@@ -38,7 +38,7 @@
   {
     "id": 5,
     "nombre": "Emigrante cubano",
-    "descripcion": "Estos emigrantes son antiguos cortadores de caña de azúcar en su tierra natal Cuba. No les gustan nada los perros. Dicen que son capaces de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
+    "descripcion": "Estos emigrantes eran antiguos cortadores de caña de azúcar en su tierra natal Cuba. No les gustan nada los perros. Dicen que son capaces de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo.",
     "tipo": ["Defensa"],
     "complementario": ["Machetes oxidados"],
     "excluyente": ["Husky del refugio"],
@@ -65,7 +65,7 @@
   {
     "id": 8,
     "nombre": "Galletas en forma de hueso",
-    "descripcion": "Estas galletas son las favoritas de los husky; lánzaselas encima de los caminantes y deja que hagan el trabajo.",
+    "descripcion": "Estas galletas son las favoritas de los husky; lánzaselas encima de los infectados y deja que hagan el trabajo.",
     "tipo": ["Defensa", "Refugio"],
     "complementario": ["Husky del refugio"],
     "excluyente": ["Machetes oxidados"],
@@ -74,7 +74,7 @@
   {
     "id": 9,
     "nombre": "Milly, la mecánica",
-    "descripcion": "El primer juguete que Milly tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleció en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al virus.",
+    "descripcion": "El primer juguete que Milly tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleció en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al hongo.",
     "tipo": ["Refugio"],
     "complementario": ["Llave inglesa de papá"],
     "excluyente": ["Raciones enlatadas"],
@@ -83,7 +83,7 @@
   {
     "id": 10,
     "nombre": "Llave inglesa de papá",
-    "descripcion": "El primer juguete que tuvo Milly le dio su padre. Puede reparar cualquier cosa.",
+    "descripcion": "Esta llave inglesa fue el primer juguete que Milly tuvo en su infancia; se la regaló su padre. Puede reparar cualquier cosa con ella.",
     "tipo": ["Refugio"],
     "complementario": ["Milly, la mecánica"],
     "excluyente": ["Abrelatas"],
@@ -128,7 +128,7 @@
   {
     "id": 15,
     "nombre": "Polkish, el abuelo",
-    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a su adorable Husky del refugio, es un experto en exploración y supervivencia",
+    "descripcion": "Al abuelo Polkish lo encontramos en nuestro actual refugio junto a una adorable camada de Husky siberiano, es un experto en exploración y supervivencia",
     "tipo": ["Refugio", "Supervivencia"],
     "complementario": ["Ziggy el filoso"],
     "excluyente": ["Navaja suiza de Osvaldo"],
@@ -155,7 +155,7 @@
   {
     "id": 18,
     "nombre": "Galón de gasolina",
-    "descripcion": "Un galón de gasolina; huele rico.",
+    "descripcion": "Un simple galón de gasolina; huele rico.",
     "tipo": ["Supervivencia"],
     "complementario": ["Pathfinder", "TIBURÓN"],
     "excluyente": ["Aceite de motor"],

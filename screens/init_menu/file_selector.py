@@ -1,9 +1,5 @@
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.button import Button
+from modules.modules import *
 from kivy.uix.filechooser import FileChooserIconView
-from kivy.core.window import Window
-from kivy.lang import Builder
 from utilities.utilities import *
 from utilities.ui_utils import showMessage, Message, Error
 import os, sys, shutil

@@ -1,16 +1,8 @@
-from kivy.uix.button import Button
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
+from modules.modules import *
 from utilities.utilities import *
 from screens.event_configuration.widgets.calendar_widget import TotalCalendar
-from kivy.properties import StringProperty
-from kivy.uix.floatlayout import FloatLayout
-from kivy.properties import ListProperty
-from kivy.core.window import Window
 from kivy.uix.dropdown import DropDown
 from utilities.ui_utils import configShowAnimation
-from kivy.uix.button import ButtonBehavior
-from kivy.uix.image import Image
 
 class DateIniButton(Button):
     """

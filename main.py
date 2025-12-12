@@ -1,28 +1,16 @@
-from kivy.config import Config
 # Configuración inicial de la ventana (tamaño fijo, no redimensionable)
+from kivy.config import Config
 Config.set('graphics', 'resizable', '0')
 Config.set('graphics', 'width', '1280')
 Config.set('graphics', 'height', '768')
 Config.set('input', 'mouse', 'mouse,disable_multitouch')
-from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import ListProperty
-from kivy.core.window import Window
-from kivy.properties import BooleanProperty
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen, ScreenManager
 from screens.event_configuration.configuration import MainConfig
 from screens.event_configuration.widgets.configuration_widgets import FloatContainer
 from screens.event_configuration.widgets.configuration_buttons import Backbutton, CommandAdventure, ListAdventures
-from kivy.lang import Builder
 from utilities.utilities import *
 from screens.event_list.events import MainEventContainter
 from screens.init_menu.face import Container
+from modules.modules import *
 
 class PlayerLayout(BoxLayout):
     """

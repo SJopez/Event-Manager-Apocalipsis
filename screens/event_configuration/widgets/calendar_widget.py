@@ -1,11 +1,5 @@
-from kivy.uix.label import Label
-from kivy.uix.image import Image
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.core.window import Window
+from modules.modules import *
 from utilities.utilities import *
-import calendar
 
 # Lista de nombres de meses para mostrar en la interfaz. El índice 0 es un marcador de posición.
 months = [0, "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]

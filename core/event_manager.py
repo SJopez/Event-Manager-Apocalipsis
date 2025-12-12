@@ -255,7 +255,8 @@ def verifyInterval(event, ini, end):
                 # Verificar si la suma excede el total disponible
                 myCuantity = event["recursos"].get(int(type), 0)
                 total = get_one(int(type))["cantidad"]
-                if myCuantity + resources[type] > total:
+                if myCuantity and myCuantity + resources[type] > total:
+                    print(type)
                     return False
                 
     return True

@@ -1,18 +1,5 @@
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.properties import ListProperty
-from kivy.core.window import Window
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import SlideTransition
-from kivy.lang import Builder
+from modules.modules import *
 from utilities.utilities import *
-from kivy.uix.scrollview import ScrollView
-from kivy.animation import Animation
 from screens.event_list.graphic.plot import createGraph, plt
 from core.event_manager import *
 

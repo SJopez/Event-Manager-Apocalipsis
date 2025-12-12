@@ -1,10 +1,17 @@
-# Event Manager Apocalipsis
+# ☢️ Event Manager Apocalipsis
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Kivy](https://img.shields.io/badge/Kivy-20232A?style=for-the-badge&logo=kivy&logoColor=FFD54F)
-![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
+[![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/)
+[![Kivy](https://img.shields.io/badge/Kivy-20232A?style=for-the-badge&logo=kivy&logoColor=FFD54F)](https://kivy.org/)
 
 Bienvenido a **Event Manager Apocalipsis**, una herramienta de gestión de supervivencia diseñada para administrar recursos y eventos en un refugio postapocalíptico.
+
+## 📜 Tabla de Contenidos
+1. [🌐 Dominio del Proyecto](#-dominio-del-proyecto)
+2. [🧟 Eventos y Recursos](#-eventos-y-recursos)
+3. [🛠️ Funcionalidades y Mecánicas](#️-funcionalidades-y-mecánicas)
+4. [🌳 Árbol de directorios](#-árbol-de-directorios)
+5. [🚀 Ejecución y Uso](#-ejecución-y-uso)
+6. [🖥️ Guía de la Interfaz](#️-guía-de-la-interfaz)
 
 ## 🌐 Dominio del Proyecto
 El dominio elegido es un **Apocalipsis Zombie**. 
@@ -56,15 +63,15 @@ Los recursos son los bienes materiales y humanos disponibles en el refugio. Cada
 | Imagen | Nombre | Descripción | Tipo | Complementario | Excluyente | Cantidad |
 | :---: | :--- | :--- | :--- | :--- | :--- | :---: |
 | <img src="assets/1.png" width="50"> | **Escopeta de caza** | Escopeta de caza calibre .50; ten cuidado donde apuntas al apretar el gatillo o podrías acabar decorando el techo del refugio. | Defensa | Balas de escopeta | Baby Shark | 4 |
-| <img src="assets/2.png" width="50"> | **Balas de escopeta** | Balas de escopeta; puede que los magos las detengan con la boca, pero los infectados no son magos. | Defensa | Escopeta de caza | Balas del Baby Shark | 12 |
+| <img src="assets/2.png" width="50"> | **Balas de escopeta** | Balas de escopeta; puede que los magos las detengan con la boca, pero los infectados no. | Defensa | Escopeta de caza | Balas del Baby Shark | 12 |
 | <img src="assets/3.png" width="50"> | **Baby Shark** | El mote de este revólver Magnum calibre .44 fue puesto por el abuelo, quien afirmaba que se podían cazar tiburones con él. | Defensa | Balas del Baby Shark | Escopeta de caza | 5 |
 | <img src="assets/4.png" width="50"> | **Balas del Baby Shark** | Balas para revólver calibre .44; pueden usarse con el Baby Shark; tienen tallado un tiburón con zapatos. | Defensa | Baby Shark | Balas de escopeta | 18 |
 | <img src="assets/5.png" width="50"> | **Emigrante cubano** | Estos emigrantes son antiguos cortadores de caña de azúcar en su tierra natal Cuba. No les gustan nada los perros. Dicen que son capaces de cortar cualquier cosa con sus machetes; aunque nadie que piense lo contrario ha vivido para contarlo. | Defensa | Machetes oxidados | Husky del refugio | 5 |
 | <img src="assets/6.png" width="50"> | **Machetes oxidados** | Solo los cortadores de caña saben cómo usar estos machetes oxidados; no les gusta que los toquen. | Defensa | Emigrante cubano, Piedra de afilar | Galletas en forma de hueso | 5 |
 | <img src="assets/7.png" width="50"> | **Husky del refugio** | Estos cachorros de husky siberiano fueron los únicos supervivientes, junto al abuelo Polkish, del ataque que sufrió el actual refugio antes de nuestra llegada; les gustan mucho las galletas. | Defensa, Refugio | Galletas en forma de hueso | Emigrante cubano | 7 |
-| <img src="assets/8.png" width="50"> | **Galletas en forma de hueso** | Estas galletas son las favoritas de los husky; lánzaselas encima de los caminantes y deja que hagan el trabajo. | Defensa, Refugio | Husky del refugio | Machetes oxidados | 14 |
+| <img src="assets/8.png" width="50"> | **Galletas en forma de hueso** | Estas galletas son las favoritas de los husky; lánzaselas encima de los infectados y deja que hagan el trabajo. | Defensa, Refugio | Husky del refugio | Machetes oxidados | 14 |
 | <img src="assets/9.png" width="50"> | **Milly, la mecánica** | El primer juguete que Milly tuvo en la infancia fue una llave inglesa; siempre estuvo muy unida a su padre y desde que este falleció en los sucesos de la primera oleada no ha sido la misma. Ahora lucha junto a tu grupo para encontrar la cura al virus. | Refugio | Llave inglesa de papá | Raciones enlatadas | 1 |
-| <img src="assets/10.png" width="50"> | **Llave inglesa de papá** | El primer juguete que tuvo Milly le dio su padre. Puede reparar cualquier cosa. | Refugio | Milly, la mecánica | Abrelatas | 1 |
+| <img src="assets/10.png" width="50"> | **Llave inglesa de papá** | Esta llave inglesa fue el primer juguete que Milly tuvo en su infancia; se la regaló su padre. Puede reparar cualquier cosa con ella. | Refugio | Milly, la mecánica | Abrelatas | 1 |
 | <img src="assets/11.png" width="50"> | **Kit de Mantenimiento de Refugio (KMR)** | Este kit creado por Milly permite dar mantenimiento a las maquinarias del refugio sin tener grandes conocimientos de mecánica; no contiene instrucciones. | Refugio | Aceite de motor | Kit de Seguridad de Refugio (KSR) | 6 |
 | <img src="assets/12.png" width="50"> | **Aceite de motor** | Aceite de motor común y corriente, ideal para maquinarias chirriantes. | Refugio | Kit de Mantenimiento de Refugio (KMR) | Placa reforzante | 4 |
 | <img src="assets/13.png" width="50"> | **Kit de Seguridad de Refugio (KSR)** | Este kit creado por el abuelo es lo mejor para realizar reparaciones en las áreas más sensibles del refugio; después de la última oleada fue perfeccionado y actualizado. | Refugio | Placa reforzante | Kit de mantenimiento de Refugio (KMR) | 8 |
@@ -113,7 +120,9 @@ Es aquel recurso que no puede coexistir con otro en la misma misión. Ya sea por
 *   **Interfaz Gráfica (GUI):** Construida con **Kivy**, ofreciendo una experiencia visual interactiva y temática.
 *   **Ambientación Inmersiva:** Textos y descripciones diseñados para sumergir al usuario en la narrativa de supervivencia.
 
-## 📂 Estructura del Proyecto
+## 🌳 Árbol de directorios
+
+A continuación se detalla la estructura de carpetas y archivos principales del proyecto, organizada para separar la lógica, la interfaz de usuario y los datos.
 
 ```text
 Event-Manager-Apocalipsis/
@@ -131,6 +140,8 @@ Event-Manager-Apocalipsis/
 │       ├── events.json     # Definiciones de tipos de eventos predefinidos
 │       └── resources.json  # Catálogo de recursos y sus propiedades
 ├── fonts/                  # Fuentes tipográficas personalizadas
+├── modules/                # Módulos y librerías personalizadas
+│   └── modules.py          # Definiciones de módulos
 ├── screens/                # Pantallas de la interfaz
 │   ├── event_configuration/                # Configuración del evento 
 │   │   ├── styles/
@@ -171,45 +182,62 @@ Event-Manager-Apocalipsis/
 
 ## 🚀 Ejecución y Uso
 
-Sigue estos pasos para poner en marcha el refugio en tu máquina local.
+Sigue esta guía paso a paso para descargar, configurar y ejecutar el **Event Manager Apocalipsis** en tu ordenador.
 
-### 1. Instalación de Python
-Si aún no tienes Python instalado en tu sistema:
-*   Ve al sitio oficial: [python.org/downloads](https://www.python.org/downloads/)
-*   Descarga e instala la versión más reciente (se recomienda 3.8 o superior).
-*   **Importante:** Durante la instalación, asegúrate de marcar la casilla **"Add Python to PATH"**.
+> **Nota:** Para ejecutar este proyecto necesitas tener **Python** instalado en tu sistema. Si no lo tienes, puedes descargarlo desde su [sitio web oficial](https://www.python.org/downloads/).
 
-### 2. Configuración del Entorno Virtual (Recomendado)
-Es una buena práctica aislar las dependencias del proyecto para evitar conflictos.
+### 1. Clonar el Repositorio
+Lo primero es obtener una copia de los archivos del proyecto en tu computadora.
+
+1.  Abre tu terminal o línea de comandos (CMD, PowerShell o Terminal).
+2.  Navega hasta la carpeta donde quieras guardar el proyecto.
+3.  Ejecuta el siguiente comando para descargar los archivos:
+
+```bash
+git clone https://github.com/sergio060422/Event-Manager-Apocalipsis.git
+```
+
+4.  Entra en la carpeta que se acaba de crear:
+
+```bash
+cd Event-Manager-Apocalipsis
+```
+
+### 2. Crear un Entorno Virtual
+Un entorno virtual es como una caja aislada donde instalaremos las herramientas que necesita este programa sin afectar a otros programas en tu PC.
 
 **En Windows:**
 ```bash
-# Crear el entorno virtual
+# Crear el entorno (la caja)
 python -m venv venv
 
-# Activar el entorno
+# Activar el entorno (entrar en la caja)
 .\venv\Scripts\activate
 ```
 
 **En Linux / macOS:**
 ```bash
-# Crear el entorno virtual
+# Crear el entorno
 python3 -m venv venv
 
 # Activar el entorno
 source venv/bin/activate
 ```
-*Verás que el nombre de tu entorno (venv) aparece al principio de la línea de comandos.*
+*Nota: Cuando el entorno está activo, verás `(venv)` al principio de la línea en tu terminal.*
 
-### 3. Instalación de Dependencias
-Con el entorno activado, instala las librerías necesarias listadas en el archivo `requirements.txt`:
+### 3. Instalar Dependencias
+Ahora que estamos dentro del entorno virtual, necesitamos instalar las librerías (herramientas) que usa el programa, como Kivy.
 
+Ejecuta este comando:
 ```bash
 pip install -r requirements.txt
 ```
+*Espera a que termine la instalación. Verás muchas líneas de texto, es normal.*
 
 ### 4. Ejecutar la Aplicación
-Una vez que todo esté listo, lanza el programa con el siguiente comando:
+¡Todo listo! Ahora solo queda iniciar el programa.
+
+Asegúrate de estar en la carpeta raíz del proyecto (donde está el archivo `main.py`) y ejecuta:
 
 ```bash
 python main.py
@@ -383,3 +411,8 @@ Las instrucciones de cómo acceder al gráfico se encuentran en la sección ante
 
 ---
 *Sobrevive, gestiona y prospera.*
+
+**Autor:** 👨‍💻 Sergio Jorge Montero López
+
+Pd: Gracias por llegar hasta aquí; acabarlo en la fecha prevista me costó la nota de un TC de análisis y uno de álgebra, espero que las estrellitas valgan la pena 🐱 
+

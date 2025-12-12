@@ -1,14 +1,5 @@
-from kivy.uix.label import Label
-from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.behaviors import ButtonBehavior
-from kivy.core.window import Window
-from kivy.uix.screenmanager import SlideTransition
-from kivy.lang import Builder
+from modules.modules import *
 from utilities.utilities import *
-from kivy.animation import Animation
-from kivy.uix.textinput import TextInput
 
 from screens.init_menu.file_selector import on_press
 

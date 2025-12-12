@@ -1,7 +1,4 @@
-from kivy.core.window import Window
-from kivy.app import App
-from kivy.uix.screenmanager import SlideTransition
-import json
+from modules.modules import *
 
 # Conjunto para almacenar ubicaciones únicas de eventos
 Places = set()

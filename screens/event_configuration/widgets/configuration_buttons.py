@@ -1,6 +1,4 @@
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.image import Image
-from kivy.uix.behaviors import ButtonBehavior
+from modules.modules import *
 from utilities.utilities import *
 from core.event_creation import create_adventure
 

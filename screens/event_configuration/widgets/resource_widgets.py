@@ -1,15 +1,5 @@
-from kivy.uix.label import Label
-from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.stacklayout import StackLayout
-from kivy.properties import ListProperty
-from kivy.core.window import Window
-from kivy.properties import BooleanProperty
-from kivy.properties import StringProperty
-import json
+from modules.modules import *
 from utilities.utilities import *
-from kivy.uix.textinput import TextInput
 
 class ResourceInfoLayoutP(StackLayout):
     """

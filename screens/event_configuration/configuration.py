@@ -1,13 +1,6 @@
-from kivy.uix.image import Image
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.stacklayout import StackLayout
-from kivy.properties import ListProperty
-from kivy.properties import StringProperty
+from modules.modules import *
 from screens.event_configuration.widgets.resource_widgets import ResourcesLayoutP, ResourceInfoLayoutP, ResourceP
 from utilities import *
-from kivy.uix.scrollview import ScrollView
-from kivy.uix.button import Button
 from core.event_manager import *
 from utilities.ui_utils import *
 from utilities.utilities import *
